@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Z_INDEX } from '../../utils/zIndex';
 
 const Modal = ({ isOpen, onClose, images, title }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -9,6 +10,16 @@ const Modal = ({ isOpen, onClose, images, title }) => {
       setCurrentImageIndex(0);
     }
   }, [isOpen, images]);
+
+  // Lock body scroll when modal is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isOpen]);
 
   // Define imageArray before using it in useEffect
   const imageArray = isOpen && images ? (Array.isArray(images) ? images : [images]) : [];
@@ -54,21 +65,43 @@ const Modal = ({ isOpen, onClose, images, title }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={onClose}>
-      <div className="relative max-w-6xl w-[95vw] max-h-[95vh] m-4 bg-white rounded-2xl shadow-2xl border border-gray-200" onClick={(e) => e.stopPropagation()}>
+    <div 
+      className={`fixed inset-0 z-[${Z_INDEX.MODAL_OVERLAY}] flex items-center justify-center bg-black/40 backdrop-blur-sm`} 
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div 
+        className="relative max-w-6xl w-[95vw] max-h-[95vh] m-4 bg-white rounded-2xl shadow-2xl border border-gray-200" 
+        onClick={(e) => e.stopPropagation()}
+        role="document"
+      >
         
         {/* Enhanced Header */}
         <div className="bg-gray-100 p-4 border-b border-gray-200 rounded-t-2xl">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold text-gray-900 truncate mr-4">{title || 'Project Preview'}</h3>
+            <div className="flex-1 mr-4">
+              <h3 id="modal-title" className="text-xl font-bold text-gray-900 truncate">{title || 'Project Preview'}</h3>
+              {imageArray.length > 1 && (
+                <p className="text-sm text-gray-600 mt-1">
+                  Use <kbd className="px-1 py-0.5 bg-white border border-gray-300 rounded text-xs">←</kbd>{' '}
+                  <kbd className="px-1 py-0.5 bg-white border border-gray-300 rounded text-xs">→</kbd> keys to navigate
+                </p>
+              )}
+            </div>
             <button
               onClick={onClose}
-              className="w-10 h-10 bg-gray-200 hover:bg-red-500 hover:text-white text-gray-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 flex-shrink-0"
               title="Close Preview"
+              aria-label="Close Preview"
+              className="group relative w-10 h-10 bg-gray-200 hover:bg-red-500 hover:text-white text-gray-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 flex-shrink-0"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
+              <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none hidden sm:block">
+                Close Preview
+              </span>
             </button>
           </div>
           {imageArray.length > 1 && (
@@ -79,14 +112,25 @@ const Modal = ({ isOpen, onClose, images, title }) => {
         </div>
         
         {/* Image Section with Fixed Layout */}
-        <div className="p-8">
+        <div className="p-4 sm:p-8">
           {currentImage ? (
             <div className="relative">
-              <div className="relative w-full h-[70vh] bg-gray-50 rounded-xl overflow-hidden shadow-inner">
+              {/* Mobile Navigation Labels */}
+              {imageArray.length > 1 && (
+                <>
+                  <div className="flex justify-between items-center mb-3 sm:hidden">
+                    <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">← Previous</span>
+                    <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Next →</span>
+                  </div>
+                </>
+              )}
+              <div className="relative w-full h-[60vh] sm:h-[70vh] bg-gray-50 rounded-xl overflow-hidden shadow-inner">
                 <button
                   onClick={prevImage}
                   disabled={imageArray.length <= 1}
-                  className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center z-20 shadow-lg transition-all duration-300 ${
+                  title="Previous Image"
+                  aria-label="Previous Image"
+                  className={`group absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center z-20 shadow-lg transition-all duration-300 ${
                     imageArray.length > 1 
                       ? 'bg-white bg-opacity-90 hover:bg-opacity-100 hover:scale-110 text-gray-800 hover:text-gray-900' 
                       : 'bg-gray-200 bg-opacity-50 text-gray-400 cursor-not-allowed'
@@ -95,12 +139,19 @@ const Modal = ({ isOpen, onClose, images, title }) => {
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
+                  {imageArray.length > 1 && (
+                    <span className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none hidden sm:block">
+                      Previous Image
+                    </span>
+                  )}
                 </button>
                 
                 <button
                   onClick={nextImage}
                   disabled={imageArray.length <= 1}
-                  className={`absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center z-20 shadow-lg transition-all duration-300 ${
+                  title="Next Image"
+                  aria-label="Next Image"
+                  className={`group absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center z-20 shadow-lg transition-all duration-300 ${
                     imageArray.length > 1 
                       ? 'bg-white bg-opacity-90 hover:bg-opacity-100 hover:scale-110 text-gray-800 hover:text-gray-900' 
                       : 'bg-gray-200 bg-opacity-50 text-gray-400 cursor-not-allowed'
@@ -109,6 +160,11 @@ const Modal = ({ isOpen, onClose, images, title }) => {
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
+                  {imageArray.length > 1 && (
+                    <span className="absolute right-full mr-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none hidden sm:block">
+                      Next Image
+                    </span>
+                  )}
                 </button>
                 
                 {/* Image with slide animation */}

@@ -61,15 +61,15 @@ const Projects = () => {
               <button
                 key={category.key}
                 onClick={() => setFilter(category.key)}
-                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-500 flex items-center gap-1 sm:gap-2 hover:scale-105 hover:-translate-y-1 border-2 border-black text-xs sm:text-sm md:text-base ${
+                className={`px-2 xs:px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-500 flex items-center gap-1 sm:gap-2 hover:scale-105 hover:-translate-y-1 border-2 border-black text-xs sm:text-sm md:text-base min-w-fit ${
                   filter === category.key
                     ? 'bg-gradient-to-r from-accent-500 to-mono-600 text-mono-100 shadow-lg shadow-accent-500/25 hover:from-accent-400 hover:to-mono-500 hover:shadow-xl hover:shadow-accent-500/40'
                     : 'bg-mono-700/50 text-mono-300 hover:bg-mono-600/50 hover:text-mono-200 hover:shadow-lg hover:border-accent-500'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <i className={`bx ${category.icon} transition-transform duration-300 hover:scale-125 text-sm sm:text-base`}></i>
-                <span className="hidden xs:inline sm:inline">{category.label}</span>
+                <i className={`bx ${category.icon} transition-transform duration-300 hover:scale-125 text-sm sm:text-base flex-shrink-0`}></i>
+                <span className="inline text-xs xs:text-xs sm:text-sm md:text-base whitespace-nowrap">{category.label}</span>
               </button>
             ))}
           </div>

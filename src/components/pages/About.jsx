@@ -86,8 +86,8 @@ const About = () => {
               </div>
               <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-white text-black border-2 border-black px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold shadow-lg flex items-center gap-1 sm:gap-2">
                 <i className='bx bx-rocket text-sm'></i> 
-                <span className="hidden xs:inline">Available for Work</span>
-                <span className="xs:hidden">Available</span>
+                <span className="sm:hidden">Open</span>
+                <span className="hidden sm:inline">Available for Work</span>
               </div>
             </div>
           </div>

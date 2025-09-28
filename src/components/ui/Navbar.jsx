@@ -1,8 +1,8 @@
-// Komponen Navbar
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from '../../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import { Z_INDEX } from '../../utils/zIndex';
 
 const Navbar = () => {
   const { t } = useLanguage();
@@ -31,7 +31,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`w-full fixed top-0 left-0 z-[9998] pointer-events-auto transition-all duration-300 ${
+    <nav className={`w-full fixed top-0 left-0 z-[${Z_INDEX.NAVBAR}] pointer-events-auto transition-all duration-300 ${
       scrolled 
         ? 'bg-black/95 backdrop-blur-md shadow-2xl border-b border-accent-500/20' 
         : 'bg-black/90 backdrop-blur-sm shadow-lg border-b border-mono-800'

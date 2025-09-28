@@ -58,8 +58,8 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
               className="px-2 sm:px-3 py-1 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2"
             >
               <i className='bx bx-link-external text-sm'></i> 
-              <span className="hidden xs:inline">Live Demo</span>
               <span className="xs:hidden">Demo</span>
+              <span className="hidden xs:inline">Live Demo</span>
             </a>
           )}
           
@@ -72,7 +72,7 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
               className="px-2 sm:px-3 py-1 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2"
             >
               <i className='bx bx-code-alt text-sm'></i>
-              <span className="hidden xs:inline">Code</span>
+              <span>Code</span>
             </a>
           )}
           
@@ -81,7 +81,7 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
             className="px-2 sm:px-3 py-1 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2"
           >
             <i className='bx bx-image-alt text-sm'></i>
-            <span className="hidden xs:inline">Preview</span>
+            <span>Preview</span>
           </button>
         </div>
       </div>
