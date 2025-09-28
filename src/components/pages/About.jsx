@@ -79,7 +79,7 @@ const About = () => {
             <div className="relative mb-6 group">
               <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-accent-500/20 group-hover:border-accent-500/40 transition-all duration-300 group-hover:shadow-accent-500/20">
                 <img 
-                  src="/src/assets/project/Foto Profile/Foto Joel.JPG"
+                  src="/assets/project/Foto Profile/Foto Joel.JPG"
                   alt="Joel Working"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

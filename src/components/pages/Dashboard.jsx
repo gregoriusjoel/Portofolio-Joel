@@ -62,7 +62,7 @@ const Dashboard = () => {
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-r from-accent-500 to-mono-600 p-1">
             <div className="w-full h-full rounded-full bg-mono-800 flex items-center justify-center overflow-hidden">
               <img 
-                src="/src/assets/project/Foto Profile/animasi.png" 
+                src="/assets/project/Foto Profile/animasi.png" 
                 alt="Joel Profile"
                 className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300"
               />
