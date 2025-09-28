@@ -13,6 +13,7 @@ import Contact from "./components/pages/Contact";
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [hasVisited, setHasVisited] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
     // Check if user has visited before
@@ -20,6 +21,7 @@ function App() {
     if (visited) {
       setShowWelcome(false);
       setHasVisited(true);
+      setShowNavbar(true); // Show navbar immediately if already visited
     } else {
       // Mark as visited after showing animation
       setHasVisited(false);
@@ -30,6 +32,11 @@ function App() {
     setShowWelcome(false);
     setHasVisited(true);
     localStorage.setItem('hasVisited', 'true');
+    
+    // Add delay before showing navbar for smooth transition
+    setTimeout(() => {
+      setShowNavbar(true);
+    }, 300);
   };
 
   return (
@@ -39,8 +46,15 @@ function App() {
           <WelcomeAnimation onComplete={handleWelcomeComplete} />
         )}
         <div className="flex flex-col min-h-screen bg-mono-900">
-          {/* Only show Navbar when welcome animation is not active */}
-          {(!showWelcome || hasVisited) && <Navbar />}
+          {/* Animated Navbar that slides down after welcome animation */}
+          <div className={`transform transition-all duration-700 ease-out ${
+            showNavbar 
+              ? 'translate-y-0 opacity-100' 
+              : '-translate-y-full opacity-0'
+          }`}>
+            <Navbar />
+          </div>
+          
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Dashboard />} />
@@ -50,8 +64,15 @@ function App() {
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>
-          {/* Only show Footer when welcome animation is not active */}
-          {(!showWelcome || hasVisited) && <Footer />}
+          
+          {/* Animated Footer that fades in after navbar */}
+          <div className={`transform transition-all duration-700 ease-out delay-200 ${
+            showNavbar 
+              ? 'translate-y-0 opacity-100' 
+              : 'translate-y-8 opacity-0'
+          }`}>
+            <Footer />
+          </div>
         </div>
       </Router>
     </LanguageProvider>
