@@ -34,12 +34,12 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
 
   return (
     <div 
-      className={`group relative bg-gradient-to-br from-mono-800 to-mono-700 rounded-xl sm:rounded-2xl overflow-hidden border border-mono-600 hover:border-accent-500/50 transition-all duration-700 hover:shadow-2xl hover:shadow-accent-500/20 transform hover:scale-[1.02] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      className={`group relative bg-gradient-to-br from-mono-800 to-mono-700 rounded-2xl overflow-hidden border border-mono-600 hover:border-accent-500/50 transition-all duration-700 hover:shadow-2xl hover:shadow-accent-500/20 transform hover:scale-[1.02] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Project Image */}
-      <div className="relative h-40 sm:h-48 overflow-hidden">
+      <div className="relative h-48 overflow-hidden">
         <img 
           src={project.image}
           alt={project.title}
@@ -48,18 +48,16 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-mono-900/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
         
         {/* Overlay with buttons */}
-        <div className={`absolute inset-0 flex items-center justify-center gap-2 sm:gap-3 p-2 transition-all duration-500 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+        <div className={`absolute inset-0 flex items-center justify-center gap-3 transition-all duration-500 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           {/* Demo button - Show only for projects that are NOT in the excluded list */}
           {!["Vameratale E-Commerce", "Sistem Kasir Ayam Geprek", "Website BISINDO SIGN Language"].includes(project.title) && (
             <a 
               href={project.demo} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-2 sm:px-3 py-1 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2"
+              className="px-3 py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-sm flex items-center gap-2"
             >
-              <i className='bx bx-link-external text-sm'></i> 
-              <span className="xs:hidden">Demo</span>
-              <span className="hidden xs:inline">Live Demo</span>
+              <i className='bx bx-link-external'></i> Live Demo
             </a>
           )}
           
@@ -69,28 +67,26 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
               href={project.github} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-2 sm:px-3 py-1 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2"
+              className="px-3 py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-sm flex items-center gap-2"
             >
-              <i className='bx bx-code-alt text-sm'></i>
-              <span>Code</span>
+              <i className='bx bx-code-alt'></i> Code
             </a>
           )}
           
           <button 
             onClick={() => onPreviewClick(project)}
-            className="px-2 sm:px-3 py-1 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2"
+            className="px-3 py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-sm flex items-center gap-2"
           >
-            <i className='bx bx-image-alt text-sm'></i>
-            <span>Preview</span>
+            <i className='bx bx-image-alt'></i> Preview
           </button>
         </div>
       </div>
 
       {/* Project Info */}
-      <div className="p-4 sm:p-6">
+      <div className="p-6">
         {/* Status Badge */}
         <div className="mb-3">
-          <span className={`px-2 sm:px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 hover:scale-110 flex items-center gap-1 inline-flex ${
+          <span className={`px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 hover:scale-110 flex items-center gap-1 ${
             project.status === 'completed' 
               ? 'bg-green-500/20 text-green-400 border border-green-500/30 hover:bg-green-500/30' 
               : project.status === 'in-progress'
@@ -99,7 +95,7 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
           }`}>
             {project.status === 'completed' ? (
               <>
-                <i className='bx bx-check-circle text-xs'></i> {t('completed')}
+                <i className='bx bx-check-circle'></i> {t('completed')}
               </>
             ) : project.status === 'in-progress' ? (
               <>
@@ -113,20 +109,20 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
           </span>
         </div>
         
-        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-3 text-mono-100 group-hover:text-accent-400 transition-colors duration-300">
+        <h3 className="text-xl md:text-2xl font-semibold mb-3 text-mono-100 group-hover:text-accent-400 transition-colors duration-300">
           {project.title}
         </h3>
-        <p className="text-sm sm:text-base text-mono-400 mb-3 sm:mb-4 leading-relaxed group-hover:text-mono-300 transition-colors duration-300">
+        <p className="text-mono-400 mb-4 leading-relaxed group-hover:text-mono-300 transition-colors duration-300">
           {getDescription(project.description)}
         </p>
 
         {/* Technologies */}
-        <div className="mb-3 sm:mb-4">
-          <div className="flex flex-wrap gap-1 sm:gap-2">
+        <div className="mb-4">
+          <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech, index) => (
               <span
                 key={index}
-                className="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-mono-600/50 text-mono-300 rounded text-xs border border-mono-500 hover:border-accent-500/50 hover:bg-accent-500/10 hover:text-accent-400 transition-all duration-300 hover:scale-110"
+                className="px-2 py-1 bg-mono-600/50 text-mono-300 rounded-md text-xs border border-mono-500 hover:border-accent-500/50 hover:bg-accent-500/10 hover:text-accent-400 transition-all duration-300 hover:scale-110"
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
                 {tech}
@@ -136,8 +132,8 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
         </div>
 
         {/* Project Stats */}
-        <div className="flex items-center justify-between text-xs sm:text-sm text-mono-400 pt-3 sm:pt-4 border-t border-mono-600 group-hover:border-mono-500 transition-colors">
-          <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center justify-between text-sm text-mono-400 pt-4 border-t border-mono-600 group-hover:border-mono-500 transition-colors">
+          <div className="flex items-center gap-4">
             <span className="flex items-center gap-1 group-hover:text-accent-500 transition-colors">
               <i className='bx bx-star'></i>
               {project.rating || '5.0'}

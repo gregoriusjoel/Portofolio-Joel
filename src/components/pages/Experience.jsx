@@ -57,45 +57,45 @@ const ExperienceItem = ({ experience, isLast, index, isVisible }) => {
          style={{ transitionDelay: `${index * 300}ms` }}>
       {/* Timeline line */}
       {!isLast && (
-        <div className="absolute left-4 sm:left-8 top-12 sm:top-16 w-0.5 h-24 sm:h-32 bg-gradient-to-b from-accent-500 to-mono-600 group-hover:from-accent-400 group-hover:to-accent-600 transition-all duration-500"></div>
+        <div className="absolute left-8 top-16 w-0.5 h-32 bg-gradient-to-b from-accent-500 to-mono-600 group-hover:from-accent-400 group-hover:to-accent-600 transition-all duration-500"></div>
       )}
       
       {/* Timeline dot */}
-      <div className="flex-shrink-0 w-8 h-8 sm:w-16 sm:h-16 bg-gradient-to-br from-accent-500 to-mono-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-accent-500/30 transition-all duration-500 border-2 sm:border-4 border-mono-800 group-hover:border-accent-500/50">
-        <div className="w-4 h-4 sm:w-8 sm:h-8 bg-mono-100 rounded-full flex items-center justify-center group-hover:bg-accent-500 transition-colors duration-300">
-          <svg className="w-2 h-2 sm:w-4 sm:h-4 min-w-2 min-h-2 sm:min-w-4 sm:min-h-4 text-mono-800 group-hover:text-mono-100 transition-colors flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+      <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-accent-500 to-mono-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-accent-500/30 transition-all duration-500 border-4 border-mono-800 group-hover:border-accent-500/50">
+        <div className="w-8 h-8 bg-mono-100 rounded-full flex items-center justify-center group-hover:bg-accent-500 transition-colors duration-300">
+          <svg className="w-4 h-4 min-w-4 min-h-4 text-mono-800 group-hover:text-mono-100 transition-colors flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"/>
           </svg>
         </div>
       </div>
 
       {/* Content */}
-      <div className="ml-4 sm:ml-8 flex-1 min-w-0">
-        <div className="bg-mono-800/50 backdrop-blur-sm p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border border-mono-700 group-hover:border-accent-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 sm:hover:scale-105 sm:hover:-translate-y-2 sm:hover:translate-x-2">
+      <div className="ml-8 flex-1">
+        <div className="bg-mono-800/50 backdrop-blur-sm p-6 rounded-2xl border border-mono-700 group-hover:border-accent-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 hover:scale-105 hover:-translate-y-2 hover:translate-x-2">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-mono-100 group-hover:text-accent-400 transition-colors duration-300 leading-tight">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+            <h3 className="text-xl md:text-2xl font-semibold text-mono-100 group-hover:text-accent-400 transition-colors duration-300">
               {experience.title}
             </h3>
-            <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-2 sm:mt-0">
-              <div className="px-2 sm:px-3 py-0.5 sm:py-1 bg-accent-500/20 text-accent-400 rounded-full text-xs sm:text-sm font-medium border border-accent-500/30 group-hover:bg-accent-500/30 transition-colors">
+            <div className="flex items-center gap-2 mt-2 sm:mt-0">
+              <div className="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm font-medium border border-accent-500/30 group-hover:bg-accent-500/30 transition-colors">
                 {translatePeriod(experience.period)}
               </div>
               {experience.type && (
-                <div className="px-2 sm:px-3 py-0.5 sm:py-1 bg-mono-600/50 text-mono-300 rounded-full text-xs sm:text-sm group-hover:bg-mono-500/50 group-hover:text-mono-200 transition-colors">
+                <div className="px-3 py-1 bg-mono-600/50 text-mono-300 rounded-full text-sm group-hover:bg-mono-500/50 group-hover:text-mono-200 transition-colors">
                   {translateType(experience.type)}
                 </div>
               )}
             </div>
           </div>
 
-          <h4 className="text-base sm:text-lg text-accent-500 mb-2 sm:mb-3 font-medium group-hover:text-accent-400 transition-colors">{experience.company}</h4>
+          <h4 className="text-lg text-accent-500 mb-3 font-medium group-hover:text-accent-400 transition-colors">{experience.company}</h4>
 
           {/* Description */}
-          <ul className="space-y-1.5 sm:space-y-2 text-sm sm:text-base text-mono-300">
+          <ul className="space-y-2 text-mono-300">
               {translateResponsibilities(experience.responsibilities, experience.title).map((responsibility, idx) => (
-                <li key={idx} className="flex items-start gap-2 sm:gap-3 group-hover:text-mono-200 transition-colors duration-300" style={{ transitionDelay: `${idx * 100}ms` }}>
-                  <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-accent-500 rounded-full mt-1.5 sm:mt-2 flex-shrink-0 group-hover:scale-125 transition-transform duration-300"></div>
+                <li key={idx} className="flex items-start gap-3 group-hover:text-mono-200 transition-colors duration-300" style={{ transitionDelay: `${idx * 100}ms` }}>
+                  <div className="w-1.5 h-1.5 bg-accent-500 rounded-full mt-2 flex-shrink-0 group-hover:scale-125 transition-transform duration-300"></div>
                   <span className="leading-relaxed">{responsibility}</span>
                 </li>
               ))}
@@ -185,21 +185,21 @@ const Experience = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 text-mono-100 pt-20 sm:pt-24 pb-8 sm:pb-12 px-4 sm:px-6">
+    <section className="min-h-screen bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 text-mono-100 pt-16 pb-12 px-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className={`text-center mb-8 sm:mb-12 lg:mb-16 transition-all duration-1000 ${visibleElements.header ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
+        <div className={`text-center mb-16 transition-all duration-1000 ${visibleElements.header ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
             {t('professionalExperience')}
           </h2>
-          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-accent-500 to-mono-400 mx-auto rounded-full mb-3 sm:mb-4"></div>
-          <p className="text-sm sm:text-base text-mono-400 max-w-2xl mx-auto px-4">
+          <div className="w-24 h-1 bg-gradient-to-r from-accent-500 to-mono-400 mx-auto rounded-full mb-4"></div>
+          <p className="text-mono-400 max-w-2xl mx-auto">
             {t('experienceDescription')}
           </p>
         </div>
 
         {/* Timeline */}
-        <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+        <div className="space-y-8">
           {experiences.map((experience, index) => (
             <ExperienceItem
               key={index}
@@ -212,10 +212,10 @@ const Experience = () => {
         </div>
 
         {/* Call to action */}
-        <div className="mt-8 sm:mt-12 lg:mt-16 text-center">
-          <div className="bg-gradient-to-r from-mono-800 to-mono-700 p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border border-mono-600 hover:border-accent-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 sm:hover:scale-105">
-            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">{t('interestedToCollaborate')}</h3>
-            <p className="text-sm sm:text-base text-mono-400 mb-4 sm:mb-6">
+        <div className="mt-16 text-center">
+          <div className="bg-gradient-to-r from-mono-800 to-mono-700 p-8 rounded-2xl border border-mono-600 hover:border-accent-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 hover:scale-105">
+            <h3 className="text-xl font-semibold mb-4">{t('interestedToCollaborate')}</h3>
+            <p className="text-mono-400 mb-6">
               {t('openForOpportunities')}
             </p>
             <a 

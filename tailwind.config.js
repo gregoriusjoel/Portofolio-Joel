@@ -6,24 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      screens: {
-        'xs': '475px',
-        'xxs': '320px',
-      },
-      fontSize: {
-        'xxs': '0.625rem',
-      },
-      spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
-      },
-      zIndex: {
-        '9998': '9998',
-        '9999': '9999', 
-        '10000': '10000',
-        '10001': '10001',
-      },
       colors: {
         mono: {
           900: '#18181b',
@@ -38,11 +20,8 @@ export default {
         },
         accent: {
           500: '#6b7280',
-          400: '#9ca3af',
-          600: '#4b5563',
         },
       },
     },
   },
-  plugins: [],
-};
+}
