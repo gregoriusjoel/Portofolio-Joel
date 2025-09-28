@@ -15,21 +15,21 @@ const ContactInfo = ({ icon, title, info, link, delay = 0 }) => {
   }, [delay]);
 
   return (
-    <a 
+    <a
       href={link}
       target={link.startsWith('http') ? '_blank' : '_self'}
       rel={link.startsWith('http') ? 'noopener noreferrer' : ''}
-      className={`group flex items-center gap-4 p-6 bg-mono-800/50 backdrop-blur-sm rounded-2xl border border-mono-700 hover:border-accent-500/50 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 transform hover:scale-[1.02] hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+      className={`group flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-mono-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-mono-700 hover:border-accent-500/50 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 transform sm:hover:scale-[1.02] sm:hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
     >
-      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-accent-500 to-mono-600 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-accent-500/20">
-        <i className={`bx ${icon} text-mono-100 text-xl`}></i>
+      <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-accent-500 to-mono-600 rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-accent-500/20">
+        <i className={`bx ${icon} text-mono-100 text-lg sm:text-xl`}></i>
       </div>
       <div className="flex-1 min-w-0">
-        <h3 className="font-semibold text-mono-100 group-hover:text-accent-400 transition-colors duration-300">{title}</h3>
-        <p className="text-mono-400 text-sm truncate group-hover:text-mono-300 transition-colors">{info}</p>
+        <h3 className="font-semibold text-sm sm:text-base text-mono-100 group-hover:text-accent-400 transition-colors duration-300">{title}</h3>
+        <p className="text-mono-400 text-xs sm:text-sm truncate group-hover:text-mono-300 transition-colors">{info}</p>
       </div>
       <div className="flex-shrink-0">
-        <svg className="w-5 h-5 text-mono-500 group-hover:text-accent-500 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-mono-500 group-hover:text-accent-500 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
         </svg>
       </div>
@@ -181,7 +181,7 @@ const Contact = () => {
   ];
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 flex items-center pt-32 pb-20">
+    <section className="relative min-h-screen bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 flex items-center pt-20 sm:pt-24 pb-12 sm:pb-20 px-4 sm:px-6">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,_rgba(120,119,198,0.3),_transparent_50%)] opacity-40"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,_rgba(255,111,97,0.2),_transparent_50%)] opacity-30"></div>
@@ -204,19 +204,19 @@ const Contact = () => {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
           
           {/* Contact Info */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <div className={`transition-all duration-1000 ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-              <h2 className="text-4xl lg:text-5xl font-bold text-mono-100 mb-2">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-mono-100 mb-2">
                 {t('contactTitle')}
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-500 to-mono-400">
                   {t('contactSubtitle')}
                 </span>
               </h2>
-              <p className="text-mono-300 text-lg leading-relaxed">
+              <p className="text-mono-300 text-sm sm:text-base lg:text-lg leading-relaxed">
                 {t('contactDescription')}
               </p>
             </div>

@@ -45,17 +45,13 @@ function App() {
         {showWelcome && !hasVisited && (
           <WelcomeAnimation onComplete={handleWelcomeComplete} />
         )}
-        <div className="flex flex-col min-h-screen bg-mono-900">
-          {/* Animated Navbar that slides down after welcome animation */}
-          <div className={`transform transition-all duration-700 ease-out ${
-            showNavbar 
-              ? 'translate-y-0 opacity-100' 
-              : '-translate-y-full opacity-0'
-          }`}>
+        <div className="flex flex-col min-h-screen bg-mono-900 overflow-x-hidden">
+          {/* Only render navbar when it should be shown and interactive */}
+          {showNavbar && (
             <Navbar />
-          </div>
+          )}
           
-          <main className="flex-1">
+          <main className="flex-1 w-full">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/about" element={<About />} />

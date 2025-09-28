@@ -38,20 +38,20 @@ const Projects = () => {
     .sort((a, b) => parseInt(b.year) - parseInt(a.year)); // Sort by year, newest first
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-16 pb-12 px-6">
+    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-20 sm:pt-24 pb-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className={`text-center mb-12 transition-all duration-1000 ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
+        <div className={`text-center mb-8 sm:mb-12 transition-all duration-1000 ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
             {t('myProjects')}
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-accent-500 to-mono-400 mx-auto rounded-full mb-4"></div>
-          <p className="text-mono-400 max-w-2xl mx-auto mb-6">
+          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-accent-500 to-mono-400 mx-auto rounded-full mb-4"></div>
+          <p className="text-sm sm:text-base text-mono-400 max-w-2xl mx-auto mb-6 px-4">
             {t('projectsDescription')}
           </p>
 
           {/* Filter Buttons */}
-          <div className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 ${filtersVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <div className={`flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 px-2 transition-all duration-1000 ${filtersVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
             {[
               { key: 'all', label: t('allProjects'), icon: 'bx-target-lock' },
               { key: 'web', label: t('webDevelopment'), icon: 'bx-laptop' },
@@ -61,22 +61,22 @@ const Projects = () => {
               <button
                 key={category.key}
                 onClick={() => setFilter(category.key)}
-                className={`px-6 py-3 rounded-full font-medium transition-all duration-500 flex items-center gap-2 hover:scale-105 hover:-translate-y-1 border-2 border-black ${
+                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-500 flex items-center gap-1 sm:gap-2 hover:scale-105 hover:-translate-y-1 border-2 border-black text-xs sm:text-sm md:text-base ${
                   filter === category.key
                     ? 'bg-gradient-to-r from-accent-500 to-mono-600 text-mono-100 shadow-lg shadow-accent-500/25 hover:from-accent-400 hover:to-mono-500 hover:shadow-xl hover:shadow-accent-500/40'
                     : 'bg-mono-700/50 text-mono-300 hover:bg-mono-600/50 hover:text-mono-200 hover:shadow-lg hover:border-accent-500'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <i className={`bx ${category.icon} transition-transform duration-300 hover:scale-125`}></i>
-                {category.label}
+                <i className={`bx ${category.icon} transition-transform duration-300 hover:scale-125 text-sm sm:text-base`}></i>
+                <span className="hidden xs:inline sm:inline">{category.label}</span>
               </button>
             ))}
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {filteredProjects.map((project, index) => (
             <ProjectCard
               key={index}

@@ -64,35 +64,37 @@ const About = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-8 pb-12 px-6">
+    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-20 sm:pt-24 pb-12 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-16 transition-all duration-1000 ${visibleElements.header ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
+        <div className={`text-center mb-8 sm:mb-12 lg:mb-16 transition-all duration-1000 ${visibleElements.header ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
             {t('aboutMe')}
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-accent-500 to-mono-400 mx-auto rounded-full"></div>
+          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-accent-500 to-mono-400 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12 sm:mb-16">
           {/* Profile Image and Info */}
           <div className={`flex flex-col items-center lg:items-start transition-all duration-1000 ${visibleElements.profile ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'}`}>
-            <div className="relative mb-6 group">
-              <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-accent-500/20 group-hover:border-accent-500/40 transition-all duration-300 group-hover:shadow-accent-500/20">
+            <div className="relative mb-4 sm:mb-6 group">
+              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-accent-500/20 group-hover:border-accent-500/40 transition-all duration-300 group-hover:shadow-accent-500/20">
                 <img 
                   src="/assets/project/Foto Profile/Foto Joel.JPG"
                   alt="Joel Working"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="absolute -bottom-4 -right-4 bg-white text-black border-2 border-black px-4 py-2 rounded-full text-sm font-semibold shadow-lg flex items-center gap-2">
-                <i className='bx bx-rocket'></i> Available for Work
+              <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-white text-black border-2 border-black px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold shadow-lg flex items-center gap-1 sm:gap-2">
+                <i className='bx bx-rocket text-sm'></i> 
+                <span className="hidden xs:inline">Available for Work</span>
+                <span className="xs:hidden">Available</span>
               </div>
             </div>
           </div>
 
           {/* Description */}
-          <div className={`space-y-6 transition-all duration-1000 ${visibleElements.description ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}`}>
-            <p className="text-base md:text-lg text-mono-300 leading-relaxed">
+          <div className={`space-y-4 sm:space-y-6 transition-all duration-1000 ${visibleElements.description ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}`}>
+            <p className="text-sm sm:text-base md:text-lg text-mono-300 leading-relaxed">
               {t('aboutDescription1').split('Joel').map((part, index) => (
                 <span key={index}>
                   {part}
@@ -100,21 +102,21 @@ const About = () => {
                 </span>
               ))}
             </p>
-            <p className="text-base md:text-lg text-mono-400 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-mono-400 leading-relaxed">
               {t('aboutDescription2')} {t('aboutDescription3')}
             </p>
             
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mt-8">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8">
               {[
                 { number: "3+", label: "Years Experience" },
                 { number: "50+", label: "Projects Done" },
                 { number: "25+", label: "Happy Clients" }
               ].map((stat, index) => (
-                <div key={stat.label} className={`text-center p-4 bg-mono-700/50 rounded-xl border border-mono-600 hover:border-accent-500/30 transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-accent-500/10 ${visibleElements.description ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+                <div key={stat.label} className={`text-center p-2 sm:p-3 md:p-4 bg-mono-700/50 rounded-lg sm:rounded-xl border border-mono-600 hover:border-accent-500/30 transition-all duration-500 sm:hover:scale-105 hover:shadow-lg hover:shadow-accent-500/10 ${visibleElements.description ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
                      style={{ transitionDelay: `${800 + index * 100}ms` }}>
-                  <div className="text-2xl font-bold text-accent-500">{stat.number}</div>
-                  <div className="text-sm text-mono-400">{stat.label}</div>
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-accent-500">{stat.number}</div>
+                  <div className="text-xs sm:text-sm text-mono-400">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -122,18 +124,18 @@ const About = () => {
         </div>
 
         {/* Skills Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8">
           {/* Technical Skills */}
-          <div className={`bg-mono-700/30 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-mono-600 hover:border-accent-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 hover:scale-105 ${visibleElements.skills ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-            <h3 className="text-xl md:text-2xl font-semibold mb-6 flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-accent-500 to-mono-400 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-mono-900" fill="currentColor" viewBox="0 0 24 24">
+          <div className={`bg-mono-700/30 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-mono-600 hover:border-accent-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 sm:hover:scale-105 ${visibleElements.skills ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-r from-accent-500 to-mono-400 rounded-lg flex items-center justify-center">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-mono-900" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
-              Technical Skills
+              <span className="text-sm sm:text-base md:text-xl lg:text-2xl">Technical Skills</span>
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {skills.map((skill, index) => (
                 <div key={skill.name} className={`transition-all duration-700 ${visibleElements.skills ? 'translate-x-0 opacity-100' : '-translate-x-6 opacity-0'}`}
                      style={{ transitionDelay: `${index * 150}ms` }}>

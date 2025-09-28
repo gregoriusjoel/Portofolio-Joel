@@ -31,30 +31,30 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${
+    <nav className={`w-full fixed top-0 left-0 z-[9998] pointer-events-auto transition-all duration-300 ${
       scrolled 
         ? 'bg-black/95 backdrop-blur-md shadow-2xl border-b border-accent-500/20' 
         : 'bg-black/90 backdrop-blur-sm shadow-lg border-b border-mono-800'
-    }`}>
+    }`} style={{ pointerEvents: 'auto' }}>
       {/* Decorative top gradient line */}
       <div className="h-0.5 bg-gradient-to-r from-transparent via-accent-500 to-transparent"></div>
       
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
         {/* Logo with animation */}
-        <Link to="/" className="group flex items-center gap-3">
-          <div className="text-xl md:text-2xl font-bold tracking-wide text-white group-hover:text-accent-400 transition-colors duration-300">
+        <Link to="/" className="group flex items-center gap-3 cursor-pointer relative z-10">
+          <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-wide text-white group-hover:text-accent-400 transition-colors duration-300">
             Joel
           </div>
         </Link>
         
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-6">
-          <ul className="flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-4 lg:gap-6">
+          <ul className="flex items-center gap-4 lg:gap-8">
             {menuItems.map((item) => (
               <li key={item.path}>
                 <Link 
                   to={item.path} 
-                  className={`relative px-3 py-2 text-white font-medium transition-all duration-300 ${
+                  className={`relative px-2 lg:px-3 py-2 text-sm lg:text-base text-white font-medium transition-all duration-300 cursor-pointer block ${
                     isActiveLink(item.path)
                       ? 'text-accent-500'
                       : 'hover:text-accent-500'
@@ -77,18 +77,19 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-white focus:outline-none group"
+          className="md:hidden text-white focus:outline-none group cursor-pointer relative z-10 p-2 -mr-2"
           onClick={() => setIsOpen(!isOpen)}
+          style={{ pointerEvents: 'auto' }}
         >
-          <div className="relative w-6 h-6 transform transition-all duration-300 ease-in-out">
-            <span className={`absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
-              isOpen ? 'rotate-45 translate-y-2.5' : 'translate-y-1'
+          <div className="relative w-5 h-5 transform transition-all duration-300 ease-in-out">
+            <span className={`absolute h-0.5 w-5 bg-current transform transition-all duration-300 ease-in-out ${
+              isOpen ? 'rotate-45 translate-y-2' : 'translate-y-1'
             }`}></span>
-            <span className={`absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out translate-y-2.5 ${
+            <span className={`absolute h-0.5 w-5 bg-current transform transition-all duration-300 ease-in-out translate-y-2 ${
               isOpen ? 'opacity-0' : 'opacity-100'
             }`}></span>
-            <span className={`absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
-              isOpen ? '-rotate-45 translate-y-2.5' : 'translate-y-4'
+            <span className={`absolute h-0.5 w-5 bg-current transform transition-all duration-300 ease-in-out ${
+              isOpen ? '-rotate-45 translate-y-2' : 'translate-y-3'
             }`}></span>
           </div>
         </button>
@@ -98,15 +99,15 @@ const Navbar = () => {
       <div className={`md:hidden bg-black/95 backdrop-blur-md border-t border-accent-500/20 overflow-hidden transition-all duration-300 ease-in-out ${
         isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
       }`}>
-        <div className={`px-6 py-6 transform transition-all duration-300 ease-in-out ${
+        <div className={`px-4 sm:px-6 py-4 sm:py-6 transform transition-all duration-300 ease-in-out ${
           isOpen ? 'translate-y-0' : '-translate-y-4'
         }`}>
-          <ul className="space-y-4 mb-6">
+          <ul className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
             {menuItems.map((item, index) => (
               <li key={item.path}>
                 <Link 
                   to={item.path} 
-                  className={`block p-3 rounded-lg text-white font-medium transition-all duration-300 transform ${
+                  className={`block p-3 rounded-lg text-base sm:text-lg text-white font-medium transition-all duration-300 transform cursor-pointer ${
                     isActiveLink(item.path)
                       ? 'text-accent-500 bg-accent-500/10'
                       : 'hover:text-accent-500 hover:bg-white/5'
