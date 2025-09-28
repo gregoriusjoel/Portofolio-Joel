@@ -1,0 +1,345 @@
+import React, { createContext, useContext, useState } from 'react';
+
+const translations = {
+  id: {
+    // Navigation
+    dashboard: 'Dashboard',
+    about: 'Tentang',
+    // Experience Page
+    experience: 'Pengalaman',
+    present: 'Present',
+    fullTime: 'Full-time',
+    partTime: 'Part-time',
+    freelance: 'Freelance',
+    internship: 'Internship',
+    
+    // Experience Responsibilities - Frontend Developer
+    frontendResp1: 'Building responsive and modern company profile websites and landing pages',
+    frontendResp2: 'Collaborating with UI/UX team to implement interactive designs',
+    frontendResp3: 'Applying Tailwind CSS and React.js for efficient styling and development',
+    frontendResp4: 'Website performance optimization and SEO best practices implementation',
+    frontendResp5: 'Mentoring junior developers and code review to maintain code quality',
+    
+    // Experience Responsibilities - UI/UX Designer
+    uiuxResp1: 'Designing mobile and web applications for various clients from startups to enterprise',
+    uiuxResp2: 'Conducting user research and usability testing to improve user experience',
+    uiuxResp3: 'Creating design systems and component libraries for design consistency',
+    uiuxResp4: 'Interactive prototyping using Figma and Adobe XD',
+    
+    // Experience Responsibilities - Web Developer Intern
+    internResp1: 'Learning web development fundamentals and modern frameworks',
+    internResp2: 'Assisting in company website feature development',
+    internResp3: 'Bug fixing and testing on web applications under development',
+    internResp4: 'Technical documentation and user manual creation',
+    present: 'Sekarang',
+    fullTime: 'Full-time',
+    partTime: 'Part-time',
+    freelance: 'Freelance',
+    internship: 'Magang',
+    
+    // Experience Responsibilities - Frontend Developer
+    frontendResp1: 'Membangun website company profile dan landing page yang responsif dan modern',
+    frontendResp2: 'Kolaborasi dengan tim UI/UX untuk mengimplementasikan desain yang interaktif',
+    frontendResp3: 'Menerapkan Tailwind CSS dan React.js untuk styling dan development yang efisien',
+    frontendResp4: 'Optimasi performa website dan implementasi best practices SEO',
+    frontendResp5: 'Mentoring junior developer dan code review untuk maintain kualitas kode',
+    
+    // Experience Responsibilities - UI/UX Designer
+    uiuxResp1: 'Desain aplikasi mobile dan web untuk berbagai klien dari startup hingga enterprise',
+    uiuxResp2: 'Melakukan user research dan usability testing untuk meningkatkan user experience',
+    uiuxResp3: 'Membuat design system dan component library untuk konsistensi design',
+    uiuxResp4: 'Prototyping interaktif menggunakan Figma dan Adobe XD',
+    
+    // Experience Responsibilities - Web Developer Intern
+    internResp1: 'Belajar fundamental web development dan framework modern',
+    internResp2: 'Assist dalam pengembangan fitur-fitur website company',
+    internResp3: 'Bug fixing dan testing pada aplikasi web yang sedang dikembangkan',
+    internResp4: 'Dokumentasi teknis dan user manual',
+    projects: 'Proyek',
+    contact: 'Kontak',
+    
+    // Dashboard
+    greeting: 'Halo, Saya Joel',
+    welcomeMessage: 'Hi I\'m Joel, Welcome to My Portfolio',
+    description: 'Setiap project adalah perjalanan untuk menciptakan pengalaman yang',
+    viewProjects: 'Lihat Project',
+    contactMe: 'Hubungi Saya',
+    
+    // Job titles
+    frontendDeveloper: 'Frontend Developer',
+    backendDeveloper: 'Backend Developer',
+    fullstackDeveloper: 'Fullstack Developer',
+    uiuxDesigner: 'UI/UX Designer',
+    videoEditor: 'Video Editor',
+    graphicDesigner: 'Graphic Designer',
+    
+    // About Page
+    aboutMe: 'Tentang Saya',
+    aboutDescription1: 'Saya Joel, seorang pengembang web yang berfokus pada desain UI/UX dan pengembangan frontend.',
+    aboutDescription2: 'Saya memiliki passion dalam membangun website yang tidak hanya fungsional, tapi juga estetis dan mudah digunakan.',
+    aboutDescription3: 'Dengan pengalaman 3+ tahun di bidang web development, saya selalu berusaha mengikuti tren teknologi terbaru.',
+    mySkills: 'Keahlian Saya',
+    
+    // Experience Page
+    professionalExperience: 'Pengalaman Profesional',
+    experienceDescription: 'Perjalanan karir saya dalam dunia web development dan design, dari intern hingga senior developer',
+    openForOpportunities: 'Saya selalu terbuka untuk proyek menarik dan peluang karir baru',
+    interestedToCollaborate: 'Tertarik untuk berkolaborasi?',
+    letsDiscuss: 'Mari Diskusi',
+    
+    // Project Cards
+    completed: 'Selesai',
+    contributors: 'Kontributor',
+    viewTeam: 'View Team',
+    liveDemo: 'Live Demo',
+    code: 'Code',
+    preview: 'Preview',
+    weeks: 'minggu',
+    rating: '4.8',
+    projectsDescription: 'Kumpulan project terbaik yang pernah saya kerjakan, dari web development hingga UI/UX design',
+    allProjects: 'Semua Project',
+    webDevelopment: 'Web Development',
+    androidApps: 'Android Apps',
+    uiuxDesign: 'UI/UX Design',
+    viewProject: 'Lihat Proyek',
+    projectDetails: 'Detail Proyek',
+    technologies: 'Teknologi',
+    contributors: 'Kontributor',
+    
+    // Contact Page
+    contactTitle: 'Mari Berkolaborasi',
+    contactSubtitle: 'Project Anda',
+    contactDescription: 'Saya siap membantu mewujudkan ide digital Anda menjadi kenyataan. Mari kita ciptakan sesuatu yang luar biasa bersama-sama!',
+    
+    // Contact Methods
+    email: 'Email',
+    whatsapp: 'WhatsApp',
+    linkedin: 'LinkedIn',
+    github: 'GitHub',
+    
+    // Contact Form
+    sendMessage: 'Kirim Pesan',
+    fullName: 'Nama Lengkap',
+    fullNamePlaceholder: 'Masukkan nama Anda',
+    emailPlaceholder: 'nama@email.com',
+    subject: 'Subjek',
+    subjectPlaceholder: 'Apa yang ingin Anda diskusikan?',
+    message: 'Pesan',
+    messagePlaceholder: 'Ceritakan lebih detail tentang project atau ide Anda...',
+    
+    // Form Actions
+    sending: 'Mengirim Pesan...',
+    messageSent: 'Pesan Terkirim!',
+    sendFailed: 'Gagal Kirim',
+    sendButton: 'Kirim Pesan',
+    
+    // Success/Error Messages
+    successMessage: 'Pesan Anda telah berhasil dikirim! Saya akan membalas dalam waktu 1x24 jam.',
+    errorMessage: 'Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi langsung via email.',
+    
+    // Validation
+    required: 'wajib diisi',
+    
+    // Project Categories
+    all: 'Semua',
+    web: 'Web',
+    android: 'Android', 
+    design: 'Desain',
+    
+    // Experience Responsibilities - Frontend Developer
+    frontendResp1: 'Membangun website company profile dan landing page yang responsif dan modern',
+    frontendResp2: 'Kolaborasi dengan tim UI/UX untuk mengimplementasikan desain yang interaktif',
+    frontendResp3: 'Menerapkan Tailwind CSS dan React.js untuk styling dan development yang efisien',
+    frontendResp4: 'Optimasi performa website dan implementasi best practices SEO',
+    frontendResp5: 'Mentoring junior developer dan code review untuk maintain kualitas kode',
+    
+    // Experience Responsibilities - UI/UX Designer
+    uiuxResp1: 'Desain aplikasi mobile dan web untuk berbagai klien dari startup hingga enterprise',
+    uiuxResp2: 'Melakukan user research dan usability testing untuk meningkatkan user experience',
+    uiuxResp3: 'Membuat design system dan component library untuk konsistensi design',
+    uiuxResp4: 'Prototyping interaktif menggunakan Figma dan Adobe XD',
+    
+    // Experience Responsibilities - Web Developer Intern  
+    internResp1: 'Belajar fundamental web development dan framework modern',
+    internResp2: 'Assist dalam pengembangan fitur-fitur website company',
+    internResp3: 'Bug fixing dan testing pada aplikasi web yang sedang dikembangkan',
+    internResp4: 'Dokumentasi teknis dan user manual',
+    
+    // Projects page CTA section
+    projectsCtaTitle: 'Punya ide project menarik?',
+    projectsCtaDescription: 'Mari diskusikan bagaimana saya bisa membantu mewujudkan ide Anda menjadi kenyataan',
+    projectsCtaButton: 'Mulai Project Baru',
+  },
+  
+  en: {
+    // Navigation
+    dashboard: 'Dashboard',
+    about: 'About',
+    experience: 'Experience',
+    projects: 'Projects',
+    contact: 'Contact',
+    
+    // Dashboard
+    greeting: 'Hello, I\'m Joel',
+    welcomeMessage: 'Hi I\'m Joel, Welcome to My Portfolio',
+    description: 'Every project is a journey to create experiences that',
+    viewProjects: 'View Projects',
+    contactMe: 'Contact Me',
+    
+    // Job titles
+    frontendDeveloper: 'Frontend Developer',
+    backendDeveloper: 'Backend Developer',
+    fullstackDeveloper: 'Fullstack Developer',
+    uiuxDesigner: 'UI/UX Designer',
+    videoEditor: 'Video Editor',
+    graphicDesigner: 'Graphic Designer',
+    
+    // About Page
+    aboutMe: 'About Me',
+    aboutDescription1: 'I am Joel, a web developer focused on UI/UX design and frontend development.',
+    aboutDescription2: 'I have a passion for building websites that are not only functional, but also aesthetic and easy to use.',
+    aboutDescription3: 'With 3+ years of experience in web development, I always strive to follow the latest technology trends.',
+    mySkills: 'My Skills',
+    
+    // Experience Page
+    professionalExperience: 'Professional Experience',
+    experienceDescription: 'My career journey in web development and design, from intern to senior developer',
+    openForOpportunities: 'I am always open to exciting projects and new career opportunities',
+    interestedToCollaborate: 'Interested to collaborate?',
+    letsDiscuss: 'Let\'s Discuss',
+    
+    // Project Cards
+    completed: 'Completed',
+    contributors: 'Contributors',
+    viewTeam: 'View Team',
+    liveDemo: 'Live Demo',
+    code: 'Code',
+    preview: 'Preview',
+    weeks: 'weeks',
+    rating: '4.8',
+    projectsDescription: 'Collection of best projects I\'ve worked on, from web development to UI/UX design',
+    allProjects: 'All Projects',
+    webDevelopment: 'Web Development',
+    androidApps: 'Android Apps',
+    uiuxDesign: 'UI/UX Design',
+    viewProject: 'View Project',
+    projectDetails: 'Project Details',
+    technologies: 'Technologies',
+    contributors: 'Contributors',
+    
+    // Contact Page
+    contactTitle: 'Let\'s Collaborate',
+    contactSubtitle: 'Your Project',
+    contactDescription: 'I\'m ready to help bring your digital ideas to life. Let\'s create something extraordinary together!',
+    
+    // Contact Methods
+    email: 'Email',
+    whatsapp: 'WhatsApp',
+    linkedin: 'LinkedIn',
+    github: 'GitHub',
+    
+    // Contact Form
+    sendMessage: 'Send Message',
+    fullName: 'Full Name',
+    fullNamePlaceholder: 'Enter your name',
+    emailPlaceholder: 'name@email.com',
+    subject: 'Subject',
+    subjectPlaceholder: 'What would you like to discuss?',
+    message: 'Message',
+    messagePlaceholder: 'Tell me more about your project or ideas...',
+    
+    // Form Actions
+    sending: 'Sending Message...',
+    messageSent: 'Message Sent!',
+    sendFailed: 'Send Failed',
+    sendButton: 'Send Message',
+    
+    // Success/Error Messages
+    successMessage: 'Your message has been sent successfully! I will reply within 24 hours.',
+    errorMessage: 'Sorry, an error occurred. Please try again or contact me directly via email.',
+    
+    // Validation
+    required: 'is required',
+    
+    // Project Categories
+    all: 'All',
+    web: 'Web',
+    android: 'Android',
+    design: 'Design',
+    
+    // Experience Page
+    experience: 'Experience',
+    present: 'Present',
+    fullTime: 'Full-time',
+    partTime: 'Part-time',
+    freelance: 'Freelance',
+    internship: 'Internship',
+    
+    // Experience Responsibilities - Frontend Developer
+    frontendResp1: 'Building responsive and modern company profile websites and landing pages',
+    frontendResp2: 'Collaborating with UI/UX team to implement interactive designs',
+    frontendResp3: 'Applying Tailwind CSS and React.js for efficient styling and development',
+    frontendResp4: 'Website performance optimization and SEO best practices implementation',
+    frontendResp5: 'Mentoring junior developers and code review to maintain code quality',
+    
+    // Experience Responsibilities - UI/UX Designer
+    uiuxResp1: 'Designing mobile and web applications for various clients from startups to enterprise',
+    uiuxResp2: 'Conducting user research and usability testing to improve user experience',
+    uiuxResp3: 'Creating design systems and component libraries for design consistency',
+    uiuxResp4: 'Interactive prototyping using Figma and Adobe XD',
+    
+    // Experience Responsibilities - Web Developer Intern
+    internResp1: 'Learning web development fundamentals and modern frameworks',
+    internResp2: 'Assisting in company website feature development',
+    internResp3: 'Bug fixing and testing on web applications under development',
+    internResp4: 'Technical documentation and user manual creation',
+    
+    // Projects page CTA section
+    projectsCtaTitle: 'Have an interesting project idea?',
+    projectsCtaDescription: 'Let\'s discuss how I can help bring your ideas to life',
+    projectsCtaButton: 'Start New Project',
+  }
+};
+
+const LanguageContext = createContext();
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
+
+export const LanguageProvider = ({ children }) => {
+  const [language, setLanguage] = useState(() => {
+    // Check localStorage or default to Indonesian
+    const savedLanguage = localStorage.getItem('language');
+    return savedLanguage || 'id';
+  });
+
+  const switchLanguage = (newLanguage) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
+  };
+
+  const t = (key) => {
+    return translations[language][key] || key;
+  };
+
+  const value = {
+    language,
+    switchLanguage,
+    t,
+    isIndonesian: language === 'id',
+    isEnglish: language === 'en'
+  };
+
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export default LanguageContext;
