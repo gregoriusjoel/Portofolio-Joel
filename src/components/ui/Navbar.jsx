@@ -8,7 +8,16 @@ const Navbar = () => {
   const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
+
+  // Animation on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +28,20 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   const isActiveLink = (path) => location.pathname === path;
 
@@ -31,17 +54,19 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`w-full fixed top-0 left-0 z-[${Z_INDEX.NAVBAR}] pointer-events-auto transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 w-full z-50 pointer-events-auto transition-all duration-500 shadow-lg ${
+      isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+    } ${
       scrolled 
         ? 'bg-black/95 backdrop-blur-md shadow-2xl border-b border-accent-500/20' 
         : 'bg-black/90 backdrop-blur-sm shadow-lg border-b border-mono-800'
-    }`} style={{ pointerEvents: 'auto' }}>
+    }`}>
       {/* Decorative top gradient line */}
       <div className="h-0.5 bg-gradient-to-r from-transparent via-accent-500 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
         {/* Logo with animation */}
-        <Link to="/" className="group flex items-center gap-3 cursor-pointer relative z-10">
+        <Link to="/" className="group flex items-center gap-3 cursor-pointer relative z-20">
           <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-wide text-white group-hover:text-accent-400 transition-colors duration-300">
             Joel
           </div>
@@ -77,9 +102,9 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-white focus:outline-none group cursor-pointer relative z-10 p-2 -mr-2"
+          className="md:hidden text-white focus:outline-none group cursor-pointer relative z-20 p-2 -mr-2"
           onClick={() => setIsOpen(!isOpen)}
-          style={{ pointerEvents: 'auto' }}
+          aria-label="Toggle menu"
         >
           <div className="relative w-5 h-5 transform transition-all duration-300 ease-in-out">
             <span className={`absolute h-0.5 w-5 bg-current transform transition-all duration-300 ease-in-out ${
@@ -95,46 +120,45 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`md:hidden bg-black/95 backdrop-blur-md border-t border-accent-500/20 overflow-hidden transition-all duration-300 ease-in-out ${
-        isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-      }`}>
-        <div className={`px-4 sm:px-6 py-4 sm:py-6 transform transition-all duration-300 ease-in-out ${
-          isOpen ? 'translate-y-0' : '-translate-y-4'
-        }`}>
-          <ul className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
-            {menuItems.map((item, index) => (
-              <li key={item.path}>
-                <Link 
-                  to={item.path} 
-                  className={`block p-3 rounded-lg text-base sm:text-lg text-white font-medium transition-all duration-300 transform cursor-pointer ${
-                    isActiveLink(item.path)
-                      ? 'text-accent-500 bg-accent-500/10'
-                      : 'hover:text-accent-500 hover:bg-white/5'
-                  } ${
-                    isOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
-                  }`}
-                  style={{ 
-                    transitionDelay: isOpen ? `${index * 100}ms` : '0ms'
-                  }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+      {/* Mobile Menu with Overlay */}
+      {isOpen && (
+        <>
+          {/* Backdrop Overlay */}
+          <div 
+            className="md:hidden fixed inset-0 bg-black z-40" 
+            onClick={() => setIsOpen(false)}
+            style={{ top: '0' }}
+          />
           
-          {/* Mobile Language Switcher */}
-          <div className={`flex justify-center transform transition-all duration-300 ${
-            isOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
-          }`} style={{ 
-            transitionDelay: isOpen ? `${menuItems.length * 100}ms` : '0ms'
-          }}>
-            <LanguageSwitcher />
+          {/* Mobile Menu Content */}
+          <div className="md:hidden fixed top-0 left-0 right-0 bg-black z-50 transition-all duration-300 ease-in-out">
+            <div className="px-4 sm:px-6 py-4 sm:py-6">
+              <ul className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                {menuItems.map((item, index) => (
+                  <li key={item.path}>
+                    <Link 
+                      to={item.path} 
+                      className={`block p-3 rounded-lg text-base sm:text-lg text-white font-medium transition-all duration-300 transform cursor-pointer ${
+                        isActiveLink(item.path)
+                          ? 'text-accent-500 bg-accent-500/10'
+                          : 'hover:text-accent-500 hover:bg-white/5'
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Mobile Language Switcher */}
+              <div className="flex justify-center">
+                <LanguageSwitcher />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </nav>
   );
 };

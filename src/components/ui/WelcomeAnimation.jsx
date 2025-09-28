@@ -34,7 +34,7 @@ const WelcomeAnimation = ({ onComplete }) => {
   }, [currentWordIndex, words.length, onComplete]);
 
   return (
-    <div className={`fixed inset-0 z-[${Z_INDEX.WELCOME_ANIMATION}] flex items-center justify-center bg-gray-200 transition-all duration-1000 ${
+    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-gray-200 transition-all duration-1000 ${
       isVisible ? 'opacity-100' : 'opacity-0'
     }`}>
       
@@ -44,7 +44,7 @@ const WelcomeAnimation = ({ onComplete }) => {
           setIsVisible(false);
           setTimeout(() => onComplete(), 500);
         }}
-        className={`absolute top-8 right-8 text-gray-600 hover:text-gray-800 transition-colors duration-300 z-[${Z_INDEX.WELCOME_SKIP_BUTTON}] group`}
+        className="absolute top-8 right-8 text-gray-600 hover:text-gray-800 transition-colors duration-300 z-50 group"
         aria-label="Skip animation"
       >
         <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 hover:bg-white transition-all duration-300 group-hover:scale-105 shadow-lg">

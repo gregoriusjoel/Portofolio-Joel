@@ -66,37 +66,54 @@ const Modal = ({ isOpen, onClose, images, title }) => {
 
   return (
     <div 
-      className={`fixed inset-0 z-[${Z_INDEX.MODAL_OVERLAY}] flex items-center justify-center bg-black/40 backdrop-blur-sm`} 
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" 
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
       <div 
-        className="relative max-w-6xl w-[95vw] max-h-[95vh] m-4 bg-white rounded-2xl shadow-2xl border border-gray-200" 
+        className="relative max-w-6xl w-[95vw] max-h-[95vh] m-2 sm:m-4 bg-white rounded-xl sm:rounded-2xl shadow-2xl border border-gray-200" 
         onClick={(e) => e.stopPropagation()}
         role="document"
       >
         
         {/* Enhanced Header */}
-        <div className="bg-gray-100 p-4 border-b border-gray-200 rounded-t-2xl">
-          <div className="flex items-center justify-between">
-            <div className="flex-1 mr-4">
-              <h3 id="modal-title" className="text-xl font-bold text-gray-900 truncate">{title || 'Project Preview'}</h3>
-              {imageArray.length > 1 && (
-                <p className="text-sm text-gray-600 mt-1">
-                  Use <kbd className="px-1 py-0.5 bg-white border border-gray-300 rounded text-xs">←</kbd>{' '}
-                  <kbd className="px-1 py-0.5 bg-white border border-gray-300 rounded text-xs">→</kbd> keys to navigate
-                </p>
-              )}
+        <div className="bg-gray-100 p-3 sm:p-4 border-b border-gray-200 rounded-t-xl sm:rounded-t-2xl">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex-1 min-w-0">
+              <h3 id="modal-title" className="text-lg sm:text-xl font-bold text-gray-900 truncate">{title || 'Project Preview'}</h3>
             </div>
+            
+            {/* Header Navigation Buttons - Responsive */}
+            {imageArray.length > 1 && (
+              <div className="flex items-center gap-1 sm:gap-2">
+                <button
+                  onClick={prevImage}
+                  className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full transition-all duration-200 flex items-center gap-1 whitespace-nowrap"
+                  title="Previous Image"
+                >
+                  <span className="hidden xs:inline">← Previous</span>
+                  <span className="xs:hidden">←</span>
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full transition-all duration-200 flex items-center gap-1 whitespace-nowrap"
+                  title="Next Image"
+                >
+                  <span className="hidden xs:inline">Next →</span>
+                  <span className="xs:hidden">→</span>
+                </button>
+              </div>
+            )}
+            
             <button
               onClick={onClose}
               title="Close Preview"
               aria-label="Close Preview"
-              className="group relative w-10 h-10 bg-gray-200 hover:bg-red-500 hover:text-white text-gray-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 flex-shrink-0"
+              className="group relative w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 hover:bg-red-500 hover:text-white text-gray-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 flex-shrink-0"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
               <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none hidden sm:block">
@@ -105,7 +122,7 @@ const Modal = ({ isOpen, onClose, images, title }) => {
             </button>
           </div>
           {imageArray.length > 1 && (
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-xs sm:text-sm text-gray-600 mt-2">
               Image {currentImageIndex + 1} of {imageArray.length}
             </p>
           )}
@@ -115,15 +132,6 @@ const Modal = ({ isOpen, onClose, images, title }) => {
         <div className="p-4 sm:p-8">
           {currentImage ? (
             <div className="relative">
-              {/* Mobile Navigation Labels */}
-              {imageArray.length > 1 && (
-                <>
-                  <div className="flex justify-between items-center mb-3 sm:hidden">
-                    <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">← Previous</span>
-                    <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Next →</span>
-                  </div>
-                </>
-              )}
               <div className="relative w-full h-[60vh] sm:h-[70vh] bg-gray-50 rounded-xl overflow-hidden shadow-inner">
                 <button
                   onClick={prevImage}

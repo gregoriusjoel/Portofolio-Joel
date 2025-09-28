@@ -72,35 +72,32 @@ const Dashboard = () => {
           <div className="absolute -bottom-1 sm:-bottom-2 -right-1 sm:-right-2 w-4 h-4 sm:w-6 sm:h-6 bg-green-500 rounded-full border-2 border-mono-800"></div>
         </div>
 
-        <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 text-center bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent transition-all duration-1000 delay-300 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          {t('greeting')}
-        </h1>
-
-        {/* Greeting Text */}
-        <p className={`text-base sm:text-lg md:text-xl text-mono-300 mb-3 sm:mb-4 text-center transition-all duration-1000 delay-400 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+        {/* Welcome Message */}
+        <p className={`text-lg sm:text-xl md:text-2xl text-mono-300 mb-4 sm:mb-6 text-center transition-all duration-1000 delay-300 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
           {t('welcomeMessage')}
         </p>
         
-        <div className={`h-6 sm:h-8 mb-4 sm:mb-6 flex items-center justify-center transition-all duration-1000 delay-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <span className="text-lg sm:text-xl md:text-2xl text-accent-500 font-mono text-center">
+        {/* Typewriter Effect - Job Titles */}
+        <div className={`h-8 sm:h-10 mb-8 sm:mb-10 flex items-center justify-center transition-all duration-1000 delay-400 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+          <span className="text-xl sm:text-2xl md:text-3xl text-accent-500 font-mono text-center font-semibold">
             {displayText}
             <span className="animate-pulse">|</span>
           </span>
         </div>
 
-        <div className={`mb-6 sm:mb-8 text-center max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl px-2 sm:px-4 transition-all duration-1000 delay-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+        <div className={`mb-8 sm:mb-10 text-center max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl px-4 sm:px-6 transition-all duration-1000 delay-600 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
           <div className="relative">
             {/* Quote Icon */}
             <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 text-2xl sm:text-4xl text-accent-500/30 font-serif">"</div>
             <div className="absolute -bottom-3 sm:-bottom-6 -right-2 sm:-right-4 text-2xl sm:text-4xl text-accent-500/30 font-serif rotate-180">"</div>
             
             {/* Quote Content */}
-            <div className="relative bg-mono-800/30 backdrop-blur-sm border-l-4 border-accent-500 rounded-r-lg p-4 sm:p-6 shadow-lg">
-              <blockquote className="text-sm sm:text-base md:text-lg lg:text-xl text-mono-300 leading-relaxed italic">
-                "Inovasi digital yang mengubah ide menjadi solusi nyata. 
+            <div className="relative bg-mono-800/40 backdrop-blur-sm border-l-4 border-accent-500 rounded-r-lg p-4 sm:p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <blockquote className="text-sm sm:text-base md:text-lg text-mono-300 leading-relaxed italic">
+                <em>"Inovasi digital yang mengubah ide menjadi solusi nyata. 
                 Setiap project adalah perjalanan untuk menciptakan pengalaman yang 
-                <span className="text-accent-400 font-semibold italic"> bermakna</span> dan 
-                <span className="text-accent-400 font-semibold italic"> berdampak</span>."
+                <span className="text-accent-400 font-semibold not-italic"> bermakna</span> dan 
+                <span className="text-accent-400 font-semibold not-italic"> berdampak</span>."</em>
               </blockquote>
               
               {/* Quote Attribution */}
@@ -114,7 +111,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 w-full max-w-xs sm:max-w-none px-4 sm:px-0 transition-all duration-1000 delay-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+        <div className={`flex flex-col sm:flex-row gap-4 sm:gap-6 mt-8 sm:mt-10 w-full justify-center items-center transition-all duration-1000 delay-800 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
           <Link 
             to="/projects" 
             className="group relative px-6 sm:px-8 py-3 bg-black text-white rounded-full font-semibold hover:bg-mono-800 hover:shadow-2xl hover:shadow-black/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 overflow-hidden text-center"

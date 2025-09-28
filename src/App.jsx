@@ -11,47 +11,49 @@ import Projects from "./components/pages/Projects";
 import Contact from "./components/pages/Contact";
 
 function App() {
-  const [showWelcome, setShowWelcome] = useState(true);
-  const [hasVisited, setHasVisited] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false); // Start with false
+  const [appReady, setAppReady] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
     // Check if user has visited before
     const visited = localStorage.getItem('hasVisited');
-    if (visited) {
-      setShowWelcome(false);
-      setHasVisited(true);
-      setShowNavbar(true); // Show navbar immediately if already visited
+    if (!visited) {
+      setShowWelcome(true); // Show welcome only for first time users
     } else {
-      // Mark as visited after showing animation
-      setHasVisited(false);
+      // If user has visited before, show navbar immediately
+      setShowNavbar(true);
     }
+    setAppReady(true); // App is ready to render
   }, []);
 
   const handleWelcomeComplete = () => {
     setShowWelcome(false);
-    setHasVisited(true);
     localStorage.setItem('hasVisited', 'true');
-    
-    // Add delay before showing navbar for smooth transition
+    // Add delay for smooth navbar animation
     setTimeout(() => {
       setShowNavbar(true);
     }, 300);
   };
 
+  // Don't render anything until app is ready
+  if (!appReady) {
+    return <div className="min-h-screen bg-mono-900"></div>;
+  }
+
   return (
     <LanguageProvider>
       <Router>
-        {showWelcome && !hasVisited && (
+        {/* Show welcome animation only for first-time visitors */}
+        {showWelcome && (
           <WelcomeAnimation onComplete={handleWelcomeComplete} />
         )}
+        
         <div className="flex flex-col min-h-screen bg-mono-900 overflow-x-hidden">
-          {/* Only render navbar when it should be shown and interactive */}
-          {showNavbar && (
-            <Navbar />
-          )}
+          {/* Always show navbar when ready, with simple fade-in */}
+          {showNavbar && <Navbar />}
           
-          <main className="flex-1 w-full">
+          <main className="flex-1 w-full pt-16 sm:pt-20">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/about" element={<About />} />
@@ -61,14 +63,8 @@ function App() {
             </Routes>
           </main>
           
-          {/* Animated Footer that fades in after navbar */}
-          <div className={`transform transition-all duration-700 ease-out delay-200 ${
-            showNavbar 
-              ? 'translate-y-0 opacity-100' 
-              : 'translate-y-8 opacity-0'
-          }`}>
-            <Footer />
-          </div>
+          {/* Show footer when welcome animation is not active */}
+          {!showWelcome && <Footer />}
         </div>
       </Router>
     </LanguageProvider>
