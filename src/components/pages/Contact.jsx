@@ -223,8 +223,16 @@ const Contact = () => {
         user_agent: navigator.userAgent
       };
       
+      // Debug log untuk memonitor EmailJS
+      console.log('🚀 Sending email with EmailJS...');
+      console.log('Service ID:', serviceID);
+      console.log('Template ID:', templateID);
+      console.log('Template Params:', templateParams);
+      
       // Send email using EmailJS
       const response = await emailjs.send(serviceID, templateID, templateParams);
+      
+      console.log('📧 EmailJS Response:', response);
       
       if (response.status === 200) {
         setSubmitStatus('success');
@@ -248,7 +256,13 @@ const Contact = () => {
       }
       
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('❌ Error sending email:', error);
+      console.error('Error details:', {
+        message: error.message,
+        status: error.status,
+        text: error.text,
+        stack: error.stack
+      });
       setSubmitStatus('error');
       
       // Set specific error message based on error type
