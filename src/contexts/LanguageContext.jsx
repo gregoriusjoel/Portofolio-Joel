@@ -36,6 +36,7 @@ const translations = {
     partTime: 'Part-time',
     freelance: 'Freelance',
     internship: 'Magang',
+    studyIndependent: 'Study Independent',
     
     // Experience Responsibilities - Frontend Developer
     frontendResp1: 'Membangun website company profile dan landing page yang responsif dan modern',
@@ -75,14 +76,14 @@ const translations = {
     
     // About Page
     aboutMe: 'Tentang Saya',
-    aboutDescription1: 'Saya Joel, seorang pengembang web yang berfokus pada desain UI/UX dan pengembangan frontend.',
+    aboutDescription1: 'Saya Joel, seorang web developer yang berfokus pada desain UI/UX dan pengembangan frontend serta backend.',
     aboutDescription2: 'Saya memiliki passion dalam membangun website yang tidak hanya fungsional, tapi juga estetis dan mudah digunakan.',
-    aboutDescription3: 'Dengan pengalaman 3+ tahun di bidang web development, saya selalu berusaha mengikuti tren teknologi terbaru.',
+    aboutDescription3: 'Dengan pengalaman 1+ tahun di bidang web development, saya selalu berusaha mengikuti tren teknologi terbaru.',
     mySkills: 'Keahlian Saya',
     
     // Experience Page
     professionalExperience: 'Pengalaman Profesional',
-    experienceDescription: 'Perjalanan karir saya dalam dunia web development dan design, dari intern hingga senior developer',
+    experienceDescription: 'Perjalanan karir saya dalam dunia web development dan design, dari study independent hingga freelance',
     openForOpportunities: 'Saya selalu terbuka untuk proyek menarik dan peluang karir baru',
     interestedToCollaborate: 'Tertarik untuk berkolaborasi?',
     letsDiscuss: 'Mari Diskusi',
@@ -139,6 +140,12 @@ const translations = {
     
     // Validation
     required: 'wajib diisi',
+    invalidEmail: 'Format email tidak valid',
+    messageMinLength: 'Pesan minimal 10 karakter',
+    networkError: 'Koneksi internet bermasalah. Silakan coba lagi.',
+    accessDenied: 'Akses ditolak. Silakan hubungi administrator.',
+    serviceNotFound: 'Service email tidak ditemukan. Silakan hubungi administrator.',
+    unexpectedError: 'Terjadi kesalahan tidak terduga. Silakan coba lagi atau hubungi langsung via email.',
     
     // Project Categories
     all: 'Semua',
@@ -169,6 +176,21 @@ const translations = {
     projectsCtaTitle: 'Punya ide project menarik?',
     projectsCtaDescription: 'Mari diskusikan bagaimana saya bisa membantu mewujudkan ide Anda menjadi kenyataan',
     projectsCtaButton: 'Mulai Project Baru',
+    
+    // Skills Section
+    technicalSkills: 'Technical Skills',
+    programmingDevelopment: 'Programming & Development',
+    toolsPlatforms: 'Tools & Platforms',
+    developmentEnvironment: 'Development Environment',
+    codeEditor: 'Code Editor',
+    designTool: 'Design Tool',
+    versionControl: 'Version Control',
+    database: 'Database',
+    
+    // Job Titles
+    webDeveloperUiUxDesigner: 'Web Developer & UI/UX Designer',
+    webDeveloper: 'Web Developer',
+    studyIndependent: 'Study Independent',
   },
   
   en: {
@@ -196,14 +218,17 @@ const translations = {
     
     // About Page
     aboutMe: 'About Me',
-    aboutDescription1: 'I am Joel, a web developer focused on UI/UX design and frontend development.',
+    aboutDescription1: 'I am Joel, a web developer focused on UI/UX design and frontend as well as backend development.',
     aboutDescription2: 'I have a passion for building websites that are not only functional, but also aesthetic and easy to use.',
-    aboutDescription3: 'With 3+ years of experience in web development, I always strive to follow the latest technology trends.',
+    aboutDescription3: 'With 1+ years of experience in web development, I always strive to keep up with the latest technology trends.',
     mySkills: 'My Skills',
     
     // Experience Page
     professionalExperience: 'Professional Experience',
-    experienceDescription: 'My career journey in web development and design, from intern to senior developer',
+    experienceDescription: 'My career journey in web development and design, from independent study to freelance',
+    openForOpportunities: 'I am always open to exciting projects and new career opportunities',
+    interestedToCollaborate: 'Interested to collaborate?',
+    letsDiscuss: 'Let\'s Discuss',
     openForOpportunities: 'I am always open to exciting projects and new career opportunities',
     interestedToCollaborate: 'Interested to collaborate?',
     letsDiscuss: 'Let\'s Discuss',
@@ -260,6 +285,12 @@ const translations = {
     
     // Validation
     required: 'is required',
+    invalidEmail: 'Invalid email format',
+    messageMinLength: 'Message must be at least 10 characters',
+    networkError: 'Network connection problem. Please try again.',
+    accessDenied: 'Access denied. Please contact administrator.',
+    serviceNotFound: 'Email service not found. Please contact administrator.',
+    unexpectedError: 'An unexpected error occurred. Please try again or contact directly via email.',
     
     // Project Categories
     all: 'All',
@@ -298,6 +329,21 @@ const translations = {
     projectsCtaTitle: 'Have an interesting project idea?',
     projectsCtaDescription: 'Let\'s discuss how I can help bring your ideas to life',
     projectsCtaButton: 'Start New Project',
+    
+    // Skills Section
+    technicalSkills: 'Technical Skills',
+    programmingDevelopment: 'Programming & Development',
+    toolsPlatforms: 'Tools & Platforms',
+    developmentEnvironment: 'Development Environment',
+    codeEditor: 'Code Editor',
+    designTool: 'Design Tool',
+    versionControl: 'Version Control',
+    database: 'Database',
+    
+    // Job Titles
+    webDeveloperUiUxDesigner: 'Web Developer & UI/UX Designer',
+    webDeveloper: 'Web Developer',
+    studyIndependent: 'Study Independent',
   }
 };
 

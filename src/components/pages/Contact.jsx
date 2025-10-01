@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import 'boxicons/css/boxicons.min.css';
 import emailjs from '@emailjs/browser';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { emailjsConfig } from '../../config/emailjs';
 
 const ContactInfo = ({ icon, title, info, link, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -55,6 +56,27 @@ const FormField = ({ label, type = "text", name, placeholder, rows, required = t
     }
   };
 
+  // Reset form field when form is reset
+  React.useEffect(() => {
+    const handleFormReset = () => {
+      setValue('');
+      setError('');
+      setIsFocused(false);
+    };
+
+    // Listen for input events to handle form reset
+    const handleInput = (e) => {
+      if (e.target.name === name && e.target.value === '') {
+        setValue('');
+        setError('');
+        setIsFocused(false);
+      }
+    };
+
+    document.addEventListener('input', handleInput);
+    return () => document.removeEventListener('input', handleInput);
+  }, [name]);
+
   const InputComponent = rows ? 'textarea' : 'input';
 
   return (
@@ -104,6 +126,7 @@ const Contact = () => {
   const [mounted, setMounted] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
 
   React.useEffect(() => {
     setMounted(true);
@@ -111,46 +134,142 @@ const Contact = () => {
     setTimeout(() => setFormVisible(true), 600);
   }, []);
 
+  const validateForm = (formData) => {
+    const errors = {};
+    
+    if (!formData.get('name')?.trim()) {
+      errors.name = t('fullName') + ' ' + t('required');
+    }
+    
+    const email = formData.get('email')?.trim();
+    if (!email) {
+      errors.email = t('email') + ' ' + t('required');
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = t('invalidEmail');
+    }
+    
+    if (!formData.get('subject')?.trim()) {
+      errors.subject = t('subject') + ' ' + t('required');
+    }
+    
+    const message = formData.get('message')?.trim();
+    if (!message) {
+      errors.message = t('message') + ' ' + t('required');
+    } else if (message.length < 10) {
+      errors.message = t('messageMinLength');
+    }
+    
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('');
+    setFormErrors({});
+    
+    // Get form data
+    const formData = new FormData(e.target);
+    
+    // Validate form
+    const errors = validateForm(formData);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      setIsSubmitting(false);
+      return;
+    }
     
     try {
-      // Untuk development, kita akan gunakan demo EmailJS configuration
-      // Anda perlu mendaftar di EmailJS dan mengganti dengan kredensial yang benar
-      const serviceID = 'service_demo'; 
-      const templateID = 'template_demo'; 
-      const publicKey = 'demo_public_key'; 
+      // EmailJS configuration dari config file
+      const { serviceID, templateID, publicKey } = emailjsConfig;
       
-      // Get form data
-      const formData = new FormData(e.target);
+      // Cek apakah konfigurasi sudah diatur
+      if (serviceID === 'YOUR_SERVICE_ID' || templateID === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
+        console.warn('EmailJS belum dikonfigurasi. Silakan update file src/config/emailjs.js dengan kredensial EmailJS Anda.');
+        console.log('Untuk mendapatkan kredensial:');
+        console.log('1. Daftar di https://www.emailjs.com/');
+        console.log('2. Buat service email (Gmail, Outlook, dll)');
+        console.log('3. Buat template email');
+        console.log('4. Salin Service ID, Template ID, dan Public Key ke config/emailjs.js');
+        console.log('5. Lihat EMAILJS_SETUP.md untuk panduan lengkap');
+        
+        // Simulasi untuk demo
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setSubmitStatus('success');
+        e.target.reset();
+        const inputs = e.target.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+          if (input.name) {
+            const event = new Event('input', { bubbles: true });
+            input.value = '';
+            input.dispatchEvent(event);
+          }
+        });
+        return;
+      }
+      
+      // Initialize EmailJS dengan public key
+      emailjs.init(publicKey);
+      
       const templateParams = {
         from_name: formData.get('name'),
         from_email: formData.get('email'),
         subject: formData.get('subject'),
         message: formData.get('message'),
-        to_email: 'hi.gregoriusjoel@gmail.com'
+        to_email: 'hi.gregoriusjoel@gmail.com',
+        reply_to: formData.get('email'),
+        // Tambahan informasi untuk tracking
+        timestamp: new Date().toLocaleString('id-ID'),
+        user_agent: navigator.userAgent
       };
       
-      // For now, simulate email sending since we don't have real EmailJS credentials
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Send email using EmailJS
+      const response = await emailjs.send(serviceID, templateID, templateParams);
       
-      console.log('Would send email with data:', templateParams);
-      setSubmitStatus('success');
-      
-      // Reset form
-      e.target.reset();
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        // Reset form
+        e.target.reset();
+        // Reset all form field values
+        const inputs = e.target.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+          if (input.name) {
+            // Trigger onChange to clear local state
+            const event = new Event('input', { bubbles: true });
+            input.value = '';
+            input.dispatchEvent(event);
+          }
+        });
+        
+        // Track successful submission
+        console.log('Email berhasil dikirim:', templateParams.from_name);
+      } else {
+        throw new Error(`EmailJS responded with status ${response.status}`);
+      }
       
     } catch (error) {
       console.error('Error sending email:', error);
       setSubmitStatus('error');
+      
+      // Set specific error message based on error type
+      if (error.message?.includes('network') || error.message?.includes('fetch')) {
+        setFormErrors({ general: t('networkError') });
+      } else if (error.message?.includes('403')) {
+        setFormErrors({ general: t('accessDenied') });
+      } else if (error.message?.includes('404')) {
+        setFormErrors({ general: t('serviceNotFound') });
+      } else {
+        setFormErrors({ general: t('unexpectedError') });
+      }
     }
     
     setIsSubmitting(false);
     
     // Reset status after 5 seconds
-    setTimeout(() => setSubmitStatus(''), 5000);
+    setTimeout(() => {
+      setSubmitStatus('');
+      setFormErrors({});
+    }, 5000);
   };
 
   const contactMethods = [
@@ -345,13 +464,13 @@ const Contact = () => {
               </div>
             )}
             
-            {submitStatus === 'error' && (
+            {(submitStatus === 'error' || formErrors.general) && (
               <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
                 <p className="text-red-400 text-sm flex items-center gap-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
                   </svg>
-                  {t('errorMessage')}
+                  {formErrors.general || t('errorMessage')}
                 </p>
               </div>
             )}

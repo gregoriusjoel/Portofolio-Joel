@@ -141,18 +141,22 @@ export const projects = [
       id: "Aplikasi tracking lamaran kerja untuk membantu job seeker mengelola aplikasi pekerjaan mereka. Fitur reminder, status tracking, dan analytics untuk meningkatkan efektivitas pencarian kerja.",
       en: "Job application tracking application to help job seekers manage their job applications. Features reminder, status tracking, and analytics to improve job search effectiveness."
     },
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "assets/project/Job Tracker/login.png",
     demo: "https://job-tracker-one-alpha.vercel.app/login",
     github: "https://github.com/gregoriusjoel/JobTracker",
     screenshots: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+      "assets/project/Job Tracker/login.png",
+      "assets/project/Job Tracker/dashboard.png",
+      "assets/project/Job Tracker/addapplication.png",
+      "assets/project/Job Tracker/adminpanel.png",
+      "assets/project/Job Tracker/addadmin.png",
+      "assets/project/Job Tracker/accountsetting.png"
     ],
     status: "completed",
     technologies: ["Next.js", "Golang", "CSS", "JavaScript", "MySQL", "Tailwind CSS"],
     category: "web",
     rating: "4.8",
-    duration: "1 Minggu",
+    duration: "2 Minggu",
     year: "2025",
     contributors: [
       { 
@@ -160,12 +164,6 @@ export const projects = [
         role: "Full Stack Developer", 
         avatar: "bx-code-alt",
         linkedin: "https://linkedin.com/in/gregorius-joel"
-      },
-      { 
-        name: "Backend Team", 
-        role: "Go Developer", 
-        avatar: "bx-wrench",
-        linkedin: "https://linkedin.com"
       }
     ]
   },

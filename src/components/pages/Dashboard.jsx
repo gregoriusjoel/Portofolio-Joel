@@ -22,7 +22,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     setMounted(true);
-    
+  }, []);
+
+  useEffect(() => {
     const currentText = texts[textIndex];
     const timeout = setTimeout(() => {
       if (!isDeleting) {
@@ -42,10 +44,10 @@ const Dashboard = () => {
           setTextIndex(prev => (prev + 1) % texts.length);
         }
       }
-    }, isDeleting ? 50 : 100);
+    }, isDeleting ? 50 : 150);
     
     return () => clearTimeout(timeout);
-  }, [currentIndex, textIndex, isDeleting]);
+  }, [currentIndex, textIndex, isDeleting, texts]);
 
   return (
     <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 text-mono-100 pt-27 pb-8 px-6">
@@ -81,8 +83,8 @@ const Dashboard = () => {
           {t('welcomeMessage')}
         </p>
         
-        <div className={`h-8 mb-6 flex items-center justify-center transition-all duration-1000 delay-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <span className="text-xl md:text-2xl text-accent-500 font-mono">
+        <div className={`h-10 sm:h-12 mb-6 flex items-center justify-center transition-all duration-1000 delay-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+          <span className="text-lg sm:text-xl md:text-2xl text-accent-500 font-mono text-center px-2 min-w-0 break-words">
             {displayText}
             <span className="animate-pulse">|</span>
           </span>

@@ -48,16 +48,18 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-mono-900/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
         
         {/* Overlay with buttons */}
-        <div className={`absolute inset-0 flex items-center justify-center gap-3 transition-all duration-500 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+        <div className={`absolute inset-0 flex items-center justify-center gap-1 sm:gap-2 md:gap-3 transition-all duration-500 flex-wrap p-2 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           {/* Demo button - Show only for projects that are NOT in the excluded list */}
           {!["Vameratale E-Commerce", "Sistem Kasir Ayam Geprek", "Website BISINDO SIGN Language"].includes(project.title) && (
             <a 
               href={project.demo} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-3 py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-sm flex items-center gap-2"
+              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
             >
-              <i className='bx bx-link-external'></i> Live Demo
+              <i className='bx bx-link-external text-sm'></i> 
+              <span className="hidden sm:inline">Live Demo</span>
+              <span className="sm:hidden">Demo</span>
             </a>
           )}
           
@@ -67,17 +69,21 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
               href={project.github} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-3 py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-sm flex items-center gap-2"
+              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
             >
-              <i className='bx bx-code-alt'></i> Code
+              <i className='bx bx-code-alt text-sm'></i>
+              <span className="hidden sm:inline">Code</span>
+              <span className="sm:hidden">Code</span>
             </a>
           )}
           
           <button 
             onClick={() => onPreviewClick(project)}
-            className="px-3 py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-sm flex items-center gap-2"
+            className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
           >
-            <i className='bx bx-image-alt'></i> Preview
+            <i className='bx bx-image-alt text-sm'></i>
+            <span className="hidden sm:inline">Preview</span>
+            <span className="sm:hidden">View</span>
           </button>
         </div>
       </div>
