@@ -50,7 +50,7 @@ const Dashboard = () => {
   }, [currentIndex, textIndex, isDeleting, texts]);
 
   return (
-    <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 text-mono-100 pt-27 pb-8 px-6">
+    <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 text-mono-100 pt-8 pb-8 px-6">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
@@ -99,10 +99,7 @@ const Dashboard = () => {
             {/* Quote Content */}
             <div className="relative bg-mono-800/30 backdrop-blur-sm border-l-4 border-accent-500 rounded-r-lg p-6 shadow-lg">
               <blockquote className="text-lg md:text-xl text-mono-300 leading-relaxed italic">
-                "Inovasi digital yang mengubah ide menjadi solusi nyata. 
-                Setiap project adalah perjalanan untuk menciptakan pengalaman yang 
-                <span className="text-accent-400 font-semibold italic"> bermakna</span> dan 
-                <span className="text-accent-400 font-semibold italic"> berdampak</span>."
+                "{t('description')}"
               </blockquote>
               
               {/* Quote Attribution */}

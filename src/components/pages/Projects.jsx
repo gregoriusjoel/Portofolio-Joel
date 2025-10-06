@@ -38,7 +38,7 @@ const Projects = () => {
     .sort((a, b) => parseInt(b.year) - parseInt(a.year)); // Sort by year, newest first
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-16 pb-12 px-6">
+    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-1 pb-12 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className={`text-center mb-12 transition-all duration-1000 ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>

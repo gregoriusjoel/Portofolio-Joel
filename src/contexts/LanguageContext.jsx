@@ -56,17 +56,38 @@ const translations = {
     internResp2: 'Assist dalam pengembangan fitur-fitur website company',
     internResp3: 'Bug fixing dan testing pada aplikasi web yang sedang dikembangkan',
     internResp4: 'Dokumentasi teknis dan user manual',
+    
+    // Experience Responsibilities - Project Manager
+    pmResp1: 'Mengelola project pengembangan website dari planning hingga deployment',
+    pmResp2: 'Koordinasi dengan tim developer, designer, dan stakeholder untuk memastikan timeline project',
+    pmResp3: 'Melakukan requirements gathering dan analisis kebutuhan klien',
+    pmResp4: 'Monitoring progress project menggunakan metodologi Agile dan Scrum',
+    pmResp5: 'Quality assurance dan testing untuk memastikan deliverable sesuai standar',
+    
+    // Experience Responsibilities - Web Developer Maintenance
+    maintenanceResp1: 'Update konten website dan pemeliharaan rutin untuk berbagai klien',
+    maintenanceResp2: 'Melakukan maintenance dan troubleshooting issue pada website yang sudah live',
+    maintenanceResp3: 'Optimasi SEO dan performance website untuk meningkatkan ranking',
+    maintenanceResp4: 'Backup data dan monitoring keamanan website secara berkala',
+    
+    // Experience Responsibilities - Redaktur Penyiaran
+    editorResp1: 'Editing dan review konten siaran radio untuk program harian',
+    editorResp2: 'Koordinasi dengan tim produksi untuk scheduling dan timeline siaran',
+    editorResp3: 'Quality control audio dan script sebelum dipublikasikan',
+    editorResp4: 'Dokumentasi dan arsip konten siaran untuk keperluan evaluasi',
     projects: 'Proyek',
     contact: 'Kontak',
     
     // Dashboard
     greeting: 'Halo, Saya Joel',
     welcomeMessage: 'Hi I\'m Joel, Welcome to My Portfolio',
-    description: 'Setiap project adalah perjalanan untuk menciptakan pengalaman yang',
+    description: 'Inovasi digital yang mengubah ide menjadi solusi nyata. Setiap project adalah perjalanan untuk menciptakan pengalaman yang bermakna dan berdampak.',
     viewProjects: 'Lihat Project',
     contactMe: 'Hubungi Saya',
     
     // Job titles
+    projectManager: 'Project Manager',
+    redakturPenyiaran: 'Redaktur Penyiaran',
     frontendDeveloper: 'Frontend Developer',
     backendDeveloper: 'Backend Developer',
     fullstackDeveloper: 'Fullstack Developer',
@@ -204,11 +225,13 @@ const translations = {
     // Dashboard
     greeting: 'Hello, I\'m Joel',
     welcomeMessage: 'Hi I\'m Joel, Welcome to My Portfolio',
-    description: 'Every project is a journey to create experiences that',
+    description: 'Digital innovation that transforms ideas into real solutions. Every project is a journey to create meaningful and impactful experiences.',
     viewProjects: 'View Projects',
     contactMe: 'Contact Me',
     
     // Job titles
+    projectManager: 'Project Manager',
+    redakturPenyiaran: 'Broadcast Editor',
     frontendDeveloper: 'Frontend Developer',
     backendDeveloper: 'Backend Developer',
     fullstackDeveloper: 'Fullstack Developer',
@@ -324,6 +347,25 @@ const translations = {
     internResp2: 'Assisting in company website feature development',
     internResp3: 'Bug fixing and testing on web applications under development',
     internResp4: 'Technical documentation and user manual creation',
+    
+    // Experience Responsibilities - Project Manager
+    pmResp1: 'Managing website development projects from planning to deployment',
+    pmResp2: 'Coordinating with developer, designer, and stakeholder teams to ensure project timelines',
+    pmResp3: 'Conducting requirements gathering and client needs analysis',
+    pmResp4: 'Monitoring project progress using Agile and Scrum methodologies',
+    pmResp5: 'Quality assurance and testing to ensure deliverables meet standards',
+    
+    // Experience Responsibilities - Web Developer Maintenance
+    maintenanceResp1: 'Website content updates and routine maintenance for various clients',
+    maintenanceResp2: 'Performing maintenance and troubleshooting issues on live websites',
+    maintenanceResp3: 'SEO and website performance optimization to improve rankings',
+    maintenanceResp4: 'Data backup and regular website security monitoring',
+    
+    // Experience Responsibilities - Redaktur Penyiaran
+    editorResp1: 'Editing and reviewing radio broadcast content for daily programs',
+    editorResp2: 'Coordinating with production team for broadcast scheduling and timelines',
+    editorResp3: 'Quality control of audio and scripts before publication',
+    editorResp4: 'Documentation and archiving of broadcast content for evaluation purposes',
     
     // Projects page CTA section
     projectsCtaTitle: 'Have an interesting project idea?',

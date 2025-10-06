@@ -314,7 +314,7 @@ const Contact = () => {
   ];
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 flex items-center pt-32 pb-20">
+    <section className="relative min-h-screen bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 flex items-center pt-2 pb-20">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,_rgba(120,119,198,0.3),_transparent_50%)] opacity-40"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,_rgba(255,111,97,0.2),_transparent_50%)] opacity-30"></div>

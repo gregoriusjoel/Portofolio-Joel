@@ -1,6 +1,7 @@
 // About
 import React, { useState, useEffect } from "react";
 import { useLanguage } from '../../contexts/LanguageContext';
+import { skills, getTools } from '../data/aboutData';
 import 'boxicons/css/boxicons.min.css';
 
 const SkillBar = ({ skill, percentage, delay = 0 }) => {
@@ -88,22 +89,11 @@ const About = () => {
     return () => timers.forEach(timer => clearTimeout(timer));
   }, []);
 
-  const skills = [
-    { name: "Python", percentage: 80 },
-    { name: "JavaScript", percentage: 80 },
-    { name: "React JS", percentage: 75 },
-    { name: "TypeScript", percentage: 75 },
-    { name: "Laravel", percentage: 70 },
-    { name: "Golang", percentage: 50 },
-    { name: "Flutter", percentage: 70 },
-    { name: "MySQL", percentage: 80 },
-    { name: "Tailwind CSS", percentage: 85 },
-    { name: "UI/UX Design", percentage: 80 },
-    { name: "Responsive Web", percentage: 95 }
-  ];
+  // Import tools from data file
+  const tools = getTools(t);
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-6 sm:pt-8 pb-8 sm:pb-12 px-4 sm:px-6">
+    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-0.5 pb-8 sm:pb-12 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <div className={`text-center mb-8 sm:mb-12 lg:mb-16 transition-all duration-1000 ${visibleElements.header ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
@@ -221,12 +211,7 @@ const About = () => {
                   </div>
                 </h3>
                 <div className="grid grid-cols-1 gap-3">
-                  {[
-                    { name: "VS Code", icon: "bx-code-alt", desc: t('codeEditor') },
-                    { name: "Figma", icon: "bxl-figma", desc: t('designTool') },
-                    { name: "Git & GitHub", icon: "bxl-git", desc: t('versionControl') },
-                    { name: "MySQL", icon: "bx-data", desc: t('database') }
-                  ].map((tool, index) => (
+                  {tools.map((tool, index) => (
                     <div key={tool.name} className={`group/tool flex items-center gap-3 p-3 sm:p-4 bg-gray-50 backdrop-blur-sm rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-100 transition-all duration-300 hover:scale-[1.02] cursor-pointer ${visibleElements.tools ? 'translate-x-0 opacity-100' : 'translate-x-6 opacity-0'}`}
                          style={{ transitionDelay: `${index * 80}ms` }}>
                       
