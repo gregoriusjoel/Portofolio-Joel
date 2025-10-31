@@ -56,7 +56,8 @@ const Projects = () => {
               { key: 'all', label: t('allProjects'), icon: 'bx-target-lock' },
               { key: 'web', label: t('webDevelopment'), icon: 'bx-laptop' },
               { key: 'android', label: t('androidApps'), icon: 'bx-mobile-alt' },
-              { key: 'design', label: t('uiuxDesign'), icon: 'bx-palette' }
+              { key: 'design', label: t('uiuxDesign'), icon: 'bx-palette' },
+              { key: 'video', label: 'Video', icon: 'bx-film' }
             ].map((category, index) => (
               <button
                 key={category.key}
@@ -121,6 +122,7 @@ const Projects = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         images={selectedProject?.screenshots}
+        videoUrl={selectedProject?.video || (selectedProject?.demo && selectedProject.demo.includes('instagram.com') ? selectedProject.demo.replace(/\/?(\?.*)?$/, '/embed') : null)}
         title={selectedProject?.title}
       />
     </section>

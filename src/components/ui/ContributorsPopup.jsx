@@ -59,7 +59,8 @@ const ContributorsPopup = ({ isOpen, onClose, contributors, projectTitle }) => {
         
         {/* Contributors List */}
         <div className="p-6">
-          <div className="space-y-4">
+          {/* limit height and allow scrolling when there are many contributors */}
+          <div className="space-y-4 max-h-[50vh] overflow-auto pr-2 hide-scrollbar">
             {contributors?.map((contributor, index) => (
               <div 
                 key={index}
@@ -68,10 +69,11 @@ const ContributorsPopup = ({ isOpen, onClose, contributors, projectTitle }) => {
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-xl shadow-lg text-white">
                   <i className={`bx ${contributor.avatar}`}></i>
                 </div>
-                <div className="flex-1 relative">
+                <div className="flex-1 relative min-w-0">
                   <div className="group cursor-pointer" onClick={() => handleLinkedInClick(contributor.linkedin)}>
                     <h4 className="font-semibold text-gray-900 text-lg group-hover:text-blue-600 transition-all duration-200 flex items-center">
-                      {contributor.name}
+                      {/* make name horizontally scrollable if it's too long */}
+                      <span className="overflow-x-auto whitespace-nowrap hide-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>{contributor.name}</span>
                       {contributor.linkedin && (
                         <i className="bx bx-link-external ml-2 text-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 text-blue-600"></i>
                       )}

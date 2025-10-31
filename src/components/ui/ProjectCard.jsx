@@ -25,6 +25,11 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
     return description;
   };
 
+  const isEditorOrVideo = (
+    project?.category === 'video' ||
+    (project?.contributors && project.contributors.some(c => c.role && c.role.toLowerCase().includes('video')))
+  );
+
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -38,19 +43,46 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Project Image */}
+      {/* Project Image or Video Thumbnail (use video embed as thumbnail for video projects) */}
       <div className="relative h-48 overflow-hidden">
-        <img 
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-mono-900/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+        {((project.category === 'video') || project.video || (project.demo && project.demo.includes('instagram.com'))) ? (
+          // Use iframe embed of the video as a visual thumbnail. pointer-events-none makes overlay buttons clickable.
+          <div className="w-full h-full bg-gray-900">
+            <iframe
+              src={project.video || (project.demo && project.demo.includes('instagram.com') ? project.demo.replace(/\/?(\?.*)?$/, '/embed') : project.demo)}
+              title={project.title}
+              className="w-full h-full object-cover pointer-events-none border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-mono-900/40 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+          </div>
+        ) : (
+          <>
+            <img 
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-mono-900/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+          </>
+        )}
         
         {/* Overlay with buttons */}
         <div className={`absolute inset-0 flex items-center justify-center gap-1 sm:gap-2 md:gap-3 transition-all duration-500 flex-wrap p-2 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-          {/* Demo button - Show only for projects that are NOT in the excluded list */}
-          {!["Vameratale E-Commerce", "Sistem Kasir Ayam Geprek", "Website BISINDO SIGN Language"].includes(project.title) && (
+          {/* Watch button for video projects (Instagram embed or video property) */}
+          {(project.video || (project.demo && project.demo.includes('instagram.com'))) && (
+            <button
+              onClick={() => onPreviewClick(project)}
+              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/60 text-black rounded-full font-semibold hover:bg-white/80 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
+            >
+              <i className='bx bx-play-circle text-sm'></i>
+              <span className="hidden sm:inline">Watch</span>
+              <span className="sm:hidden">Play</span>
+            </button>
+          )}
+          {/* Demo button - hide for video/editor projects, otherwise show unless excluded by title */}
+          {!isEditorOrVideo && !["Vameratale E-Commerce", "Sistem Kasir Ayam Geprek", "Website BISINDO SIGN Language"].includes(project.title) && (
             <a 
               href={project.demo} 
               target="_blank" 
@@ -63,8 +95,8 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
             </a>
           )}
           
-          {/* Code button - Hide for specific projects */}
-          {!["Sistem Klinik Gudang", "Petrikor", "Vameratale E-Commerce"].includes(project.title) && (
+          {/* Code button - hide for video/editor projects, otherwise hide for specific projects by title */}
+          {!isEditorOrVideo && !["Sistem Klinik Gudang", "Petrikor", "Vameratale E-Commerce"].includes(project.title) && (
             <a 
               href={project.github} 
               target="_blank" 
@@ -77,14 +109,17 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
             </a>
           )}
           
-          <button 
-            onClick={() => onPreviewClick(project)}
-            className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
-          >
-            <i className='bx bx-image-alt text-sm'></i>
-            <span className="hidden sm:inline">Preview</span>
-            <span className="sm:hidden">View</span>
-          </button>
+          {/* Preview - hide for video/editor projects (video projects use Watch instead) */}
+          {!isEditorOrVideo && (
+            <button 
+              onClick={() => onPreviewClick(project)}
+              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
+            >
+              <i className='bx bx-image-alt text-sm'></i>
+              <span className="hidden sm:inline">Preview</span>
+              <span className="sm:hidden">View</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -161,21 +196,35 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
                   <i className="bx bx-group text-mono-400 text-sm"></i>
                   <span className="text-mono-400 text-sm">{t('contributors')}</span>
                 </div>
-                <div className="flex -space-x-2">
-                  {project.contributors.slice(0, 3).map((contributor, index) => (
-                    <div
-                      key={index}
-                      className="w-8 h-8 bg-gradient-to-br from-accent-500 to-mono-600 rounded-full border-2 border-mono-700 flex items-center justify-center text-sm hover:scale-110 transition-transform duration-200 text-white"
-                      title={contributor.name}
-                    >
-                      <i className={`bx ${contributor.avatar}`}></i>
-                    </div>
-                  ))}
-                  {project.contributors.length > 3 && (
-                    <div className="w-8 h-8 bg-mono-600 rounded-full border-2 border-mono-700 flex items-center justify-center text-xs text-mono-300">
-                      +{project.contributors.length - 3}
-                    </div>
-                  )}
+                  <div className="flex -space-x-2">
+                  {(() => {
+                    const contributors = Array.isArray(project.contributors) ? project.contributors : [];
+                    const visibleCount = Math.min(3, contributors.length);
+                    const extra = Math.max(0, contributors.length - visibleCount);
+
+                    return (
+                      <>
+                        {contributors.slice(0, visibleCount).map((contributor, index) => (
+                          <div
+                            key={index}
+                            className="w-8 h-8 bg-gradient-to-br from-accent-500 to-mono-600 rounded-full border-2 border-mono-700 flex items-center justify-center text-sm hover:scale-110 transition-transform duration-200 text-white"
+                            title={contributor.name}
+                          >
+                            <i className={`bx ${contributor.avatar}`}></i>
+                          </div>
+                        ))}
+                        {extra > 0 && (
+                          <div
+                            className="w-8 h-8 bg-mono-600 rounded-full border-2 border-mono-700 flex items-center justify-center text-xs text-mono-300"
+                            title={`${extra} more contributors`}
+                            aria-label={`${extra} more contributors`}
+                          >
+                            +{extra}
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
               <button

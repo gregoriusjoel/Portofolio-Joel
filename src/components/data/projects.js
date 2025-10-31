@@ -101,10 +101,34 @@ export const projects = [
         linkedin: "https://linkedin.com/in/gregoriusjoel"
       },
       { 
-        name: "UI/UX Designer", 
-        role: "Design Lead", 
+        name: "Sherina Nur Syabania", 
+        role: "UI/UX Designer", 
         avatar: "bx-palette",
-        linkedin: "https://linkedin.com/in/uiux-designer"
+        linkedin: "https://www.linkedin.com/in/sherina-nur-syabania/"
+      },
+      { 
+        name: "Della Novia Ramandha", 
+        role: "UI/UX Designer", 
+        avatar: "bx-palette",
+        linkedin: "https://www.linkedin.com/in/dellanoviar/"
+      },
+      { 
+        name: "Aurelia Sabrina Larasati", 
+        role: "UI/UX Designer", 
+        avatar: "bx-palette",
+        linkedin: "https://www.linkedin.com/in/aurelia-sabrina-larasati-3a4982229/"
+      },
+      { 
+        name: "Azkhal Zavier", 
+        role: "Full Stack Developer", 
+        avatar: "bx-code-alt",
+        linkedin: "https://www.linkedin.com/in/azkhal-zavier/"
+      },
+      { 
+        name: "Muhamad Repiyan Riski", 
+        role: "Full Stack Developer", 
+        avatar: "bx-code-alt",
+        linkedin: "https://www.linkedin.com/in/muhamad-repiyan/"
       }
     ]
   },
@@ -129,7 +153,7 @@ export const projects = [
     contributors: [
       { 
         name: "Gregorius Joel", 
-        role: "Frontend Developer", 
+        role: "Frontend Developer | Project Manager", 
         avatar: "bx-code-curly",
         linkedin: "https://linkedin.com/in/gregorius-joel"
       }
@@ -246,6 +270,205 @@ export const projects = [
         role: "Domain Expert", 
         avatar: "bx-user-check",
         linkedin: "https://linkedin.com"
+      }
+    ]
+  },
+  {
+    title: "Rekrutmen KOMSOS BMV Katedral Bogor 2025",
+    description: {
+      id: "Rekrutmen KOMSOS BMV Katedral Bogor 2025 — Bergabunglah menjadi relawan! Daftarkan dirimu sekarang untuk pelatihan singkat, pengalaman kegiatan sosial, dan kesempatan berbagi. Ayo ikut berkontribusi — daftar segera.",
+      en: "KOMSOS BMV Cathedral Bogor 2025 recruitment — Join us as a volunteer! Sign up now for short training, hands-on social activities, and a chance to make an impact. Be part of the team — register today."
+    },
+    image: "#", 
+    demo: "https://www.instagram.com/reel/DQL0-tRD8Tc/",
+    video: "https://www.instagram.com/reel/DQL0-tRD8Tc/embed",
+    github: "#",
+  platform: "Instagram",
+  location: "Bogor",
+  screenshots: [],
+    status: "completed",
+    technologies: ["Capcut"],
+    category: "video",
+    rating: "4.7",
+    duration: "3 Hari",
+    year: "2025",
+    contributors: [
+      {
+        name: "Gregorius Joel",
+        role: "Video Editor",
+        avatar: "bx-video",
+        linkedin: "https://linkedin.com/in/gregorius-joel"
+      }
+    ]
+  },
+  {
+    title: "Bercerita Bersama KOMSOS BMV Katedral Bogor dan KOMSOS Katedral Bandung",
+    description: {
+      id: "Proyek video dokumentasi kunjungan KOMSOS BMV Katedral Bogor ke KOMSOS Katedral Bandung untuk studi banding, berbagi cerita, dan kegiatan bersama. Video menampilkan momen kegiatan, wawancara, dan rangkuman acara.",
+      en: "Video documenting the visit of KOMSOS BMV Katedral Bogor to KOMSOS Katedral Bandung for a comparative study, shared storytelling, and joint activities. The reel showcases event moments, interviews, and a highlights summary."
+    },
+    image: "#",
+    demo: "https://www.instagram.com/reel/DO0FwL1j6Hn/?utm_source=ig_web_copy_link&igsh=MW5oZnM0dTRlc2d2cA==",
+    video: "https://www.instagram.com/reel/DO0FwL1j6Hn/embed",
+    github: "#",
+  platform: "Instagram",
+  location: "Bogor / Bandung",
+  screenshots: [],
+    status: "completed",
+    technologies: ["Capcut", "Premiere Pro"],
+    category: "video",
+    rating: "4.6",
+    duration: "2 Hari",
+    year: "2026",
+    contributors: [
+      {
+        name: "Gregorius Joel",
+        role: "Video Editor",
+        avatar: "bx-video",
+        linkedin: "https://linkedin.com/in/gregorius-joel"
+      }
+    ]
+  },
+  {
+    title: "Siniar Teman Cerita",
+    description: {
+      id: "Video pendek (YouTube) — lihat cuplikan di link. Ditambahkan ke portofolio sebagai contoh video berdurasi pendek.",
+      en: "Short YouTube video — see the clip at the link. Added to portfolio as an example of short-format video."
+    },
+    image: "",
+    demo: "https://youtu.be/OE3feTgNN5A",
+    video: "https://www.youtube.com/embed/OE3feTgNN5A",
+    github: "#",
+    platform: "YouTube",
+    location: "https://youtu.be/OE3feTgNN5A?si=tO7szQVR-oh1cjYq",
+    screenshots: [],
+    status: "completed",
+    technologies: ["Video Editing"],
+    category: "video",
+    rating: "4.5",
+    duration: "",
+    year: "2024",
+    contributors: [
+      {
+        name: "Gregorius Joel",
+        role: "Video Editor",
+        avatar: "bx-video",
+        linkedin: "https://linkedin.com/in/gregorius-joel"
+      }
+    ]
+  },
+  {
+    title: "Wedding Highlights",
+    description: {
+      id: "Video pendek (YouTube) — ditambahkan ke portofolio sebagai contoh konten video. Lihat link untuk full clip.",
+      en: "Short YouTube video — added to the portfolio as a sample of short-format content. See the link for the full clip."
+    },
+    image: "",
+    demo: "https://www.youtube.com/watch?v=dx1-iQG4p3I",
+    video: "https://www.youtube.com/embed/dx1-iQG4p3I",
+    github: "#",
+    platform: "YouTube",
+    location: "",
+    screenshots: [],
+    status: "completed",
+    technologies: ["Video Editing"],
+    category: "video",
+    rating: "4.5",
+    duration: "",
+    year: "2023",
+    contributors: [
+      {
+        name: "Gregorius Joel",
+        role: "Video Editor",
+        avatar: "bx-video",
+        linkedin: "https://linkedin.com/in/gregorius-joel"
+      }
+    ]
+  }
+  ,
+  {
+    title: "Teaser Podcast",
+    description: {
+      id: "Cuplikan teaser untuk podcast 'Siniar Teman Cerita dan Joki' — Segera hadir: Season 4. Menampilkan potongan tema episode, suasana, dan pengenalan host/guest untuk membangkitkan antusiasme pendengar dan mengundang mereka mengikuti season baru.",
+      en: "Teaser for the podcast 'Siniar Teman Cerita dan Joki' — Coming soon: Season 4. Showcasing episode themes, atmosphere, and host/guest introductions to build excitement and invite listeners to follow the new season."
+    },
+    image: "",
+    demo: "https://www.instagram.com/p/DLCtUfnyfce/",
+    video: "https://www.instagram.com/p/DLCtUfnyfce/embed",
+    github: "#",
+    platform: "Instagram",
+    location: "",
+    screenshots: [],
+    status: "completed",
+    technologies: ["Capcut"],
+    category: "video",
+    rating: "4.6",
+    duration: "",
+    year: "2025",
+    contributors: [
+      {
+        name: "Gregorius Joel",
+        role: "Video Editor",
+        avatar: "bx-video",
+        linkedin: "https://linkedin.com/in/gregorius-joel"
+      }
+    ]
+  }
+  ,
+  {
+    title: "Highlight Acara HUT KOMSOS",
+    description: {
+      id: "Highlight singkat acara HUT KOMSOS — kompilasi momen penting seperti sambutan, kegiatan komunitas, dan penampilan khusus. Disunting untuk platform sosial media sebagai dokumentasi dan materi promosi komunitas.",
+      en: "Short highlights of the KOMSOS anniversary event — a compilation of key moments such as speeches, community activities, and special performances. Edited for social media platforms as documentation and promotional material for the community."
+    },
+    image: "",
+    demo: "https://www.instagram.com/p/DKgi2e6S_Gm/",
+    video: "https://www.instagram.com/p/DKgi2e6S_Gm/embed",
+    github: "#",
+    platform: "Instagram",
+    location: "",
+    screenshots: [],
+    status: "completed",
+    technologies: ["Capcut"],
+    category: "video",
+    rating: "4.6",
+    duration: "",
+    year: "2025",
+    contributors: [
+      {
+        name: "Gregorius Joel",
+        role: "Video Editor",
+        avatar: "bx-video",
+        linkedin: "https://linkedin.com/in/gregorius-joel"
+      }
+    ]
+  }
+  ,
+  {
+    title: "Hari Komsos Sedunia",
+    description: {
+      id: "Dokumentasi singkat peringatan Hari KOMSOS Sedunia — menampilkan rangkaian kegiatan, pesan utama, dan cuplikan partisipasi komunitas. Disusun untuk posting ringkas yang informatif dan sebagai arsip kegiatan.",
+      en: "Short documentation of World KOMSOS Day — showcasing the sequence of activities, key messages, and community participation clips. Prepared for concise informative posts and as an activity archive."
+    },
+    image: "",
+    demo: "https://www.instagram.com/p/DKVp-h3SCR0/",
+    video: "https://www.instagram.com/p/DKVp-h3SCR0/embed",
+    github: "#",
+    platform: "Instagram",
+    location: "",
+    screenshots: [],
+    status: "completed",
+    technologies: ["Capcut"],
+    category: "video",
+    rating: "4.6",
+    duration: "",
+    year: "2025",
+    contributors: [
+      {
+        name: "Gregorius Joel",
+        role: "Video Editor",
+        avatar: "bx-video",
+        linkedin: "https://linkedin.com/in/gregorius-joel"
       }
     ]
   }

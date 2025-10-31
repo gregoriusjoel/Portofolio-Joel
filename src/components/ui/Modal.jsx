@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Modal = ({ isOpen, onClose, images, title }) => {
+const Modal = ({ isOpen, onClose, images, title, videoUrl }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   // All hooks must be called before any conditional returns
@@ -32,15 +32,38 @@ const Modal = ({ isOpen, onClose, images, title }) => {
   }, [isOpen, imageArray.length, onClose]);
   
   if (!isOpen) return null;
-  
-  // Debug log
-  console.log('Modal props:', { isOpen, images, title });
-  
-  if (!images) {
-    console.log('No images provided to modal');
-    return null;
+
+  // If a videoUrl is provided, prefer rendering the video embed instead of images
+  if (videoUrl) {
+    const embedUrl = videoUrl;
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={onClose}>
+        <div className="relative max-w-4xl w-[95vw] max-h-[90vh] m-4 bg-white rounded-2xl shadow-2xl border border-gray-200" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-gray-100 p-4 border-b border-gray-200 rounded-t-2xl flex items-center justify-between">
+            <h3 className="text-lg font-bold text-gray-900 truncate mr-4">{title || 'Video Preview'}</h3>
+            <button onClick={onClose} className="w-10 h-10 bg-gray-200 hover:bg-red-500 hover:text-white text-gray-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div className="p-4 flex items-center justify-center">
+            <div className="w-full h-[70vh] bg-black rounded-lg overflow-hidden">
+              <iframe
+                src={embedUrl}
+                title={title || 'Video Preview'}
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
-  
+
   const currentImage = imageArray[currentImageIndex];
   
   console.log('Current image:', currentImage);
