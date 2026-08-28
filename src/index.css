@@ -1,10 +1,27 @@
 @import "tailwindcss";
 
+@theme {
+  --color-mono-900: #18181b;
+  --color-mono-800: #27272a;
+  --color-mono-700: #3f3f46;
+  --color-mono-600: #52525b;
+  --color-mono-500: #71717a;
+  --color-mono-400: #a1a1aa;
+  --color-mono-300: #d4d4d8;
+  --color-mono-200: #e4e4e7;
+  --color-mono-100: #f4f4f5;
+
+  --color-accent-500: #6b7280;
+  --color-accent-400: #9ca3af;
+  --color-accent-300: #d1d5db;
+}
+
 /* Custom styles */
-body {
+html, body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-anchor: none; /* Prevent scroll jumps and cumulative shift during refresh/animations */
 }
 
 /* Ensure all containers respect viewport width */
@@ -61,4 +78,22 @@ body {
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
+}
+
+/* Smooth language change transition for content */
+@keyframes langCrossFade {
+  0% {
+    opacity: 0.2;
+    filter: blur(4px);
+    transform: scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+.animate-lang-crossfade {
+  animation: langCrossFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

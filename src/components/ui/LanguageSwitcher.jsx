@@ -1,29 +1,52 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 
-const LanguageSwitcher = ({ className = "" }) => {
-  const { language, switchLanguage, isIndonesian, isEnglish } = useLanguage();
+const LanguageSwitcher = ({ className = "", dark = false }) => {
+  const { switchLanguage, isIndonesian, isEnglish } = useLanguage();
 
   return (
-    <div className={`flex items-center gap-2 sm:gap-3 ${className}`}>
+    <div 
+      className={`relative inline-grid grid-cols-2 p-1 w-[80px] h-[32px] rounded-full border backdrop-blur-md select-none transition-all duration-300 ${
+        dark
+          ? 'bg-gray-100 border-gray-200/90 shadow-inner'
+          : 'bg-white/10 border-white/20 shadow-inner'
+      } ${className}`}
+    >
+      {/* Mathematically Symmetrical Sliding Pill */}
+      <div 
+        className={`absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full shadow-md pointer-events-none transition-transform duration-300 ease-out ${
+          dark 
+            ? 'bg-gray-900' 
+            : 'bg-white'
+        }`}
+        style={{
+          transform: isIndonesian ? 'translateX(0%)' : 'translateX(100%)',
+          transitionTimingFunction: 'cubic-bezier(0.34, 1.35, 0.64, 1)'
+        }}
+      />
+
+      {/* Indonesian Button */}
       <button
+        type="button"
         onClick={() => switchLanguage('id')}
-        className={`text-xs sm:text-sm font-medium cursor-pointer transition-all duration-300 px-2 py-1 rounded hover:bg-white/10 ${
+        className={`relative z-10 w-full h-full flex items-center justify-center text-[11px] font-bold tracking-wider cursor-pointer transition-colors duration-200 rounded-full ${
           isIndonesian
-            ? 'text-white font-bold bg-accent-500/20'
-            : 'text-white opacity-60 hover:opacity-100'
+            ? dark ? 'text-white' : 'text-gray-900'
+            : dark ? 'text-gray-500 hover:text-gray-900' : 'text-white/70 hover:text-white'
         }`}
         aria-label="Switch to Indonesian"
       >
         ID
       </button>
-      <span className="text-white opacity-40 text-xs sm:text-sm">|</span>
+
+      {/* English Button */}
       <button
+        type="button"
         onClick={() => switchLanguage('en')}
-        className={`text-xs sm:text-sm font-medium cursor-pointer transition-all duration-300 px-2 py-1 rounded hover:bg-white/10 ${
+        className={`relative z-10 w-full h-full flex items-center justify-center text-[11px] font-bold tracking-wider cursor-pointer transition-colors duration-200 rounded-full ${
           isEnglish
-            ? 'text-white font-bold bg-accent-500/20'
-            : 'text-white opacity-60 hover:opacity-100'
+            ? dark ? 'text-white' : 'text-gray-900'
+            : dark ? 'text-gray-500 hover:text-gray-900' : 'text-white/70 hover:text-white'
         }`}
         aria-label="Switch to English"
       >

@@ -1,4 +1,3 @@
-// Contact
 import React, { useState } from "react";
 import 'boxicons/css/boxicons.min.css';
 import emailjs from '@emailjs/browser';
@@ -20,99 +19,57 @@ const ContactInfo = ({ icon, title, info, link, delay = 0 }) => {
       href={link}
       target={link.startsWith('http') ? '_blank' : '_self'}
       rel={link.startsWith('http') ? 'noopener noreferrer' : ''}
-      className={`group flex items-center gap-4 p-6 bg-mono-800/50 backdrop-blur-sm rounded-2xl border border-mono-700 hover:border-accent-500/50 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 transform hover:scale-[1.02] hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+      className={`group flex items-center gap-4 p-5 sm:p-6 bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl hover:border-gray-300 transition-all duration-300 transform hover:-translate-y-1 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      }`}
     >
-      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-accent-500 to-mono-600 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-accent-500/20">
-        <i className={`bx ${icon} text-mono-100 text-xl`}></i>
+      <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
+        <i className={`bx ${icon} text-2xl`}></i>
       </div>
       <div className="flex-1 min-w-0">
-        <h3 className="font-semibold text-mono-100 group-hover:text-accent-400 transition-colors duration-300">{title}</h3>
-        <p className="text-mono-400 text-sm truncate group-hover:text-mono-300 transition-colors">{info}</p>
+        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
+          {title}
+        </span>
+        <p className="font-bold text-gray-900 text-sm sm:text-base truncate mt-0.5 group-hover:text-black">
+          {info}
+        </p>
       </div>
-      <div className="flex-shrink-0">
-        <svg className="w-5 h-5 text-mono-500 group-hover:text-accent-500 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
+      <div className="w-9 h-9 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-400 group-hover:text-white group-hover:bg-gray-900 group-hover:border-gray-900 transition-all duration-300 flex-shrink-0">
+        <i className="bx bx-right-arrow-alt text-lg"></i>
       </div>
     </a>
   );
 };
 
-const FormField = ({ label, type = "text", name, placeholder, rows, required = true, icon }) => {
-  const { t } = useLanguage();
-  const [value, setValue] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
-  const [error, setError] = useState('');
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-    if (error) setError('');
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-    if (required && !value.trim()) {
-      setError(`${label} ${t('required')}`);
-    }
-  };
-
-  // Reset form field when form is reset
-  React.useEffect(() => {
-    const handleFormReset = () => {
-      setValue('');
-      setError('');
-      setIsFocused(false);
-    };
-
-    // Listen for input events to handle form reset
-    const handleInput = (e) => {
-      if (e.target.name === name && e.target.value === '') {
-        setValue('');
-        setError('');
-        setIsFocused(false);
-      }
-    };
-
-    document.addEventListener('input', handleInput);
-    return () => document.removeEventListener('input', handleInput);
-  }, [name]);
-
+const FormField = ({ label, type = "text", name, placeholder, rows, required = true, icon, error }) => {
   const InputComponent = rows ? 'textarea' : 'input';
 
   return (
     <div className="space-y-2">
-      <label className="block text-mono-200 font-medium">{label}</label>
+      <label className="block text-gray-800 text-xs sm:text-sm font-bold tracking-tight">{label}</label>
       <div className="relative">
         {icon && (
-          <div className={`absolute left-4 text-mono-400 ${rows ? 'top-4' : 'top-1/2 transform -translate-y-1/2'}`}>
+          <div className={`absolute left-4 text-gray-400 ${rows ? 'top-4' : 'top-1/2 transform -translate-y-1/2'}`}>
             {icon}
           </div>
         )}
         <InputComponent
           type={type}
           name={name}
-          value={value}
-          onChange={handleChange}
-          onFocus={() => setIsFocused(true)}
-          onBlur={handleBlur}
           placeholder={placeholder}
           rows={rows}
           required={required}
-          className={`w-full ${icon ? 'pl-12' : 'pl-4'} pr-4 py-3 bg-mono-700/50 border rounded-xl text-mono-100 placeholder-mono-500 focus:outline-none transition-all duration-300 ${
+          className={`w-full ${icon ? 'pl-11' : 'pl-4'} pr-4 py-3 sm:py-3.5 bg-gray-50 border rounded-2xl text-gray-900 placeholder-gray-400 focus:bg-white focus:outline-none transition-all duration-200 text-xs sm:text-sm ${
             error 
-              ? 'border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20' 
-              : isFocused || value
-              ? 'border-accent-500 focus:ring-2 focus:ring-accent-500/20'
-              : 'border-mono-600 hover:border-mono-500'
+              ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20' 
+              : 'border-gray-200 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 hover:border-gray-300'
           }`}
         />
       </div>
       {error && (
-        <p className="text-red-400 text-sm flex items-center gap-2">
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
-          </svg>
-          {error}
+        <p className="text-red-600 text-xs flex items-center gap-1.5 mt-1 font-medium">
+          <i className="bx bx-error-circle text-sm"></i>
+          <span>{error}</span>
         </p>
       )}
     </div>
@@ -120,18 +77,14 @@ const FormField = ({ label, type = "text", name, placeholder, rows, required = t
 };
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, isEnglish } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
   const [mounted, setMounted] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(false);
-  const [formVisible, setFormVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
   React.useEffect(() => {
     setMounted(true);
-    setTimeout(() => setHeaderVisible(true), 200);
-    setTimeout(() => setFormVisible(true), 600);
   }, []);
 
   const validateForm = (formData) => {
@@ -168,10 +121,9 @@ const Contact = () => {
     setSubmitStatus('');
     setFormErrors({});
     
-    // Get form data
-    const formData = new FormData(e.target);
+    const form = e.target;
+    const formData = new FormData(form);
     
-    // Validate form
     const errors = validateForm(formData);
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
@@ -180,36 +132,14 @@ const Contact = () => {
     }
     
     try {
-      // EmailJS configuration dari config file
       const { serviceID, templateID, publicKey } = emailjsConfig;
       
-      // Cek apakah konfigurasi sudah diatur
       if (serviceID === 'YOUR_SERVICE_ID' || templateID === 'YOUR_TEMPLATE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
-        console.warn('EmailJS belum dikonfigurasi. Silakan update file src/config/emailjs.js dengan kredensial EmailJS Anda.');
-        console.log('Untuk mendapatkan kredensial:');
-        console.log('1. Daftar di https://www.emailjs.com/');
-        console.log('2. Buat service email (Gmail, Outlook, dll)');
-        console.log('3. Buat template email');
-        console.log('4. Salin Service ID, Template ID, dan Public Key ke config/emailjs.js');
-        console.log('5. Lihat EMAILJS_SETUP.md untuk panduan lengkap');
-        
-        // Simulasi untuk demo
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         setSubmitStatus('success');
-        e.target.reset();
-        const inputs = e.target.querySelectorAll('input, textarea');
-        inputs.forEach(input => {
-          if (input.name) {
-            const event = new Event('input', { bubbles: true });
-            input.value = '';
-            input.dispatchEvent(event);
-          }
-        });
+        form.reset();
         return;
       }
-      
-      // Initialize EmailJS dengan public key
-      emailjs.init(publicKey);
       
       const templateParams = {
         from_name: formData.get('name'),
@@ -217,73 +147,18 @@ const Contact = () => {
         subject: formData.get('subject'),
         message: formData.get('message'),
         to_email: 'hi.gregoriusjoel@gmail.com',
-        reply_to: formData.get('email'),
-        // Tambahan informasi untuk tracking
-        timestamp: new Date().toLocaleString('id-ID'),
-        user_agent: navigator.userAgent
+        reply_to: formData.get('email')
       };
       
-      // Debug log untuk memonitor EmailJS
-      console.log('🚀 Sending email with EmailJS...');
-      console.log('Service ID:', serviceID);
-      console.log('Template ID:', templateID);
-      console.log('Template Params:', templateParams);
-      
-      // Send email using EmailJS
-      const response = await emailjs.send(serviceID, templateID, templateParams);
-      
-      console.log('📧 EmailJS Response:', response);
-      
-      if (response.status === 200) {
-        setSubmitStatus('success');
-        // Reset form
-        e.target.reset();
-        // Reset all form field values
-        const inputs = e.target.querySelectorAll('input, textarea');
-        inputs.forEach(input => {
-          if (input.name) {
-            // Trigger onChange to clear local state
-            const event = new Event('input', { bubbles: true });
-            input.value = '';
-            input.dispatchEvent(event);
-          }
-        });
-        
-        // Track successful submission
-        console.log('Email berhasil dikirim:', templateParams.from_name);
-      } else {
-        throw new Error(`EmailJS responded with status ${response.status}`);
-      }
-      
-    } catch (error) {
-      console.error('❌ Error sending email:', error);
-      console.error('Error details:', {
-        message: error.message,
-        status: error.status,
-        text: error.text,
-        stack: error.stack
-      });
+      await emailjs.send(serviceID, templateID, templateParams, publicKey);
+      setSubmitStatus('success');
+      form.reset();
+    } catch (err) {
+      console.error('Email send failed:', err);
       setSubmitStatus('error');
-      
-      // Set specific error message based on error type
-      if (error.message?.includes('network') || error.message?.includes('fetch')) {
-        setFormErrors({ general: t('networkError') });
-      } else if (error.message?.includes('403')) {
-        setFormErrors({ general: t('accessDenied') });
-      } else if (error.message?.includes('404')) {
-        setFormErrors({ general: t('serviceNotFound') });
-      } else {
-        setFormErrors({ general: t('unexpectedError') });
-      }
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    setIsSubmitting(false);
-    
-    // Reset status after 5 seconds
-    setTimeout(() => {
-      setSubmitStatus('');
-      setFormErrors({});
-    }, 5000);
   };
 
   const contactMethods = [
@@ -291,205 +166,194 @@ const Contact = () => {
       icon: "bx-envelope",
       title: t('email'),
       info: "hi.gregoriusjoel@gmail.com",
-      link: "mailto:hi.gregoriusjoel@gmail.com"
-    },
-    {
-      icon: "bx-phone",
-      title: t('whatsapp'),
-      info: "+62 822-8226-2157",
-      link: "https://wa.me/6282282262157"
+      link: "https://mail.google.com/mail/?view=cm&fs=1&to=hi.gregoriusjoel@gmail.com"
     },
     {
       icon: "bxl-linkedin-square",
       title: t('linkedin'),
-      info: "linkedin.com/in/gregorius-joel",
+      info: "Gregorius Joel",
       link: "https://www.linkedin.com/in/gregorius-joel/"
     },
     {
       icon: "bxl-github",
       title: t('github'),
-      info: "github.com/gregoriusjoel",
+      info: "@gregoriusjoel",
       link: "https://github.com/gregoriusjoel"
     }
   ];
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 flex items-center pt-2 pb-20">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,_rgba(120,119,198,0.3),_transparent_50%)] opacity-40"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,_rgba(255,111,97,0.2),_transparent_50%)] opacity-30"></div>
-      
-      {/* Animated Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-accent-500/10 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 8 + 4}px`,
-              height: `${Math.random() * 8 + 4}px`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${Math.random() * 20 + 10}s`
-            }}
-          />
-        ))}
-      </div>
+    <section className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-gray-100 text-gray-900 pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto w-full">
+        
+        {/* Header */}
+        <div className={`text-center mb-10 sm:mb-14 transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-xs font-semibold text-gray-700 mb-3 shadow-sm">
+            <i className="bx bx-message-square-dots text-sm text-gray-900"></i>
+            <span>{isEnglish ? "Get In Touch" : "Hubungi Saya"}</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight mb-3">
+            {t('contactTitle')}
+          </h1>
+          <div className="w-16 sm:w-20 h-1 bg-gray-900 mx-auto rounded-full mb-3"></div>
+          <p className="text-xs sm:text-sm md:text-base text-gray-600 max-w-xl mx-auto px-4 font-normal leading-relaxed">
+            {t('contactDescription')}
+          </p>
+        </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <div className={`transition-all duration-1000 ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-              <h2 className="text-4xl lg:text-5xl font-bold text-mono-100 mb-2">
-                {t('contactTitle')}
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-500 to-mono-400">
-                  {t('contactSubtitle')}
+          {/* Left Column: Contact Channels & Status */}
+          <div className="lg:col-span-5 space-y-4 sm:space-y-5">
+            {/* Availability Status Card */}
+            <div className={`p-6 bg-white rounded-3xl border border-gray-200/90 shadow-sm transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                 </span>
-              </h2>
-              <p className="text-mono-300 text-lg leading-relaxed">
-                {t('contactDescription')}
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+                  {isEnglish ? "Available for Work" : "Tersedia untuk Project"}
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
+                {isEnglish 
+                  ? "Open for freelance opportunities, web development, and UI/UX design collaboration." 
+                  : "Menerima kesempatan freelance, kolaborasi web development, serta desain UI/UX."}
               </p>
+              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 font-medium">
+                <span className="flex items-center gap-1.5">
+                  <i className="bx bx-map text-sm text-gray-700"></i>
+                  <span>Indonesia (UTC+7)</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <i className="bx bx-time text-sm text-gray-700"></i>
+                  <span>&lt; 24h Response</span>
+                </span>
+              </div>
             </div>
 
-            {/* Contact Methods */}
-            <div className="space-y-4">
-              {contactMethods.map((method, index) => (
-                <ContactInfo
-                  key={index}
-                  icon={method.icon}
-                  title={method.title}
-                  info={method.info}
-                  link={method.link}
-                  delay={800 + index * 100}
-                />
-              ))}
-            </div>
+            {/* Contact Channels */}
+            {contactMethods.map((method, index) => (
+              <ContactInfo
+                key={index}
+                icon={method.icon}
+                title={method.title}
+                info={method.info}
+                link={method.link}
+                delay={mounted ? index * 100 : 0}
+              />
+            ))}
           </div>
 
-          {/* Contact Form */}
-          <div className="lg:pl-8 flex">
-            <div className={`bg-mono-800/30 backdrop-blur-xl rounded-3xl border border-mono-700/50 p-8 shadow-2xl transition-all duration-1000 w-full flex flex-col ${formVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-            <h3 className="text-2xl font-bold text-mono-100 mb-6 flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-accent-500 to-mono-600 rounded-lg flex items-center justify-center">
-                <i className="bx bx-envelope text-mono-100 text-lg"></i>
+          {/* Right Column: Premium Contact Form */}
+          <div className={`lg:col-span-7 transition-all duration-700 delay-150 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+            <div className="bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-8 lg:p-10 shadow-xl shadow-gray-200/50">
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
+                <div className="w-10 h-10 bg-gray-900 text-white rounded-2xl flex items-center justify-center text-lg shadow-md flex-shrink-0">
+                  <i className="bx bx-envelope"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 leading-tight">{t('sendMessage')}</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {isEnglish ? "Fill in the details and I'll get back to you shortly." : "Isi formulir berikut dan saya akan segera merespons."}
+                  </p>
+                </div>
               </div>
-              {t('sendMessage')}
-            </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-between">
-              <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className={`transition-all duration-700 ${formVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`} style={{ transitionDelay: '900ms' }}>
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <FormField
                     label={t('fullName')}
                     name="name"
                     placeholder={t('fullNamePlaceholder')}
-                    icon={<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"/></svg>}
+                    error={formErrors.name}
+                    icon={<i className="bx bx-user text-base"></i>}
                   />
-                </div>
-                <div className={`transition-all duration-700 ${formVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`} style={{ transitionDelay: '1000ms' }}>
                   <FormField
                     label={t('email')}
                     type="email"
                     name="email"
                     placeholder={t('emailPlaceholder')}
-                    icon={<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>}
+                    error={formErrors.email}
+                    icon={<i className="bx bx-envelope text-base"></i>}
                   />
                 </div>
-              </div>
 
-              <div className={`transition-all duration-700 ${formVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`} style={{ transitionDelay: '1100ms' }}>
                 <FormField
                   label={t('subject')}
                   name="subject"
                   placeholder={t('subjectPlaceholder')}
-                  icon={<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clipRule="evenodd"/></svg>}
+                  error={formErrors.subject}
+                  icon={<i className="bx bx-bookmark text-base"></i>}
                 />
-              </div>
 
-              <div className={`transition-all duration-700 ${formVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`} style={{ transitionDelay: '1200ms' }}>
                 <FormField
                   label={t('message')}
                   name="message"
                   placeholder={t('messagePlaceholder')}
-                  rows="5"
-                  icon={<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd"/></svg>}
+                  rows="4"
+                  error={formErrors.message}
+                  icon={<i className="bx bx-edit-alt text-base"></i>}
                 />
-              </div>
-              </div>
 
-              <div className={`transition-all duration-700 ${formVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`} style={{ transitionDelay: '1300ms' }}>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 ${
+                  className={`w-full flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-[1.01] cursor-pointer text-xs sm:text-sm ${
                     isSubmitting
-                      ? 'bg-mono-600 text-mono-400 cursor-not-allowed'
+                      ? 'bg-gray-400 text-white cursor-not-allowed'
                       : submitStatus === 'success'
-                      ? 'bg-green-500 text-mono-100 hover:shadow-lg hover:shadow-green-500/25'
+                      ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
                       : submitStatus === 'error'
-                      ? 'bg-red-500 text-mono-100 hover:shadow-lg hover:shadow-red-500/25'
-                      : 'bg-gradient-to-r from-accent-500 to-mono-600 text-mono-100 hover:from-accent-400 hover:to-mono-500 hover:shadow-xl hover:shadow-accent-500/25'
+                      ? 'bg-red-600 text-white shadow-lg shadow-red-600/20'
+                      : 'bg-gray-900 text-white hover:bg-black shadow-xl shadow-gray-900/15'
                   }`}
                 >
                   {isSubmitting ? (
                     <>
-                      <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                        <path className="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                      </svg>
-                      {t('sending')}
+                      <i className="bx bx-loader-alt bx-spin text-lg"></i>
+                      <span>{t('sending')}</span>
                     </>
                   ) : submitStatus === 'success' ? (
                     <>
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                      </svg>
-                      {t('messageSent')}
+                      <i className="bx bx-check-circle text-lg"></i>
+                      <span>{t('messageSent')}</span>
                     </>
                   ) : submitStatus === 'error' ? (
                     <>
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
-                      </svg>
-                      {t('sendFailed')}
+                      <i className="bx bx-error-circle text-lg"></i>
+                      <span>{t('sendFailed')}</span>
                     </>
                   ) : (
                     <>
-                      <i className="bx bx-paper-plane text-lg transition-transform group-hover:translate-x-1"></i>
-                      {t('sendButton')}
+                      <i className="bx bx-paper-plane text-lg"></i>
+                      <span>{t('sendButton')}</span>
                     </>
                   )}
                 </button>
-              </div>
-            </form>
+              </form>
 
-            {submitStatus === 'success' && (
-              <div className="mt-4 p-4 bg-green-500/10 border border-green-500/20 rounded-xl">
-                <p className="text-green-400 text-sm flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                  </svg>
-                  {t('successMessage')}
-                </p>
-              </div>
-            )}
-            
-            {(submitStatus === 'error' || formErrors.general) && (
-              <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
-                <p className="text-red-400 text-sm flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
-                  </svg>
-                  {formErrors.general || t('errorMessage')}
-                </p>
-              </div>
-            )}
+              {submitStatus === 'success' && (
+                <div className="mt-5 p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-start gap-3">
+                  <i className="bx bx-check-circle text-xl text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                  <p className="text-emerald-800 text-xs sm:text-sm leading-relaxed">
+                    {t('successMessage')}
+                  </p>
+                </div>
+              )}
+              
+              {(submitStatus === 'error' || formErrors.general) && (
+                <div className="mt-5 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3">
+                  <i className="bx bx-error-circle text-xl text-red-600 mt-0.5 flex-shrink-0"></i>
+                  <p className="text-red-800 text-xs sm:text-sm leading-relaxed">
+                    {formErrors.general || t('errorMessage')}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+
         </div>
       </div>
     </section>

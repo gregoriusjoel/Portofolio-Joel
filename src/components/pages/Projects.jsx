@@ -6,23 +6,17 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import 'boxicons/css/boxicons.min.css';
 
 const Projects = () => {
-  const { t } = useLanguage();
+  const { t, isEnglish } = useLanguage();
   const [filter, setFilter] = useState('all');
   const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(false);
-  const [filtersVisible, setFiltersVisible] = useState(false);
 
   React.useEffect(() => {
     setMounted(true);
-    setTimeout(() => setHeaderVisible(true), 200);
-    setTimeout(() => setFiltersVisible(true), 600);
   }, []);
 
   const handlePreviewClick = (project) => {
-    console.log('Preview clicked for project:', project);
-    console.log('Project screenshots:', project.screenshots);
     setSelectedProject(project);
     setIsModalOpen(true);
   };
@@ -32,92 +26,109 @@ const Projects = () => {
     setSelectedProject(null);
   };
 
+  const categoryPriority = { web: 1, android: 2, design: 3, video: 4 };
+
   const filteredProjects = (filter === 'all' 
-    ? projects 
+    ? [...projects] 
     : projects.filter(project => project.category === filter))
-    .sort((a, b) => parseInt(b.year) - parseInt(a.year)); // Sort by year, newest first
+    .sort((a, b) => {
+      // 1. In-progress status always comes first at the very beginning
+      const aProgress = a.status === 'in-progress' ? 0 : 1;
+      const bProgress = b.status === 'in-progress' ? 0 : 1;
+      if (aProgress !== bProgress) return aProgress - bProgress;
+
+      // 2. Category order (Web -> Android -> Design -> Video) when viewing all
+      if (filter === 'all') {
+        const catDiff = (categoryPriority[a.category] || 99) - (categoryPriority[b.category] || 99);
+        if (catDiff !== 0) return catDiff;
+      }
+
+      // 3. Year newest first
+      return parseInt(b.year) - parseInt(a.year);
+    });
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-mono-800 via-mono-700 to-mono-800 text-mono-100 pt-1 pb-12 px-6">
+    <section className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-gray-100 text-gray-900 pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
+        
         {/* Header */}
-        <div className={`text-center mb-12 transition-all duration-1000 ${headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent">
+        <div className={`text-center mb-10 sm:mb-14 transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-xs font-semibold text-gray-700 mb-3 shadow-sm">
+            <i className="bx bx-folder-open text-sm text-gray-900"></i>
+            <span>{isEnglish ? "Featured Works" : "Portofolio Pilihan"}</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 text-gray-900 tracking-tight">
             {t('myProjects')}
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-accent-500 to-mono-400 mx-auto rounded-full mb-4"></div>
-          <p className="text-mono-400 max-w-2xl mx-auto mb-6">
+          </h1>
+          <div className="w-16 sm:w-20 h-1 bg-gray-900 mx-auto rounded-full mb-3"></div>
+          <p className="text-xs sm:text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4 font-normal leading-relaxed">
             {t('projectsDescription')}
           </p>
 
-          {/* Filter Buttons */}
-          <div className={`flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 transition-all duration-1000 ${filtersVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          {/* Filter Pill Buttons */}
+          <div className={`flex flex-wrap justify-center gap-2 sm:gap-2.5 mt-8 transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
             {[
-              { key: 'all', label: t('allProjects'), icon: 'bx-target-lock' },
+              { key: 'all', label: t('allProjects'), icon: 'bx-grid-alt' },
               { key: 'web', label: t('webDevelopment'), icon: 'bx-laptop' },
               { key: 'android', label: t('androidApps'), icon: 'bx-mobile-alt' },
               { key: 'design', label: t('uiuxDesign'), icon: 'bx-palette' },
-              { key: 'video', label: 'Video', icon: 'bx-film' }
-            ].map((category, index) => (
+              { key: 'video', label: 'Video & Editing', icon: 'bx-film' }
+            ].map((category) => (
               <button
                 key={category.key}
                 onClick={() => setFilter(category.key)}
-                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full font-medium transition-all duration-500 flex items-center gap-1 sm:gap-2 hover:scale-105 hover:-translate-y-1 border-2 border-black text-xs sm:text-sm md:text-base ${
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 text-xs sm:text-sm cursor-pointer ${
                   filter === category.key
-                    ? 'bg-gradient-to-r from-accent-500 to-mono-600 text-mono-100 shadow-lg shadow-accent-500/25 hover:from-accent-400 hover:to-mono-500 hover:shadow-xl hover:shadow-accent-500/40'
-                    : 'bg-mono-700/50 text-mono-300 hover:bg-mono-600/50 hover:text-mono-200 hover:shadow-lg hover:border-accent-500'
+                    ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20 scale-105'
+                    : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-black shadow-xs'
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <i className={`bx ${category.icon} transition-transform duration-300 hover:scale-125 text-sm sm:text-base`}></i>
-                <span className="hidden sm:inline">{category.label}</span>
-                <span className="sm:hidden">{category.label.split(' ')[0]}</span>
+                <i className={`bx ${category.icon} text-sm`}></i>
+                <span>{category.label}</span>
               </button>
             ))}
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProjects.map((project, index) => (
             <ProjectCard
-              key={index}
+              key={project.id || index}
               project={project}
-              delay={filtersVisible ? 1000 + index * 200 : 0}
+              delay={mounted ? 150 + index * 80 : 0}
               onPreviewClick={handlePreviewClick}
             />
           ))}
         </div>
 
-        {/* Call to Action */}
-        <div className={`mt-16 text-center transition-all duration-1000 delay-2000 ${filtersVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <div className="bg-gradient-to-r from-mono-800 to-mono-700 p-8 rounded-2xl border border-mono-600 max-w-2xl mx-auto hover:border-accent-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent-500/10 hover:scale-105">
-            <h3 className="text-2xl font-semibold mb-4">{t('projectsCtaTitle')}</h3>
-            <p className="text-mono-400 mb-6">
-              {t('projectsCtaDescription')}
-            </p>
-            <a 
-              href="/contact" 
-              className="group relative inline-flex items-center gap-2 px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 bg-black text-white rounded-full font-semibold border-2 border-gray-700 overflow-hidden text-sm sm:text-base"
-            >
-              {/* Shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              
-              <span className="relative flex items-center gap-2">
-                {t('projectsCtaButton')}
-                <svg className="w-5 h-5 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
-              
-              {/* Pulsing border */}
-              <div className="absolute inset-0 rounded-full border-2 border-accent-300 opacity-0 group-hover:opacity-100 group-hover:animate-ping"></div>
-            </a>
+        {/* Call to Action Banner */}
+        <div className={`mt-16 sm:mt-20 text-center transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+          <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white p-8 sm:p-12 rounded-3xl shadow-2xl relative overflow-hidden max-w-3xl mx-auto">
+            {/* Ambient glows */}
+            <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full filter blur-2xl pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full filter blur-2xl pointer-events-none"></div>
+
+            <div className="relative z-10">
+              <h3 className="text-2xl sm:text-3xl font-black mb-3 text-white">
+                {t('projectsCtaTitle')}
+              </h3>
+              <p className="text-gray-300 mb-6 text-xs sm:text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+                {t('projectsCtaDescription')}
+              </p>
+              <a 
+                href="/contact" 
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm"
+              >
+                <span>{t('projectsCtaButton')}</span>
+                <i className="bx bx-right-arrow-alt text-lg"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Modal - Level layar penuh */}
+      {/* Modal Preview */}
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

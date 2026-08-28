@@ -2,97 +2,95 @@ export const experiences = [
   {
     id: 1,
     title: {
-      id: "Web Developer & UI/UX Designer",
-      en: "Web Developer & UI/UX Designer"
+      id: "Software Engineer",
+      en: "Software Engineer"
     },
-    company: "Petrikor",
+    company: "Naradata ID",
     period: {
-      id: "2023 - Present",
-      en: "2023 - Present"
+      id: "Desember 2025 - Sekarang",
+      en: "December 2025 - Present"
     },
     type: {
-      id: "Freelance",
-      en: "Freelance"
+      id: "Full Time",
+      en: "Full Time"
     },
     responsibilities: {
       id: [
-        "Membangun website company profile dan landing page yang responsif dan modern",
-        "Kolaborasi dengan tim UI/UX untuk mengimplementasikan desain yang interaktif",
-        "Menerapkan Tailwind CSS dan React.js untuk styling dan development yang efisien",
-        "Optimasi performa website dan implementasi best practices SEO",
-        "Mentoring junior developer dan code review untuk maintain kualitas kode"
+        "Mengembangkan dan memelihara aplikasi web skala enterprise menggunakan Laravel dan MySQL.",
+        "Membangun sistem backend yang scalable dan RESTful API untuk mendukung integrasi proses bisnis.",
+        "Berkolaborasi erat dengan tim UI/UX, QA, dan stakeholders untuk menghadirkan solusi digital yang terukur.",
+        "Mengoptimalkan performa, keamanan sistem, dan kualitas kode melalui pengujian berkala dan refactoring.",
+        "Memantau, melakukan debugging, dan menjaga stabilitas aplikasi di lingkungan produksi (production)."
       ],
       en: [
-        "Building responsive and modern company profile websites and landing pages",
-        "Collaborating with UI/UX team to implement interactive designs",
-        "Applying Tailwind CSS and React.js for efficient styling and development",
-        "Website performance optimization and SEO best practices implementation",
-        "Mentoring junior developers and code review to maintain code quality"
+        "Developed and maintained enterprise web applications using Laravel and MySQL.",
+        "Built scalable backend systems and RESTful APIs to support core business processes and integrations.",
+        "Collaborated with UI/UX designers, QA engineers, and stakeholders to deliver high-impact digital solutions.",
+        "Optimized system performance, application security, and code quality through continuous testing and refactoring.",
+        "Monitored, debugged, and maintained application reliability and stability in production environments."
       ]
     },
-    technologies: ["React.js", "Tailwind CSS", "TypeScript", "Git", "Figma"]
+    technologies: ["Laravel", "MySQL", "PHP", "RESTful API", "Git", "Postman", "Linux"]
   },
   {
     id: 2,
     title: {
-      id: "Web Developer",
-      en: "Web Developer"
+      id: "Web Development & Video Editor",
+      en: "Web Development & Video Editor"
     },
-    company: "Komsos",
+    company: "Petrikor",
     period: {
-      id: "2023 - Present",
-      en: "2023 - Present"
+      id: "Mei 2022 - Desember 2025",
+      en: "May 2022 - December 2025"
     },
     type: {
-      id: "Freelance",
-      en: "Freelance"
+      id: "Contract / Freelance",
+      en: "Contract / Freelance"
     },
     responsibilities: {
       id: [
-        "Update konten website dan pemeliharaan rutin untuk memastikan kelancaran operasional",
-        "Melakukan maintenance dan troubleshooting issue pada website yang sudah live",
-        "Optimasi SEO dan performance website untuk meningkatkan ranking",
-        "Backup data dan monitoring keamanan website secara berkala"
+        "Mengembangkan dan memelihara website resmi perusahaan menggunakan React.js dan Laravel.",
+        "Berkolaborasi dengan desainer UI/UX untuk mengimplementasikan antarmuka web yang responsif dan ramah pengguna.",
+        "Mengelola dan mengatur seluruh operasional teknis yang berjalan di ekosistem Web Petrikor.",
+        "Bertanggung jawab atas dokumentasi audio visual dan video editing event Petrikor secara konsisten (2 video per bulan)."
       ],
       en: [
-        "Website content updates and routine maintenance to ensure operational smoothness",
-        "Performing maintenance and troubleshooting issues on live websites",
-        "SEO and website performance optimization to improve rankings",
-        "Regular data backup and website security monitoring"
+        "Developed and maintained company web platforms using React.js and Laravel.",
+        "Collaborated with UI/UX designers to implement responsive, user-friendly, and interactive web layouts.",
+        "Regulated and supervised all technical operations and maintenance across the Petrikor web ecosystem.",
+        "Responsible for video documentation and post-production video editing for Petrikor events (2 videos monthly)."
       ]
     },
-    technologies: ["WordPress", "Figma"]
+    technologies: ["React.js", "Laravel", "Tailwind CSS", "TypeScript", "Adobe Premiere Pro", "Filmora", "Figma"]
   },
   {
     id: 3,
     title: {
-      id: "PIC Penyiaran & Staff Audio Visual",
-      en: "Broadcast Coordinator & Audio Visual Staff"
+      id: "UI/UX Designer & Web Developer",
+      en: "UI/UX Designer & Web Developer"
     },
-    company: "Komsos",
+    company: "PT. Kinema Systrans Multimedia (Infinite Learning Indonesia)",
     period: {
-      id: "2024 - Present",
-      en: "2024 - Present"
+      id: "Februari 2024 - Juni 2024",
+      en: "February 2024 - June 2024"
     },
     type: {
-      id: "Freelance",
-      en: "Freelance"
+      id: "Study Independent",
+      en: "Study Independent"
     },
     responsibilities: {
       id: [
-        "Update jadwal penyiaran untuk petugas mingguan",
-        "Melakukan kordinasi dengan tim sound system untuk memastikan kelancaran siaran",
-        "Mengedit video dan audio untuk konten mingguan",
-        "Shooting mingguan untuk podcast dan konten lainnya"
+        "Merancang UI/UX komprehensif menggunakan Figma, mencakup wireframe, prototype interaktif, dan design system standar.",
+        "Mengembangkan aplikasi web responsif dan dinamis menggunakan React.js, Node.js, dan MySQL.",
+        "Meningkatkan usability, performa sistem, dan pengalaman pengguna melalui pengujian iteratif dan optimasi berkelanjutan."
       ],
       en: [
-        "Updating broadcast schedules for weekly staff assignments",
-        "Coordinating with sound system team to ensure smooth broadcasting",
-        "Editing video and audio for weekly content",
-        "Weekly shooting for podcasts and other content"
+        "Designed end-to-end UI/UX in Figma, including wireframes, interactive prototypes, and scalable design systems.",
+        "Developed responsive and dynamic web applications using React.js, Node.js, and MySQL databases.",
+        "Enhanced usability, performance, and user experience through rigorous iterative user testing and optimization."
       ]
     },
-    technologies: ["Spreadsheets", "Google Drive", "Google Calendar", "Adobe Premiere Pro", "Capcut", "Filmora"]
+    technologies: ["React.js", "Node.js", "MySQL", "TypeScript", "Tailwind CSS", "Figma", "Git"]
   },
   {
     id: 4,
@@ -111,27 +109,25 @@ export const experiences = [
     },
     responsibilities: {
       id: [
-        "Mengelola project pengembangan website dari planning hingga deployment",
-        "Koordinasi dengan tim developer, designer, dan stakeholder untuk memastikan timeline project",
-        "Melakukan requirements gathering dan analisis kebutuhan klien",
-        "Monitoring progress project menggunakan metodologi Agile dan Scrum",
-        "Quality assurance dan testing untuk memastikan deliverable sesuai standar"
+        "Mengelola project pengembangan website dari tahap planning, sprint development, hingga deployment.",
+        "Koordinasi dengan tim developer, designer, dan stakeholder untuk memastikan timeline project sesuai target.",
+        "Melakukan requirements gathering, backlog prioritization, dan analisis kebutuhan bisnis klien.",
+        "Monitoring progress project menggunakan metodologi Agile & Scrum dan melakukan Quality Assurance."
       ],
       en: [
-        "Managing website development projects from planning to deployment",
-        "Coordinating with developer, designer, and stakeholder teams to ensure project timelines",
-        "Conducting requirements gathering and client needs analysis",
-        "Monitoring project progress using Agile and Scrum methodologies",
-        "Quality assurance and testing to ensure deliverables meet standards"
+        "Managed end-to-end website development projects from initial planning through sprint execution to deployment.",
+        "Coordinated with developers, designers, and stakeholders to guarantee on-time project milestones.",
+        "Conducted requirements gathering, product backlog prioritization, and client business analysis.",
+        "Monitored project progress utilizing Agile and Scrum workflows while leading Quality Assurance testing."
       ]
     },
-    technologies: ["Jira", "Trello", "GitHub", "Figma"]
+    technologies: ["Jira", "Trello", "GitHub", "Figma", "Agile / Scrum"]
   },
   {
     id: 5,
     title: {
-      id: "Redaktur Penyiaran",
-      en: "Broadcast Editor"
+      id: "PIC Penyiaran & Staff Audio Visual",
+      en: "Broadcast Coordinator & Audio Visual Staff"
     },
     company: "Komsos",
     period: {
@@ -144,49 +140,16 @@ export const experiences = [
     },
     responsibilities: {
       id: [
-        "Editing dan review konten siaran radio untuk program harian",
-        "Koordinasi dengan tim produksi untuk scheduling dan timeline siaran",
-        "Quality control audio dan script sebelum dipublikasikan",
-        "Dokumentasi dan arsip konten siaran untuk keperluan evaluasi"
+        "Mengkoordinasikan tim audio visual dan sound engineering untuk kelancaran penyiaran live streaming mingguan.",
+        "Mengedit dan memproduksi konten audio video serta materi promosi podcast mingguan.",
+        "Mengelola pemeliharaan teknis peralatan multimedia dan dokumentasi arsip siaran."
       ],
       en: [
-        "Editing and reviewing radio broadcast content for daily programs",
-        "Coordinating with production team for broadcast scheduling and timelines",
-        "Quality control of audio and scripts before publication",
-        "Documentation and archiving of broadcast content for evaluation purposes"
+        "Coordinated the audiovisual and sound engineering crew to ensure seamless weekly broadcast operations.",
+        "Produced and edited multimedia audio-video assets and promotional weekly podcast releases.",
+        "Managed technical hardware maintenance and digital broadcasting media archiving."
       ]
     },
-    technologies: ["Spreadsheets", "Trello"]
-  },
-  {
-    id: 6,
-    title: {
-      id: "Web Developer & UI/UX Designer",
-      en: "Web Developer & UI/UX Designer"
-    },
-    company: "PT Kinema Systrans Multimedia",
-    period: {
-      id: "2024",
-      en: "2024"
-    },
-    type: {
-      id: "Study Independent",
-      en: "Study Independent"
-    },
-    responsibilities: {
-      id: [
-        "Belajar fundamental web development dan framework modern",
-        "Membangun beberapa proyek sederhana untuk praktik",
-        "Membuat desain UI/UX untuk aplikasi web dan mobile",
-        "Prototyping interaktif menggunakan Figma"
-      ],
-      en: [
-        "Learning web development fundamentals and modern frameworks",
-        "Building several simple projects for practice",
-        "Creating UI/UX designs for web and mobile applications",
-        "Interactive prototyping using Figma"
-      ]
-    },
-    technologies: ["TypeScript", "React.js", "Node.js", "Tailwind CSS", "MySQL", "Git", "Figma"]
+    technologies: ["Adobe Premiere Pro", "CapCut", "Filmora", "Google Workspace"]
   }
 ];

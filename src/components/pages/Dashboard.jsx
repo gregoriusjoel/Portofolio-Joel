@@ -1,5 +1,4 @@
-// Dashboard (Home)
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -11,14 +10,14 @@ const Dashboard = () => {
   const [mounted, setMounted] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   
-  const texts = [
+  const texts = useMemo(() => [
     t('frontendDeveloper'),
     t('backendDeveloper'),
     t('fullstackDeveloper'), 
     t('uiuxDesigner'),
     t('videoEditor'),
     t('graphicDesigner')
-  ];
+  ], [t]);
 
   useEffect(() => {
     setMounted(true);
@@ -50,91 +49,76 @@ const Dashboard = () => {
   }, [currentIndex, textIndex, isDeleting, texts]);
 
   return (
-    <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-mono-900 via-mono-800 to-mono-900 text-mono-100 pt-8 pb-8 px-6">
+    <section className="min-h-screen relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-gray-100 text-gray-900 pt-24 sm:pt-28 pb-16 px-6 flex items-center justify-center">
       {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-mono-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-500 rounded-full mix-blend-multiply filter blur-2xl opacity-10"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-100/50 rounded-full filter blur-3xl opacity-60"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-100/50 rounded-full filter blur-3xl opacity-60"></div>
       </div>
 
-      <div className="relative z-10 flex flex-col justify-center items-center h-full">
+      <div className="relative z-10 flex flex-col justify-center items-center max-w-4xl mx-auto w-full">
         {/* Profile Image */}
-        <div className={`mb-8 relative group transition-all duration-1000 ${mounted ? 'translate-y-0' : 'translate-y-12'}`}>
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-r from-accent-500 to-mono-600 p-1">
-            <div className="w-full h-full rounded-full bg-mono-800 flex items-center justify-center overflow-hidden">
+        <div className={`mb-8 relative group transition-all duration-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-r from-gray-900 to-gray-700 p-1 shadow-xl">
+            <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-[#0d0d12]">
               <img 
-                src="/assets/project/Foto Profile/animasi.png" 
+                src="/assets/project/Foto Profile/icon-jo-black.png" 
                 alt="Joel Profile"
-                className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300"
+                className="w-full h-full object-cover rounded-full group-hover:scale-108 transition-transform duration-300"
               />
             </div>
           </div>
-          <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-mono-800 animate-ping"></div>
-          <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-mono-800"></div>
+          <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 w-5 h-5 md:w-6 md:h-6 bg-green-500 rounded-full border-2 md:border-3 border-white animate-ping pointer-events-none"></div>
+          <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 w-5 h-5 md:w-6 md:h-6 bg-green-500 rounded-full border-2 md:border-3 border-white shadow-md"></div>
         </div>
 
-        <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-2 text-center bg-gradient-to-r from-mono-100 to-accent-500 bg-clip-text text-transparent transition-all duration-1000 delay-300 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+        <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black mb-3 text-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-600 bg-clip-text text-transparent transition-all duration-1000 delay-300 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
           {t('greeting')}
         </h1>
 
         {/* Greeting Text */}
-        <p className={`text-lg md:text-xl text-mono-300 mb-4 text-center transition-all duration-1000 delay-400 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+        <p className={`text-lg md:text-xl text-gray-600 font-medium mb-3 text-center transition-all duration-1000 delay-400 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
           {t('welcomeMessage')}
         </p>
         
+        {/* Animated role text */}
         <div className={`h-10 sm:h-12 mb-6 flex items-center justify-center transition-all duration-1000 delay-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <span className="text-lg sm:text-xl md:text-2xl text-accent-500 font-mono text-center px-2 min-w-0 break-words">
+          <span className="text-xl sm:text-2xl md:text-3xl text-black font-bold font-mono text-center px-4 py-1.5 rounded-xl bg-gray-100 border border-gray-200 shadow-sm">
             {displayText}
-            <span className="animate-pulse">|</span>
+            <span className="animate-pulse text-gray-500">|</span>
           </span>
         </div>
 
-        <div className={`mb-8 text-center max-w-3xl px-4 transition-all duration-1000 delay-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-          <div className="relative">
-            {/* Quote Icon */}
-            <div className="absolute -top-4 -left-4 text-4xl text-accent-500/30 font-serif">"</div>
-            <div className="absolute -bottom-6 -right-4 text-4xl text-accent-500/30 font-serif rotate-180">"</div>
-            
-            {/* Quote Content */}
-            <div className="relative bg-mono-800/30 backdrop-blur-sm border-l-4 border-accent-500 rounded-r-lg p-6 shadow-lg">
-              <blockquote className="text-lg md:text-xl text-mono-300 leading-relaxed italic">
-                "{t('description')}"
-              </blockquote>
-              
-              {/* Quote Attribution */}
-              <div className="mt-4 text-right">
-                <cite className="text-sm text-mono-400 not-italic">— Joel</cite>
-              </div>
+        {/* Quote Box */}
+        <div className={`mb-8 text-center max-w-3xl w-full px-4 transition-all duration-1000 delay-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+          <div className="relative bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 shadow-xl shadow-gray-200/50">
+            <div className="absolute -top-3 left-6 px-3 py-0.5 bg-gray-100 border border-gray-200 rounded-full text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              About Vision
             </div>
-            
-            {/* Decorative Elements */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-accent-500/10 to-transparent rounded-lg -z-10"></div>
+            <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed italic mt-2">
+              "{t('description')}"
+            </blockquote>
+            <div className="mt-4 text-right">
+              <cite className="text-sm font-semibold text-gray-900 not-italic">— Joel</cite>
+            </div>
           </div>
         </div>
 
-        <div className={`flex flex-col sm:flex-row gap-4 mt-8 transition-all duration-1000 delay-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+        {/* Action Buttons */}
+        <div className={`flex flex-col sm:flex-row gap-4 mt-4 transition-all duration-1000 delay-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
           <Link 
             to="/projects" 
-            className="group relative px-8 py-3 bg-black text-white rounded-full font-semibold hover:bg-mono-800 hover:shadow-2xl hover:shadow-black/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 overflow-hidden"
+            className="group relative px-8 py-3.5 bg-gray-900 text-white rounded-full font-semibold hover:bg-black hover:shadow-xl hover:shadow-gray-900/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 flex items-center justify-center gap-2"
           >
-            {/* Shine effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            
-            <span className="relative flex items-center gap-2">
-              {t('viewProjects')} 
-              <svg className="w-5 h-5 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </span>
-            
-            {/* Pulsing border */}
-            <div className="absolute inset-0 rounded-full border-2 border-accent-300 opacity-0 group-hover:opacity-100 group-hover:animate-ping"></div>
+            <span>{t('viewProjects')}</span>
+            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
           </Link>
           
           <Link 
             to="/contact" 
-            className="px-8 py-3 border-2 border-accent-500 text-accent-500 rounded-full font-semibold hover:bg-accent-500 hover:text-mono-900 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+            className="px-8 py-3.5 bg-white border-2 border-gray-300 text-gray-800 rounded-full font-semibold hover:border-black hover:text-black hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 text-center shadow-sm"
           >
             {t('contactMe')}
           </Link>

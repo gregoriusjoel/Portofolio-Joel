@@ -1,0 +1,73 @@
+/* WelcomeAnimation.css - Silky Smooth Kinetic Intro */
+
+.intro-word-mask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  padding: 0.1em 0;
+}
+
+.intro-word {
+  display: inline-block;
+  transform: translateY(115%);
+  opacity: 0;
+  filter: blur(6px);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+.intro-visible .intro-word {
+  transform: translateY(0%);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+.intro-element {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(4px);
+  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+.intro-visible .intro-element {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+.intro-scale {
+  opacity: 0;
+  transform: scale(0.75);
+  filter: blur(8px);
+  transition: transform 1s cubic-bezier(0.34, 1.3, 0.64, 1),
+              opacity 1s cubic-bezier(0.34, 1.3, 0.64, 1),
+              filter 1s cubic-bezier(0.34, 1.3, 0.64, 1);
+  will-change: transform, opacity, filter;
+}
+
+.intro-visible .intro-scale {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+}
+
+/* Subtle breathing glow ring */
+@keyframes softAura {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+.animate-soft-aura {
+  animation: softAura 5s ease-in-out infinite;
+}

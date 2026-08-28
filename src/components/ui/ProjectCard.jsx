@@ -3,15 +3,36 @@ import ContributorsPopup from "./ContributorsPopup";
 import { useLanguage } from '../../contexts/LanguageContext';
 import 'boxicons/css/boxicons.min.css';
 
+const getVideoThumbnail = (project) => {
+  if (project.image && project.image !== '#' && project.image !== '') {
+    return project.image;
+  }
+  const url = project.video || project.demo || '';
+  
+  // YouTube link
+  const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  if (ytMatch && ytMatch[1]) {
+    return `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`;
+  }
+
+  // Instagram Reel / Post link
+  const igMatch = url.match(/instagram\.com\/(?:reel|p|tv)\/([A-Za-z0-9_-]+)/);
+  if (igMatch && igMatch[1]) {
+    return `https://www.instagram.com/p/${igMatch[1]}/media/?size=l`;
+  }
+
+  return null;
+};
+
 const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
   const { t, isEnglish } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [showContributors, setShowContributors] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const translateDuration = (duration) => {
     if (!duration) return '';
-    
     if (isEnglish) {
       return duration.replace(/minggu/gi, 'weeks').replace(/Minggu/gi, 'Weeks');
     }
@@ -30,215 +51,218 @@ const ProjectCard = ({ project, delay = 0, onPreviewClick }) => {
     (project?.contributors && project.contributors.some(c => c.role && c.role.toLowerCase().includes('video')))
   );
 
+  const rawThumbnail = (project.category === 'video' || project.video || (project.demo && project.demo.includes('instagram.com')))
+    ? getVideoThumbnail(project)
+    : (project.image && project.image !== '#' && project.image !== '') ? project.image : null;
+
+  const displayThumbnail = !imgError ? rawThumbnail : null;
+
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, delay);
+    const timer = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timer);
   }, [delay]);
 
   return (
     <div 
-      className={`group relative bg-gradient-to-br from-mono-800 to-mono-700 rounded-2xl overflow-hidden border border-mono-600 hover:border-accent-500/50 transition-all duration-700 hover:shadow-2xl hover:shadow-accent-500/20 transform hover:scale-[1.02] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      className={`group relative bg-white rounded-3xl overflow-hidden border border-gray-200/90 shadow-lg shadow-gray-200/50 hover:shadow-2xl hover:border-gray-300 transition-all duration-500 transform hover:-translate-y-1.5 flex flex-col justify-between ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Project Image or Video Thumbnail (use video embed as thumbnail for video projects) */}
-      <div className="relative h-48 overflow-hidden">
-        {((project.category === 'video') || project.video || (project.demo && project.demo.includes('instagram.com'))) ? (
-          // Use iframe embed of the video as a visual thumbnail. pointer-events-none makes overlay buttons clickable.
-          <div className="w-full h-full bg-gray-900">
-            <iframe
-              src={project.video || (project.demo && project.demo.includes('instagram.com') ? project.demo.replace(/\/?(\?.*)?$/, '/embed') : project.demo)}
-              title={project.title}
-              className="w-full h-full object-cover pointer-events-none border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-mono-900/40 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+      <div>
+        {/* Project Thumbnail */}
+        <div 
+          className="relative h-52 sm:h-56 overflow-hidden bg-gray-950 border-b border-gray-100 cursor-pointer"
+          onClick={() => onPreviewClick(project)}
+        >
+          {displayThumbnail ? (
+            <>
+              <img 
+                src={displayThumbnail}
+                alt={project.title}
+                referrerPolicy="no-referrer"
+                onError={() => setImgError(true)}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/30 group-hover:from-black/70 transition-colors duration-300"></div>
+              {/* Center Play Button Badge for Video */}
+              {(project.category === 'video' || project.video || (project.demo && project.demo.includes('instagram.com'))) && (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-13 h-13 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-xl transform group-hover:scale-110 group-hover:bg-white transition-all duration-300">
+                    <i className="bx bx-play text-3xl ml-0.5"></i>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (project.category === 'video' || project.video || (project.demo && project.demo.includes('instagram.com'))) ? (
+            <div className="w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center relative p-6 text-center">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-13 h-13 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-xl transform group-hover:scale-110 group-hover:bg-white transition-all duration-300">
+                  <i className="bx bx-play text-3xl ml-0.5"></i>
+                </div>
+                <span className="text-xs font-semibold text-gray-300 mt-1 line-clamp-1">{project.title}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+              <i className="bx bx-image text-3xl text-gray-400"></i>
+            </div>
+          )}
+
+          {/* Floating Category & Year Tag (Top-Left) */}
+          <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
+            <span className="px-3 py-1 bg-black/70 backdrop-blur-md text-white rounded-full text-[11px] font-semibold tracking-wide capitalize flex items-center gap-1 shadow-sm">
+              <i className={`bx ${
+                project.category === 'web' ? 'bx-laptop' :
+                project.category === 'android' ? 'bx-mobile-alt' :
+                project.category === 'design' ? 'bx-palette' :
+                project.category === 'video' ? 'bx-film' : 'bx-folder'
+              } text-xs`}></i>
+              <span>{project.category || 'Project'}</span>
+            </span>
           </div>
-        ) : (
-          <>
-            <img 
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-mono-900/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
-          </>
-        )}
-        
-        {/* Overlay with buttons */}
-        <div className={`absolute inset-0 flex items-center justify-center gap-1 sm:gap-2 md:gap-3 transition-all duration-500 flex-wrap p-2 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-          {/* Watch button for video projects (Instagram embed or video property) */}
-          {(project.video || (project.demo && project.demo.includes('instagram.com'))) && (
-            <button
-              onClick={() => onPreviewClick(project)}
-              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/60 text-black rounded-full font-semibold hover:bg-white/80 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
-            >
-              <i className='bx bx-play-circle text-sm'></i>
-              <span className="hidden sm:inline">Watch</span>
-              <span className="sm:hidden">Play</span>
-            </button>
-          )}
-          {/* Demo button - hide for video/editor projects, otherwise show unless excluded by title */}
-          {!isEditorOrVideo && !["Vameratale E-Commerce", "Sistem Kasir Ayam Geprek", "Website BISINDO SIGN Language"].includes(project.title) && (
-            <a 
-              href={project.demo} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
-            >
-              <i className='bx bx-link-external text-sm'></i> 
-              <span className="hidden sm:inline">Live Demo</span>
-              <span className="sm:hidden">Demo</span>
-            </a>
-          )}
-          
-          {/* Code button - hide for video/editor projects, otherwise hide for specific projects by title */}
-          {!isEditorOrVideo && !["Sistem Klinik Gudang", "Petrikor", "Vameratale E-Commerce"].includes(project.title) && (
-            <a 
-              href={project.github} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
-            >
-              <i className='bx bx-code-alt text-sm'></i>
-              <span className="hidden sm:inline">Code</span>
-              <span className="sm:hidden">Code</span>
-            </a>
-          )}
-          
-          {/* Preview - hide for video/editor projects (video projects use Watch instead) */}
-          {!isEditorOrVideo && (
-            <button 
-              onClick={() => onPreviewClick(project)}
-              className="px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 text-black rounded-full font-semibold hover:bg-white/70 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg border-2 border-black text-xs sm:text-sm flex items-center gap-1 sm:gap-2 min-w-0"
-            >
-              <i className='bx bx-image-alt text-sm'></i>
-              <span className="hidden sm:inline">Preview</span>
-              <span className="sm:hidden">View</span>
-            </button>
-          )}
-        </div>
-      </div>
 
-      {/* Project Info */}
-      <div className="p-6">
-        {/* Status Badge */}
-        <div className="mb-3">
-          <span className={`px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 hover:scale-110 flex items-center gap-1 ${
-            project.status === 'completed' 
-              ? 'bg-green-500/20 text-green-400 border border-green-500/30 hover:bg-green-500/30' 
-              : project.status === 'in-progress'
-              ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-500/30'
-              : 'bg-blue-500/20 text-blue-400 border border-blue-500/30 hover:bg-blue-500/30'
+          {/* Floating Status Badge (Top-Right) */}
+          <div className="absolute top-3 right-3 z-10">
+            <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold rounded-full backdrop-blur-md shadow-sm ${
+              project.status === 'completed' 
+                ? 'bg-emerald-500/90 text-white' 
+                : project.status === 'in-progress'
+                ? 'bg-amber-500/90 text-white'
+                : 'bg-blue-500/90 text-white'
+            }`}>
+              {project.status === 'completed' ? (
+                <>
+                  <i className="bx bx-check-circle text-xs"></i>
+                  <span>{t('completed')}</span>
+                </>
+              ) : project.status === 'in-progress' ? (
+                <>
+                  <i className="bx bx-loader-circle bx-spin text-xs"></i>
+                  <span>In Progress</span>
+                </>
+              ) : (
+                <>
+                  <i className="bx bx-bulb text-xs"></i>
+                  <span>Konsep</span>
+                </>
+              )}
+            </span>
+          </div>
+          
+          {/* Action Buttons Overlay */}
+          <div className={`absolute inset-0 z-20 flex items-center justify-center gap-2 transition-all duration-300 backdrop-blur-[3px] p-3 ${
+            isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
           }`}>
-            {project.status === 'completed' ? (
-              <>
-                <i className='bx bx-check-circle'></i> {t('completed')}
-              </>
-            ) : project.status === 'in-progress' ? (
-              <>
-                <i className='bx bx-loader-circle bx-spin'></i> In Progress
-              </>
-            ) : (
-              <>
-                <i className='bx bx-bulb'></i> Konsep
-              </>
+            {(project.video || (project.demo && project.demo.includes('instagram.com'))) && (
+              <button
+                onClick={() => onPreviewClick(project)}
+                className="px-3.5 py-2 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-100 transition-all duration-200 shadow-xl text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer transform hover:scale-105"
+              >
+                <i className="bx bx-play-circle text-base"></i>
+                <span>Watch</span>
+              </button>
             )}
-          </span>
-        </div>
-        
-        <h3 className="text-xl md:text-2xl font-semibold mb-3 text-mono-100 group-hover:text-accent-400 transition-colors duration-300">
-          {project.title}
-        </h3>
-        <p className="text-mono-400 mb-4 leading-relaxed group-hover:text-mono-300 transition-colors duration-300">
-          {getDescription(project.description)}
-        </p>
 
-        {/* Technologies */}
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech, index) => (
+            {/* Demo Button: only rendered if valid demo link exists */}
+            {project.demo && project.demo !== '#' && project.demo.trim() !== '' && !project.demo.includes('instagram.com') && (
+              <a 
+                href={project.demo} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-3.5 py-2 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-100 transition-all duration-200 shadow-xl text-xs sm:text-sm flex items-center gap-1.5 transform hover:scale-105"
+              >
+                <i className="bx bx-link-external text-base"></i> 
+                <span>Demo</span>
+              </a>
+            )}
+
+            {/* Preview Button */}
+            {!isEditorOrVideo && (
+              <button 
+                onClick={() => onPreviewClick(project)}
+                className="px-3.5 py-2 bg-gray-900 text-white rounded-full font-bold hover:bg-black transition-all duration-200 shadow-xl text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer transform hover:scale-105"
+              >
+                <i className="bx bx-images text-base"></i>
+                <span>Preview</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Project Details */}
+        <div className="p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 leading-snug group-hover:text-black transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3 font-normal">
+            {getDescription(project.description)}
+          </p>
+
+          {/* Tech Stack Chips */}
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {project.technologies?.map((tech, index) => (
               <span
                 key={index}
-                className="px-2 py-1 bg-mono-600/50 text-mono-300 rounded-md text-xs border border-mono-500 hover:border-accent-500/50 hover:bg-accent-500/10 hover:text-accent-400 transition-all duration-300 hover:scale-110"
-                style={{ transitionDelay: `${index * 50}ms` }}
+                className="px-2.5 py-0.5 bg-gray-50 text-gray-700 rounded-lg text-[11px] font-semibold border border-gray-200/90 transition-colors hover:bg-gray-900 hover:text-white hover:border-gray-900"
               >
                 {tech}
               </span>
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Project Stats */}
-        <div className="flex items-center justify-between text-sm text-mono-400 pt-4 border-t border-mono-600 group-hover:border-mono-500 transition-colors">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1 group-hover:text-accent-500 transition-colors">
-              <i className='bx bx-star'></i>
-              {project.rating || '5.0'}
-            </span>
-            <span className="flex items-center gap-1 group-hover:text-accent-500 transition-colors">
-              <i className='bx bx-time'></i>
-              {translateDuration(project.duration)}
-            </span>
+      {/* Footer Area: Duration & Team (Star Rating Removed) */}
+      <div className="px-6 pb-6 pt-3.5 border-t border-gray-100 space-y-3">
+        {/* Project Meta Info */}
+        <div className="flex items-center justify-between text-xs text-gray-500">
+          <div>
+            {project.duration ? (
+              <span className="inline-flex items-center gap-1.5 text-gray-600 bg-gray-50 px-2.5 py-1 rounded-md border border-gray-200 font-medium">
+                <i className="bx bx-time-five text-gray-400"></i>
+                <span>{translateDuration(project.duration)}</span>
+              </span>
+            ) : (
+              <span></span>
+            )}
           </div>
-          <span className="text-accent-500 font-medium group-hover:text-accent-400 transition-colors">{project.year}</span>
+          <span className="font-bold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-md text-[11px]">
+            {project.year}
+          </span>
         </div>
 
-        {/* Contributors Section */}
+        {/* Contributors Bar */}
         {project.contributors && project.contributors.length > 0 && (
-          <div className="mt-4 pt-4 border-t border-mono-600 group-hover:border-mono-500 transition-colors">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2">
-                  <i className="bx bx-group text-mono-400 text-sm"></i>
-                  <span className="text-mono-400 text-sm">{t('contributors')}</span>
-                </div>
-                  <div className="flex -space-x-2">
-                  {(() => {
-                    const contributors = Array.isArray(project.contributors) ? project.contributors : [];
-                    const visibleCount = Math.min(3, contributors.length);
-                    const extra = Math.max(0, contributors.length - visibleCount);
-
-                    return (
-                      <>
-                        {contributors.slice(0, visibleCount).map((contributor, index) => (
-                          <div
-                            key={index}
-                            className="w-8 h-8 bg-gradient-to-br from-accent-500 to-mono-600 rounded-full border-2 border-mono-700 flex items-center justify-center text-sm hover:scale-110 transition-transform duration-200 text-white"
-                            title={contributor.name}
-                          >
-                            <i className={`bx ${contributor.avatar}`}></i>
-                          </div>
-                        ))}
-                        {extra > 0 && (
-                          <div
-                            className="w-8 h-8 bg-mono-600 rounded-full border-2 border-mono-700 flex items-center justify-center text-xs text-mono-300"
-                            title={`${extra} more contributors`}
-                            aria-label={`${extra} more contributors`}
-                          >
-                            +{extra}
-                          </div>
-                        )}
-                      </>
-                    );
-                  })()}
-                </div>
+          <div className="pt-2.5 border-t border-gray-100/80 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500 font-medium">{t('contributors')}</span>
+              <div className="flex -space-x-1.5">
+                {project.contributors.slice(0, 3).map((contributor, index) => (
+                  <div
+                    key={index}
+                    className="w-6 h-6 bg-gray-900 rounded-full border-2 border-white flex items-center justify-center text-[10px] text-white shadow-sm"
+                    title={contributor.name}
+                  >
+                    <i className={`bx ${contributor.avatar || 'bx-user'}`}></i>
+                  </div>
+                ))}
               </div>
-              <button
-                onClick={() => setShowContributors(true)}
-                className="text-xs text-accent-400 hover:text-accent-300 hover:underline transition-colors duration-200"
-              >
-                {t('viewTeam')}
-              </button>
             </div>
+            <button
+              onClick={() => setShowContributors(true)}
+              className="text-xs font-semibold text-gray-700 hover:text-black hover:underline cursor-pointer flex items-center gap-1"
+            >
+              <span>{t('viewTeam')}</span>
+              <i className="bx bx-chevron-right text-sm"></i>
+            </button>
           </div>
         )}
       </div>
 
-      {/* Contributors Popup */}
+      {/* Contributors Modal */}
       <ContributorsPopup 
         isOpen={showContributors}
         onClose={() => setShowContributors(false)}

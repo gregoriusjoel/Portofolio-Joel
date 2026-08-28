@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { LanguageProvider } from "./contexts/LanguageContext";
+import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
 import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
+import ScrollToTop from "./components/ui/ScrollToTop";
 import Dashboard from "./components/pages/Dashboard";
 import About from "./components/pages/About";
 import Experience from "./components/pages/Experience";
@@ -10,60 +11,49 @@ import Projects from "./components/pages/Projects";
 import Contact from "./components/pages/Contact";
 import WelcomeAnimation from "./components/ui/WelcomeAnimation";
 
-function App() {
-  const [showWelcome, setShowWelcome] = useState(false); // Start with false
-  const [appReady, setAppReady] = useState(false);
+function AppContent() {
+  const { language } = useLanguage();
+  const [showWelcome, setShowWelcome] = useState(true);
   const [showNavbar, setShowNavbar] = useState(false);
-
-  useEffect(() => {
-    // Check if user has visited before
-    const visited = localStorage.getItem('hasVisited');
-    if (!visited) {
-      setShowWelcome(true); // Show welcome only for first time users
-    } else {
-      // If user has visited before, show navbar immediately
-      setShowNavbar(true);
-    }
-    setAppReady(true); // App is ready to render
-  }, []);
 
   const handleWelcomeComplete = () => {
     setShowWelcome(false);
-    localStorage.setItem('hasVisited', 'true');
-    // Add delay for smooth navbar animation
     setTimeout(() => {
       setShowNavbar(true);
-    }, 300);
+    }, 200);
   };
 
-  // Don't render anything until app is ready
-  if (!appReady) {
-    return <div className="min-h-screen bg-mono-900"></div>;
-  }
+  return (
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <ScrollToTop />
+      {/* Show welcome animation only for first-time visitors */}
+      {showWelcome && (
+        <WelcomeAnimation onComplete={handleWelcomeComplete} />
+      )}
+      <div className="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-clip">
+        {/* Show navbar only when welcome animation has finished */}
+        {showNavbar && !showWelcome && <Navbar />}
+        {/* Main Content with Smooth Language Cross-fade Animation */}
+        <main key={language} className="flex-1 w-full animate-lang-crossfade">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        {/* Show footer when welcome animation is not active */}
+        {!showWelcome && <Footer />}
+      </div>
+    </Router>
+  );
+}
 
+function App() {
   return (
     <LanguageProvider>
-      <Router>
-        {/* Show welcome animation only for first-time visitors */}
-        {showWelcome && (
-          <WelcomeAnimation onComplete={handleWelcomeComplete} />
-        )}
-        <div className="flex flex-col min-h-screen bg-mono-900 overflow-x-hidden">
-          {/* Always show navbar when ready, with simple fade-in */}
-          {showNavbar && <Navbar />}
-          <main className="flex-1 w-full pt-16 sm:pt-20">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </main>
-          {/* Show footer when welcome animation is not active */}
-          {!showWelcome && <Footer />}
-        </div>
-      </Router>
+      <AppContent />
     </LanguageProvider>
   );
 }
