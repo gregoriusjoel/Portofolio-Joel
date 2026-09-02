@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
 import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
@@ -11,10 +11,16 @@ import Projects from "./components/pages/Projects";
 import Contact from "./components/pages/Contact";
 import WelcomeAnimation from "./components/ui/WelcomeAnimation";
 
+const NotFound = React.lazy(() => import("./components/pages/NotFound"));
+
 function AppContent() {
   const { language } = useLanguage();
   const [showWelcome, setShowWelcome] = useState(true);
   const [showNavbar, setShowNavbar] = useState(false);
+  const location = useLocation();
+
+  const validPaths = ['/', '/about', '/experience', '/projects', '/contact'];
+  const isNotFound = !validPaths.includes(location.pathname);
 
   const handleWelcomeComplete = () => {
     setShowWelcome(false);
@@ -24,36 +30,43 @@ function AppContent() {
   };
 
   return (
-    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <>
       <ScrollToTop />
-      {/* Show welcome animation only for first-time visitors */}
-      {showWelcome && (
+      {/* Show welcome animation only for first-time visitors on valid pages */}
+      {showWelcome && !isNotFound && (
         <WelcomeAnimation onComplete={handleWelcomeComplete} />
       )}
       <div className="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-clip">
-        {/* Show navbar only when welcome animation has finished */}
-        {showNavbar && !showWelcome && <Navbar />}
+        {/* Hide navbar on 404 page */}
+        {showNavbar && !showWelcome && !isNotFound && <Navbar />}
+        
         {/* Main Content with Smooth Language Cross-fade Animation */}
         <main key={language} className="flex-1 w-full animate-lang-crossfade">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
+          <React.Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/experience" element={<Experience />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </React.Suspense>
         </main>
-        {/* Show footer when welcome animation is not active */}
-        {!showWelcome && <Footer />}
+        
+        {/* Hide footer on 404 page for clean focused look */}
+        {!showWelcome && !isNotFound && <Footer />}
       </div>
-    </Router>
+    </>
   );
 }
 
 function App() {
   return (
     <LanguageProvider>
-      <AppContent />
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <AppContent />
+      </Router>
     </LanguageProvider>
   );
 }

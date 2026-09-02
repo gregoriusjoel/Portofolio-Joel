@@ -116,7 +116,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="group flex items-center gap-2 flex-shrink-0 pl-1 sm:pl-2">
             <span className="text-lg sm:text-xl font-black tracking-tight text-white group-hover:text-gray-300 transition-colors duration-300">
-              Joel
+              Joel<span className="text-gray-400 group-hover:text-gray-400 transition-colors">.</span>
             </span>
           </Link>
 
