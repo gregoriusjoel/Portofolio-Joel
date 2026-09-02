@@ -9,13 +9,13 @@
 
 export const emailjsConfig = {
   // Service ID dari EmailJS dashboard
-  serviceID: 'service_6n8pj4o',
+  serviceID: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_e7glfot',
   
   // Template ID dari EmailJS dashboard  
-  templateID: 'template_hfosicc',
+  templateID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_gisc8ed',
   
   // Public Key dari EmailJS dashboard
-  publicKey: 'fGj39asVtc8bCg7ON'
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'ritmFnMqZLzw3He8x'
 };
 
 // Template email yang disarankan:
