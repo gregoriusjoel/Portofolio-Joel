@@ -141,11 +141,24 @@ const Contact = () => {
         return;
       }
       
+      const now = new Date();
+      const formattedTime = now.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
       const templateParams = {
-        from_name: formData.get('name'),
-        from_email: formData.get('email'),
+        name: formData.get('name'),
+        email: formData.get('email'),
+        time: formattedTime,
         subject: formData.get('subject'),
         message: formData.get('message'),
+        from_name: formData.get('name'),
+        from_email: formData.get('email'),
         to_email: 'hi.gregoriusjoel@gmail.com',
         reply_to: formData.get('email')
       };
