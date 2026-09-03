@@ -8,14 +8,14 @@ const translations = {
     experience: 'Pengalaman',
     projects: 'Proyek',
     contact: 'Kontak',
-    
+
     // Dashboard
     greeting: 'Halo, Saya Joel',
     welcomeMessage: "Hi I'm Joel, Welcome to My Portfolio",
     description: 'Inovasi digital yang mengubah ide menjadi solusi nyata. Setiap project adalah perjalanan untuk menciptakan pengalaman yang bermakna dan berdampak.',
     viewProjects: 'Lihat Project',
     contactMe: 'Hubungi Saya',
-    
+
     // Job titles
     projectManager: 'Project Manager',
     redakturPenyiaran: 'Redaktur Penyiaran',
@@ -25,7 +25,7 @@ const translations = {
     uiuxDesigner: 'UI/UX Designer',
     videoEditor: 'Video Editor',
     graphicDesigner: 'Graphic Designer',
-    
+
     // About Page
     aboutMe: 'Tentang Saya',
     aboutSubtitle: 'Membangun pengalaman digital yang fungsional, berestetika tinggi, dan berpusat pada pengguna.',
@@ -48,11 +48,12 @@ const translations = {
     frontendCategory: 'Frontend & UI/UX',
     backendCategory: 'Backend & Data',
     mobileCategory: 'Mobile',
+    videoCategory: 'Video & Editing',
     toolsCategory: 'Tools & Workflow',
     yearsExp: 'Tahun Pengalaman',
     projectsDone: 'Proyek Diselesaikan',
     happyClients: 'Klien Puas',
-    
+
     // Experience Page
     professionalExperience: 'Pengalaman Profesional',
     experienceDescription: 'Perjalanan karir saya dalam dunia web development dan design, dari study independent hingga freelance',
@@ -65,45 +66,45 @@ const translations = {
     freelance: 'Freelance',
     internship: 'Magang',
     studyIndependent: 'Study Independent',
-    
+
     // Experience Responsibilities - Frontend Developer
     frontendResp1: 'Membangun website company profile dan landing page yang responsif dan modern',
     frontendResp2: 'Kolaborasi dengan tim UI/UX untuk mengimplementasikan desain yang interaktif',
     frontendResp3: 'Menerapkan Tailwind CSS dan React.js untuk styling dan development yang efisien',
     frontendResp4: 'Optimasi performa website dan implementasi best practices SEO',
     frontendResp5: 'Mentoring junior developer dan code review untuk maintain kualitas kode',
-    
+
     // Experience Responsibilities - UI/UX Designer
     uiuxResp1: 'Desain aplikasi mobile dan web untuk berbagai klien dari startup hingga enterprise',
     uiuxResp2: 'Melakukan user research dan usability testing untuk meningkatkan user experience',
     uiuxResp3: 'Membuat design system dan component library untuk konsistensi design',
     uiuxResp4: 'Prototyping interaktif menggunakan Figma dan Adobe XD',
-    
+
     // Experience Responsibilities - Web Developer Intern
     internResp1: 'Belajar fundamental web development dan framework modern',
     internResp2: 'Assist dalam pengembangan fitur-fitur website company',
     internResp3: 'Bug fixing dan testing pada aplikasi web yang sedang dikembangkan',
     internResp4: 'Dokumentasi teknis dan user manual',
-    
+
     // Experience Responsibilities - Project Manager
     pmResp1: 'Mengelola project pengembangan website dari planning hingga deployment',
     pmResp2: 'Koordinasi dengan tim developer, designer, dan stakeholder untuk memastikan timeline project',
     pmResp3: 'Melakukan requirements gathering dan analisis kebutuhan klien',
     pmResp4: 'Monitoring progress project menggunakan metodologi Agile dan Scrum',
     pmResp5: 'Quality assurance dan testing untuk memastikan deliverable sesuai standar',
-    
+
     // Experience Responsibilities - Web Developer Maintenance
     maintenanceResp1: 'Update konten website dan pemeliharaan rutin untuk berbagai klien',
     maintenanceResp2: 'Melakukan maintenance dan troubleshooting issue pada website yang sudah live',
     maintenanceResp3: 'Optimasi SEO dan performance website untuk meningkatkan ranking',
     maintenanceResp4: 'Backup data dan monitoring keamanan website secara berkala',
-    
+
     // Experience Responsibilities - Redaktur Penyiaran
     editorResp1: 'Editing dan review konten siaran radio untuk program harian',
     editorResp2: 'Koordinasi dengan tim produksi untuk scheduling dan timeline siaran',
     editorResp3: 'Quality control audio dan script sebelum dipublikasikan',
     editorResp4: 'Dokumentasi dan arsip konten siaran untuk keperluan evaluasi',
-    
+
     // Project Cards
     myProjects: 'Proyek Saya',
     completed: 'Selesai',
@@ -122,18 +123,18 @@ const translations = {
     viewProject: 'Lihat Proyek',
     projectDetails: 'Detail Proyek',
     technologies: 'Teknologi',
-    
+
     // Contact Page
     contactTitle: 'Mari Berkolaborasi',
     contactSubtitle: 'Project Anda',
     contactDescription: 'Saya siap membantu mewujudkan ide digital Anda menjadi kenyataan. Mari kita ciptakan sesuatu yang luar biasa bersama-sama!',
-    
+
     // Contact Methods
     email: 'Email',
     whatsapp: 'WhatsApp',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    
+
     // Contact Form
     sendMessage: 'Kirim Pesan',
     fullName: 'Nama Lengkap',
@@ -143,17 +144,17 @@ const translations = {
     subjectPlaceholder: 'Apa yang ingin Anda diskusikan?',
     message: 'Pesan',
     messagePlaceholder: 'Ceritakan lebih detail tentang project atau ide Anda...',
-    
+
     // Form Actions
     sending: 'Mengirim Pesan...',
     messageSent: 'Pesan Terkirim!',
     sendFailed: 'Gagal Kirim',
     sendButton: 'Kirim Pesan',
-    
+
     // Success/Error Messages
     successMessage: 'Pesan Anda telah berhasil dikirim! Saya akan membalas dalam waktu 1x24 jam.',
     errorMessage: 'Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi langsung via email.',
-    
+
     // Validation
     required: 'wajib diisi',
     invalidEmail: 'Format email tidak valid',
@@ -162,18 +163,18 @@ const translations = {
     accessDenied: 'Akses ditolak. Silakan hubungi administrator.',
     serviceNotFound: 'Service email tidak ditemukan. Silakan hubungi administrator.',
     unexpectedError: 'Terjadi kesalahan tidak terduga. Silakan coba lagi atau hubungi langsung via email.',
-    
+
     // Project Categories
     all: 'Semua',
     web: 'Web',
-    android: 'Android', 
+    android: 'Android',
     design: 'Desain',
-    
+
     // Projects page CTA section
     projectsCtaTitle: 'Punya ide project menarik?',
     projectsCtaDescription: 'Mari diskusikan bagaimana saya bisa membantu mewujudkan ide Anda menjadi kenyataan',
     projectsCtaButton: 'Mulai Project Baru',
-    
+
     // Skills Section
     technicalSkills: 'Technical Skills',
     programmingDevelopment: 'Programming & Development',
@@ -183,12 +184,12 @@ const translations = {
     designTool: 'Design Tool',
     versionControl: 'Version Control',
     database: 'Database',
-    
+
     // Job Titles
     webDeveloperUiUxDesigner: 'Web Developer & UI/UX Designer',
     webDeveloper: 'Web Developer',
   },
-  
+
   en: {
     // Navigation
     dashboard: 'Dashboard',
@@ -196,14 +197,14 @@ const translations = {
     experience: 'Experience',
     projects: 'Projects',
     contact: 'Contact',
-    
+
     // Dashboard
     greeting: "Hello, I'm Joel",
     welcomeMessage: "Hi I'm Joel, Welcome to My Portfolio",
     description: 'Digital innovation that transforms ideas into real solutions. Every project is a journey to create meaningful and impactful experiences.',
     viewProjects: 'View Projects',
     contactMe: 'Contact Me',
-    
+
     // Job titles
     projectManager: 'Project Manager',
     redakturPenyiaran: 'Broadcast Editor',
@@ -213,7 +214,7 @@ const translations = {
     uiuxDesigner: 'UI/UX Designer',
     videoEditor: 'Video Editor',
     graphicDesigner: 'Graphic Designer',
-    
+
     // About Page
     aboutMe: 'About Me',
     aboutSubtitle: 'Crafting functional, highly aesthetic, and user-centered digital experiences.',
@@ -236,11 +237,12 @@ const translations = {
     frontendCategory: 'Frontend & UI/UX',
     backendCategory: 'Backend & Data',
     mobileCategory: 'Mobile',
+    videoCategory: 'Video & Editing',
     toolsCategory: 'Tools & Workflow',
     yearsExp: 'Years Experience',
     projectsDone: 'Projects Completed',
     happyClients: 'Happy Clients',
-    
+
     // Experience Page
     professionalExperience: 'Professional Experience',
     experienceDescription: 'My career journey in web development and design, from independent study to freelance',
@@ -253,45 +255,45 @@ const translations = {
     freelance: 'Freelance',
     internship: 'Internship',
     studyIndependent: 'Study Independent',
-    
+
     // Experience Responsibilities - Frontend Developer
     frontendResp1: 'Building responsive and modern company profile websites and landing pages',
     frontendResp2: 'Collaborating with UI/UX team to implement interactive designs',
     frontendResp3: 'Applying Tailwind CSS and React.js for efficient styling and development',
     frontendResp4: 'Website performance optimization and SEO best practices implementation',
     frontendResp5: 'Mentoring junior developers and code review to maintain code quality',
-    
+
     // Experience Responsibilities - UI/UX Designer
     uiuxResp1: 'Designing mobile and web applications for various clients from startups to enterprise',
     uiuxResp2: 'Conducting user research and usability testing to improve user experience',
     uiuxResp3: 'Creating design systems and component libraries for design consistency',
     uiuxResp4: 'Interactive prototyping using Figma and Adobe XD',
-    
+
     // Experience Responsibilities - Web Developer Intern
     internResp1: 'Learning web development fundamentals and modern frameworks',
     internResp2: 'Assisting in company website feature development',
     internResp3: 'Bug fixing and testing on web applications under development',
     internResp4: 'Technical documentation and user manual creation',
-    
+
     // Experience Responsibilities - Project Manager
     pmResp1: 'Managing website development projects from planning to deployment',
     pmResp2: 'Coordinating with developer, designer, and stakeholder teams to ensure project timelines',
     pmResp3: 'Conducting requirements gathering and client needs analysis',
     pmResp4: 'Monitoring project progress using Agile and Scrum methodologies',
     pmResp5: 'Quality assurance and testing to ensure deliverables meet standards',
-    
+
     // Experience Responsibilities - Web Developer Maintenance
     maintenanceResp1: 'Website content updates and routine maintenance for various clients',
     maintenanceResp2: 'Performing maintenance and troubleshooting issues on live websites',
     maintenanceResp3: 'SEO and website performance optimization to improve rankings',
     maintenanceResp4: 'Data backup and regular website security monitoring',
-    
+
     // Experience Responsibilities - Redaktur Penyiaran
     editorResp1: 'Editing and reviewing radio broadcast content for daily programs',
     editorResp2: 'Coordinating with production team for broadcast scheduling and timelines',
     editorResp3: 'Quality control of audio and scripts before publication',
     editorResp4: 'Documentation and archiving of broadcast content for evaluation purposes',
-    
+
     // Project Cards
     myProjects: 'My Projects',
     completed: 'Completed',
@@ -310,18 +312,18 @@ const translations = {
     viewProject: 'View Project',
     projectDetails: 'Project Details',
     technologies: 'Technologies',
-    
+
     // Contact Page
     contactTitle: "Let's Collaborate",
     contactSubtitle: 'Your Project',
     contactDescription: 'I am ready to help transform your digital ideas into reality. Let us create something amazing together!',
-    
+
     // Contact Methods
     email: 'Email',
     whatsapp: 'WhatsApp',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    
+
     // Contact Form
     sendMessage: 'Send Message',
     fullName: 'Full Name',
@@ -331,17 +333,17 @@ const translations = {
     subjectPlaceholder: 'What would you like to discuss?',
     message: 'Message',
     messagePlaceholder: 'Tell me more about your project or idea...',
-    
+
     // Form Actions
     sending: 'Sending Message...',
     messageSent: 'Message Sent!',
     sendFailed: 'Send Failed',
     sendButton: 'Send Message',
-    
+
     // Success/Error Messages
     successMessage: 'Your message has been sent successfully! I will reply within 24 hours.',
     errorMessage: 'Sorry, an error occurred. Please try again or contact directly via email.',
-    
+
     // Validation
     required: 'is required',
     invalidEmail: 'Invalid email format',
@@ -350,18 +352,18 @@ const translations = {
     accessDenied: 'Access denied. Please contact administrator.',
     serviceNotFound: 'Email service not found. Please contact administrator.',
     unexpectedError: 'An unexpected error occurred. Please try again or contact directly via email.',
-    
+
     // Project Categories
     all: 'All',
     web: 'Web',
     android: 'Android',
     design: 'Design',
-    
+
     // Projects page CTA section
     projectsCtaTitle: 'Have an interesting project idea?',
     projectsCtaDescription: "Let's discuss how I can help bring your ideas to life",
     projectsCtaButton: 'Start New Project',
-    
+
     // Skills Section
     technicalSkills: 'Technical Skills',
     programmingDevelopment: 'Programming & Development',
@@ -371,7 +373,7 @@ const translations = {
     designTool: 'Design Tool',
     versionControl: 'Version Control',
     database: 'Database',
-    
+
     // Job Titles
     webDeveloperUiUxDesigner: 'Web Developer & UI/UX Designer',
     webDeveloper: 'Web Developer',

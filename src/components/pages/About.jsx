@@ -26,34 +26,37 @@ const SKILLS_DATA = [
   { name: "Flutter", category: "mobile", categoryLabel: "Cross-Platform Mobile", icon: "bx-mobile-alt", color: "#02569B", level: "Advanced" },
   { name: "Dart", category: "mobile", categoryLabel: "Mobile Programming", icon: "bx-code-block", color: "#0175C2", level: "Advanced" },
 
-  // Tools, PM & Video
+  // Video & Creative Editing
+  { name: "Adobe Premiere Pro", category: "video", categoryLabel: "Video Editing", icon: "bx-video-recording", color: "#9999FF", level: "Advanced" },
+  { name: "Adobe After Effects", category: "video", categoryLabel: "Motion & VFX", icon: "bx-film", color: "#9999FF", level: "Advanced" },
+  { name: "CapCut", category: "video", categoryLabel: "Video Editing", icon: "bx-movie-play", color: "#000000", level: "Advanced" },
+  { name: "Filmora", category: "video", categoryLabel: "Video Editing", icon: "bx-video", color: "#00E5FF", level: "Advanced" },
+  { name: "Photoshop", category: "video", categoryLabel: "Photo & Graphics", icon: "bx-image", color: "#31A8FF", level: "Advanced" },
+  { name: "Illustrator", category: "video", categoryLabel: "Vector Graphics", icon: "bx-pen", color: "#FF9A00", level: "Advanced" },
+  { name: "Canva", category: "video", categoryLabel: "Visual Design", icon: "bx-palette", color: "#00C4CC", level: "Advanced" },
+
+  // Tools & Workflow
   { name: "Figma", category: "tools", categoryLabel: "UI/UX & Prototyping", icon: "bxl-figma", color: "#F24E1E", level: "Advanced" },
   { name: "Git & GitHub", category: "tools", categoryLabel: "Version Control", icon: "bxl-git", color: "#F05032", level: "Advanced" },
   { name: "Jira", category: "tools", categoryLabel: "Agile Project Mgmt", icon: "bx-task", color: "#0052CC", level: "Advanced" },
   { name: "Trello", category: "tools", categoryLabel: "Task Management", icon: "bxl-trello", color: "#0052CC", level: "Advanced" },
   { name: "Notion & Miro", category: "tools", categoryLabel: "Documentation & Whiteboard", icon: "bx-notepad", color: "#000000", level: "Advanced" },
-  { name: "Adobe Premiere Pro", category: "tools", categoryLabel: "Video Editing", icon: "bx-video-recording", color: "#9999FF", level: "Advanced" },
   { name: "Postman", category: "tools", categoryLabel: "API Testing", icon: "bx-send", color: "#FF6C37", level: "Advanced" },
 ];
 
 const About = () => {
   const { t, isEnglish } = useLanguage();
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const filteredSkills = activeTab === "all"
-    ? SKILLS_DATA
-    : SKILLS_DATA.filter(skill => skill.category === activeTab);
-
-  const categories = [
-    { id: "all", label: t('allCategory'), icon: "bx-grid-alt" },
+  const skillCategories = [
     { id: "frontend", label: t('frontendCategory'), icon: "bx-layout" },
     { id: "backend", label: t('backendCategory'), icon: "bx-data" },
     { id: "mobile", label: t('mobileCategory'), icon: "bx-mobile-alt" },
+    { id: "video", label: t('videoCategory'), icon: "bx-film" },
     { id: "tools", label: t('toolsCategory'), icon: "bx-wrench" },
   ];
 
@@ -256,67 +259,72 @@ const About = () => {
 
         {/* Skills & Technologies Section */}
         <div
-          className={`bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-gray-200 shadow-xl shadow-gray-200/50 mb-12 transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+          className={`bg-white rounded-3xl p-5 sm:p-7 lg:p-8 border border-gray-200 shadow-xl shadow-gray-200/50 mb-10 transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
           style={{ transitionDelay: '450ms' }}
         >
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <div>
-              <div className="inline-flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
-                <i className="bx bx-chip text-sm text-gray-900"></i>
-                <span>{isEnglish ? "Tech Stack & Toolkit" : "Teknologi & Peralatan"}</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-                {t('mySkills')}
-              </h2>
+          {/* Main Section Title */}
+          <div className="mb-6 pb-4 border-b border-gray-100">
+            <div className="inline-flex items-center gap-2 text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">
+              <i className="bx bx-chip text-sm text-gray-900"></i>
+              <span>{isEnglish ? "Tech Stack & Toolkit" : "Teknologi & Peralatan"}</span>
             </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveTab(cat.id)}
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer ${activeTab === cat.id
-                      ? "bg-gray-900 text-white shadow-md"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 border border-transparent"
-                    }`}
-                >
-                  <i className={`bx ${cat.icon} text-sm`}></i>
-                  <span>{cat.label}</span>
-                </button>
-              ))}
-            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+              {t('mySkills')}
+            </h2>
           </div>
 
-          {/* Skills Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {filteredSkills.map((skill, index) => (
-              <div
-                key={skill.name}
-                className="group p-3.5 sm:p-4 bg-gray-50 rounded-2xl border border-gray-200 hover:border-gray-300 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between"
-                style={{
-                  transitionDelay: `${index * 25}ms`
-                }}
-              >
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <i className={`bx ${skill.icon} text-2xl text-gray-800`}></i>
-                  </div>
-                  <span className="px-2 py-0.5 bg-white text-gray-600 border border-gray-200 rounded-md text-[10px] font-semibold">
-                    {skill.level}
-                  </span>
-                </div>
+          {/* Grouped by Category */}
+          <div className="space-y-6 sm:space-y-7">
+            {skillCategories.map((cat) => {
+              const skills = SKILLS_DATA.filter((skill) => skill.category === cat.id);
+              if (skills.length === 0) return null;
 
-                <div>
-                  <h4 className="text-sm font-bold text-gray-900 group-hover:text-black transition-colors truncate">
-                    {skill.name}
-                  </h4>
-                  <p className="text-[11px] text-gray-500 truncate mt-0.5">
-                    {skill.categoryLabel}
-                  </p>
+              return (
+                <div key={cat.id} className="space-y-3">
+                  {/* Category Header (Compact) */}
+                  <div className="flex items-center gap-2.5 pb-1">
+                    <div className="w-7 h-7 rounded-lg bg-gray-900 text-white flex items-center justify-center text-sm shadow-sm shrink-0">
+                      <i className={`bx ${cat.icon}`}></i>
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight">
+                      {cat.label}
+                    </h3>
+                    <div className="h-px bg-gray-100 flex-1 ml-2"></div>
+                  </div>
+
+                  {/* Skills Grid (Compact) */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3">
+                    {skills.map((skill, index) => (
+                      <div
+                        key={skill.name}
+                        className="group p-3 sm:p-3.5 bg-gray-50/70 hover:bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5 flex flex-col justify-between"
+                        style={{
+                          transitionDelay: `${index * 20}ms`
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-2 mb-2">
+                          <div className="w-8 h-8 rounded-lg bg-white border border-gray-200/80 shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+                            <i className={`bx ${skill.icon} text-xl text-gray-800`}></i>
+                          </div>
+                          <span className="px-1.5 py-0.5 bg-white text-gray-500 border border-gray-200 rounded text-[9px] font-semibold">
+                            {skill.level}
+                          </span>
+                        </div>
+
+                        <div>
+                          <h4 className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-black transition-colors truncate">
+                            {skill.name}
+                          </h4>
+                          <p className="text-[10px] sm:text-[11px] text-gray-500 truncate mt-0.5">
+                            {skill.categoryLabel}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
